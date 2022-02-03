@@ -2,4 +2,46 @@
 
 body {
     font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(252, 252, 252);
+}
+
+/*
+ * Menu
+ */
+nav {
+    background-color: rgb(202, 231, 190);
+}
+
+nav div {
+    display: inline-block;
+    width: 70%;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav form {
+    display: inline-block;
+}
+
+input[type=search] {
+    margin-left: 2rem;
+    padding: 0.3rem 0.5rem;
+}
+
+nav button {
+    padding: 0.3rem 0.5rem;
+    background-color: transparent;
+    border: none;
+    color: rgb(252, 252, 252);
+}
+
+nav button:hover {
+    background-color: rgb(179, 215, 168);
+    cursor: pointer;
 }
