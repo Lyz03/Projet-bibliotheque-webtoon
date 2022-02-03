@@ -1,22 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-body {
-    font-family: 'Nunito', sans-serif;
+:root {
+    --white: rgb(252, 252, 252);
+    --black: rgb(78, 78, 78);
+    --mainColor: rgb(78, 137, 146);
+    --mainColor2: rgb(146, 78, 107);
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: rgb(252, 252, 252);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--white);
+    color: var(--black);
 }
 
 /*
  * Menu
  */
 nav {
-    background-color: rgb(202, 231, 190);
+    background-color: var(--mainColor);
+    box-shadow: 0 3px 5px #dbdbdb;
+    display: flex;
+    justify-content: space-between;
 }
 
 nav div {
     display: inline-block;
-    width: 70%;
+    width: 50%;
 }
 
 nav ul {
@@ -27,21 +42,46 @@ nav ul {
 
 nav form {
     display: inline-block;
+    padding-top: 0.5rem;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    padding: 0.5rem 1rem;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom-color 200ms;
+}
+
+nav a:hover {
+    border-bottom: 3px solid var(--white);
 }
 
 input[type=search] {
     margin-left: 2rem;
-    padding: 0.3rem 0.5rem;
+    width: 18rem;
+    padding: 0.3rem 0.7rem;
+    border: none;
+    border-radius: 15px;
 }
 
 nav button {
     padding: 0.3rem 0.5rem;
     background-color: transparent;
     border: none;
-    color: rgb(252, 252, 252);
+    color: var(--white);
+    transition: color 200ms;
 }
 
 nav button:hover {
-    background-color: rgb(179, 215, 168);
+    color: rgb(52, 52, 52);
     cursor: pointer;
 }
+
+/*
+ * Connection
+ */

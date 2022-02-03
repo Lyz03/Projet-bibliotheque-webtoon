@@ -8,6 +8,8 @@
     <input type="submit" name="submitConnection">
 </form>
 
+<p>Vous ne  possédez pas de compte créer en un <span id="createAccount">ici</span></p>
+
 <form action="" method="post">
     <h2>Inscription</h2>
     <input type="email" placeholder="Votre email" name="userMail">
