@@ -85,3 +85,15 @@ nav button:hover {
 /*
  * Connection
  */
+span.createAccount {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+span.createAccount:hover {
+    cursor: pointer;
+}
+
+#register {
+    display: none;
+}
