@@ -95,6 +95,7 @@ nav button:hover {
     border: 2px solid var(--mainColor);
     border-radius: 15px;
     width: 30rem;
+    max-width: 100%;
     margin: 2rem auto;
 }
 
@@ -182,4 +183,20 @@ span.createAccount:hover {
         width: 7rem;
         font-size: 1rem;
     }
+}
+
+/*
+ * Connection / Register
+ */
+
+@media screen and (max-width: 500px) {
+
+    form input:not([type=submit], [type=search]) {
+        width: 80%;
+    }
+
+    #register, #connection {
+        width: 90%;
+    }
+
 }
