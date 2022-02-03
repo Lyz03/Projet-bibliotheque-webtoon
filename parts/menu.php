@@ -4,7 +4,8 @@
         <button type="submit" name="searchSubmit"><i class="fas fa-search"></i></button>
     </form>
 
-    <div>
+    <span class="menu"><i class="fas fa-bars"></i></span>
+    <div class="menu">
         <ul>
             <li><a href="?p=home">Home</a></li>
             <li><a href="?p=connection">Connexion</a></li>

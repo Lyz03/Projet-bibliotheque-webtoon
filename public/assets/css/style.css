@@ -22,6 +22,10 @@ body {
 /*
  * Menu
  */
+nav span {
+    display: none;
+}
+
 nav {
     background-color: var(--mainColor);
     box-shadow: 0 3px 5px #dbdbdb;
@@ -42,7 +46,7 @@ nav ul {
 
 nav form {
     display: inline-block;
-    padding-top: 0.5rem;
+    padding: 0.4rem 0;
 }
 
 nav a {
@@ -83,8 +87,14 @@ nav button:hover {
 }
 
 /*
- * Connection
+ * Connection / register
  */
+#register, #connection {
+    border: 2px solid black;
+    width: 50%;
+    margin: 2rem auto;
+}
+
 span.createAccount {
     font-weight: bold;
     text-decoration: underline;
@@ -96,4 +106,50 @@ span.createAccount:hover {
 
 #register {
     display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    nav div {
+        display: none;
+    }
+
+    nav span {
+        display: inline-block;
+    }
+
+    nav span i {
+        color: var(--white);
+        padding: 0.4rem;
+        font-size: 1.3rem;
+    }
+
+    nav div {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        top: 2rem;
+        background-color: var(--mainColor);
+        width: 10rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav a {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    input[type=search] {
+        margin-left: 0.8rem;
+        width: 14rem;
+    }
+
+    nav div {
+        width: 7rem;
+        font-size: 1rem;
+    }
 }
