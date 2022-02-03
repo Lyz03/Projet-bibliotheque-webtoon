@@ -71,6 +71,7 @@ input[type=search] {
     padding: 0.3rem 0.7rem;
     border: none;
     border-radius: 15px;
+    background-color: var(--white);
 }
 
 nav button {
@@ -90,9 +91,31 @@ nav button:hover {
  * Connection / register
  */
 #register, #connection {
-    border: 2px solid black;
-    width: 50%;
+    padding: 1rem;
+    border: 2px solid var(--mainColor);
+    border-radius: 15px;
+    width: 30rem;
     margin: 2rem auto;
+}
+
+form input:not([type=submit], [type=search]) {
+    font-size: 1rem;
+    display: block;
+    padding: 0.3rem 0.5rem;
+    width: 20rem;
+    margin: 2rem;
+}
+
+form input[type=submit] {
+    margin-left: 2rem;
+    padding: 0.3rem 0.5rem;
+    background-color: var(--mainColor);
+    border: none;
+    color: var(--white);
+}
+
+p.createAccount {
+    text-align: center;
 }
 
 span.createAccount {
@@ -108,6 +131,13 @@ span.createAccount:hover {
     display: none;
 }
 
+/*
+ * RESPONSIVE
+ */
+
+/*
+ * Menu
+ */
 @media screen and (max-width: 1000px) {
     nav div {
         display: none;
