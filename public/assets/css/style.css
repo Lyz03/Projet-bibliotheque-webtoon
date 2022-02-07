@@ -43,7 +43,6 @@ h1 {
     margin: 1rem;
     width: 10rem;
     height: 15rem;
-    background-image: url("/assets/images/ko.jpg");
     background-size: cover;
 }
 
@@ -77,10 +76,15 @@ h1 {
     position: absolute;
     bottom: 0;
     right: 0.5rem;
+    text-decoration: none;
+    padding-bottom: 0.1rem;
+    border-bottom: 2px solid gray;
+    transition: border-bottom-color 200ms, color 200ms;
 }
 
 .show_more:hover {
     color: var(--black);
+    border-bottom-color: var(--black);
 }
 
 /*

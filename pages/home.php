@@ -5,40 +5,45 @@
 
     <div class="card_container">
 
-        <div class="card">
+        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
             <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-
-            <div class="image">
-            </div>
-
         </div>
 
-        <div class="card">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeees long</h3></a>
-
-            <div class="image">
-            </div>
-
+        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
+            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
         </div>
 
-        <div class="card">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeees long</h3></a>
-
-            <div class="image">
-            </div>
-
+        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
+            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
         </div>
 
         <a class="show_more" href="">Voir plus ></a>
-
-    </div>
-
-
 </section>
+
 
 <section>
     <h2>Les ajouts récents</h2>
 
+
+    <div class="card_container">
+
+        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
+            <a class="link" href=""><h3>le titre</h3></a>
+        </div>
+
+        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
+            <a class="link" href=""><h3>le titre</h3></a>
+        </div>
+
+        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
+            <a class="link" href=""><h3>le titre</h3></a>
+        </div>
+
+        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
+            <a class="link" href=""><h3>le titre</h3></a>
+        </div>
+
+        <a class="show_more" href="">Voir plus ></a>
 </section>
 
 <section>
