@@ -10,4 +10,4 @@ function getPage(string $page, string $title)
     require __DIR__ . '/../parts/footer.php';
 }
 
-getPage(sprintf(__DIR__ . "/../pages/%s.php", strtolower($page)), $page);
+getPage(sprintf(__DIR__ . "/../pages/%s.php", strtolower($page)), ucfirst($page));

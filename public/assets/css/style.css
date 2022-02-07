@@ -3,8 +3,8 @@
 :root {
     --white: rgb(252, 252, 252);
     --black: rgb(78, 78, 78);
-    --mainColor: rgb(78, 137, 146);
-    --mainColor2: rgb(146, 78, 107);
+    --mainColor: rgb(165, 84, 118);
+    --mainColor2: rgb(78, 137, 146);
 }
 
 * {
@@ -16,6 +16,70 @@
 body {
     font-family: 'Nunito', sans-serif;
     background-color: var(--white);
+    color: var(--black);
+}
+
+h1 {
+    font-weight: bold;
+    color: var(--mainColor2);
+}
+
+
+/*
+ * Card
+ */
+
+.card_container {
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    position: relative;
+    border-radius: 10px;
+    margin: 1rem;
+    width: 10rem;
+    height: 15rem;
+    background-image: url("/assets/images/ko.jpg");
+    background-size: cover;
+}
+
+.card h3 {
+    overflow-wrap: break-word;
+    max-width: 100%;
+    color: white;
+    text-shadow: 2px 1px 3px #131313;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.2rem;
+    transform: translateY(0);
+    transition: transform 200ms;
+}
+
+.link {
+    z-index: 10;
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.link:hover h3 {
+    transform: translateY(-10px);
+}
+
+.show_more {
+    color: gray;
+    position: absolute;
+    bottom: 0;
+    right: 0.5rem;
+}
+
+.show_more:hover {
     color: var(--black);
 }
 
@@ -87,6 +151,7 @@ nav button:hover {
     cursor: pointer;
 }
 
+
 /*
  * Connection / register
  */
@@ -132,6 +197,7 @@ span.createAccount:hover {
     display: none;
 }
 
+
 /*
  * RESPONSIVE
  */
@@ -150,7 +216,7 @@ span.createAccount:hover {
 
     nav span i {
         color: var(--white);
-        padding: 0.4rem;
+        padding: 0.5rem 0.7rem;
         font-size: 1.3rem;
     }
 
@@ -186,9 +252,26 @@ span.createAccount:hover {
 }
 
 /*
- * Connection / Register
+ * Card
  */
 
+@media screen and (max-width: 755px) {
+
+    .card {
+        width: 8rem;
+        height: 13rem;
+        margin: 0.5rem;
+    }
+
+    .card h3 {
+        font-size: 1rem;
+    }
+
+}
+
+/*
+ * Connection / Register
+ */
 @media screen and (max-width: 500px) {
 
     form input:not([type=submit], [type=search]) {
