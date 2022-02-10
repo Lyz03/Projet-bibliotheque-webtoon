@@ -196,6 +196,7 @@ nav button:hover {
     background-color: var(--mainColor2);
     color: var(--white);
     text-decoration: none;
+    transition: background-color 300ms;
 }
 
 .filter a:hover {
