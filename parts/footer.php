@@ -1,5 +1,4 @@
    <footer>
-       alzkcbd
    </footer>
 
     <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>

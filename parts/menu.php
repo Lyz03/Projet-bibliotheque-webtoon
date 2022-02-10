@@ -9,6 +9,7 @@
         <ul>
             <li><a href="?p=home">Home</a></li>
             <li><a href="?p=connection">Connexion</a></li>
+            <li><a href="?p=seeAll">Explorer</a></li>
         </ul>
     </div>
 </nav>

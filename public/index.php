@@ -3,7 +3,11 @@
 $page = $_GET['p'] ?? 'home';
 $page = strip_tags($page);
 
-function getPage(string $page, string $title)
+/**
+ * @param string $page
+ * @param string $title
+ */
+function getPage(string $page, string $title): void
 {
     require __DIR__ . '/../parts/header.php';
     require file_exists($page) ? $page : __DIR__ . '/../pages/404.php';
