@@ -47,4 +47,10 @@
 <section>
     <h2>Découverte par genre</h2>
 
+    <div class="center">
+        <?php
+        require __DIR__ . '/../parts/kindsList.php';
+        ?>
+    </div>
+
 </section>

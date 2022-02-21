@@ -1,20 +1,15 @@
 <section class="filter">
-    <select name="showCards" id="showCards">
-        <option value="all">Toutes les catégories</option>
-        <option value="popular">Les plus populaires</option>
-        <option value="recent">Les plus récents</option>
-    </select>
     <div>
-        <a href="">Fantastique</a>
-        <a href="">Comédie</a>
-        <a href="">Action</a>
-        <a href="">Tranche de vie</a>
-        <a href="">Romance</a>
-        <a href="">Super Hero</a>
-        <a href="">Sport</a>
-        <a href="">SF</a>
-        <a href="">Horreur</a>
+        <select name="showCards" id="showCards">
+            <option value="all">Toutes les catégories</option>
+            <option value="popular">Les plus populaires</option>
+            <option value="recent">Les plus récents</option>
+        </select>
     </div>
+
+    <?php
+    require __DIR__ . '/../parts/kindsList.php';
+    ?>
 </section>
 
 <section>
