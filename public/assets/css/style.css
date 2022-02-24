@@ -98,6 +98,10 @@ input[type=search] {
     background-color: var(--white);
 }
 
+input[type=search]:focus {
+    outline: none;
+}
+
 nav button {
     padding: 0.3rem 0.5rem;
     background-color: transparent;
