@@ -42,7 +42,6 @@ footer {
     background-color: var(--mainColor2);
 }
 
-
 /*
  * Menu
  */
@@ -96,6 +95,7 @@ input[type=search] {
     border: none;
     border-radius: 15px;
     background-color: var(--white);
+    color: #8d8d8d;
 }
 
 input[type=search]:focus {
@@ -286,6 +286,11 @@ form input:not([type=submit], [type=search]) {
     padding: 0.3rem 0.5rem;
     width: 20rem;
     margin: 2rem;
+    color: #8d8d8d;
+}
+
+form input:not([type=submit], [type=search]):focus {
+    outline: none;
 }
 
 form input[type=submit] {
@@ -312,7 +317,6 @@ span.createAccount:hover {
 #register {
     display: none;
 }
-
 
 /*
  * RESPONSIVE
