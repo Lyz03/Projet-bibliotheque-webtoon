@@ -6,7 +6,7 @@
     <div class="card_container">
 
         <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
+            <a class="link" href="?p=card"><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
         </div>
 
         <div class="card" style="background-image: url('/assets/images/ko.jpg')">

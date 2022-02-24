@@ -116,7 +116,7 @@ nav button:hover {
 }
 
 /*
- * Card
+ * Card (small)
  */
 .card_container {
     position: relative;
@@ -178,6 +178,54 @@ nav button:hover {
     border-bottom-color: var(--black);
 }
 
+/*
+ * Card (full page)
+ */
+.card_info {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.card_info > div {
+    width: 60rem;
+    max-width: 95%;
+    border: 2px solid #a7a7a7;
+    border-radius: 30px;
+    padding-bottom: 2rem;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.card_info .card {
+    width: 14rem;
+    height: 20rem;
+}
+
+#text {
+    padding-top: 2rem;
+    width: 70%;
+}
+
+.card_info p {
+    color: var(--mainColor);
+    margin: 1rem;
+}
+
+.card_info span {
+    color: var(--black);
+}
+
+.card_info .kind {
+    background-color: var(--mainColor2);
+    color: var(--white);
+    border-radius: 15px;
+    padding: 0.1rem 0.5rem;
+}
 
 /*
  * See All
@@ -320,7 +368,7 @@ span.createAccount:hover {
 }
 
 /*
- * Card
+ * Card | Card (full page)
  */
 @media screen and (max-width: 755px) {
 
@@ -334,10 +382,34 @@ span.createAccount:hover {
         font-size: 1rem;
     }
 
+    .flex {
+        flex-direction: column;
+    }
+
+    #text {
+        width: 95%;
+    }
+
 }
 
 /*
- * Connection / Register
+ * Card (full page)
+ */
+@media screen and (max-width: 890px) {
+
+    .card_info {
+        font-size: 1rem;
+    }
+
+    .card_info .card {
+        width: 10rem;
+        height: 15rem;
+    }
+
+}
+
+/*
+ * Connection / Register | Card (full page)
  */
 @media screen and (max-width: 500px) {
 
@@ -347,6 +419,10 @@ span.createAccount:hover {
 
     #register, #connection {
         width: 90%;
+    }
+
+    .card_info > div {
+        border: none;
     }
 
 }
