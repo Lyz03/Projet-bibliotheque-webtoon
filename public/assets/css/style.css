@@ -295,7 +295,7 @@ form input:not([type=submit], [type=search]):focus {
 
 form input[type=submit] {
     margin-left: 2rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 0.5rem 0.4rem 0.5rem;
     background-color: var(--mainColor);
     border: none;
     color: var(--white);
@@ -316,6 +316,34 @@ span.createAccount:hover {
 
 #register {
     display: none;
+}
+
+/*
+ * Account
+ */
+.account .flex {
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.library, .card_com, .follow {
+    border: 1px solid gray;
+    margin: 1rem;
+    padding: 0.5rem;
+    max-width: 90%;
+}
+
+.library {
+    min-width: 40rem;
+}
+
+.card_com {
+    min-width: 30rem;
+}
+
+.follow {
+    min-width: 10rem;
 }
 
 /*
