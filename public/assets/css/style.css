@@ -16,6 +16,7 @@
 body {
     min-height: 100vh;
     padding-bottom: 10rem;
+    padding-top: 5rem;
     position: relative;
     font-family: 'Nunito', sans-serif;
     background-color: var(--white);
@@ -50,8 +51,11 @@ nav span {
 }
 
 nav {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    width: 100%;
     background-color: var(--mainColor);
-    box-shadow: 0 3px 5px #dbdbdb;
     display: flex;
     justify-content: space-between;
 }
