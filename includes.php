@@ -4,10 +4,10 @@ require __DIR__ . '/Config.php';
 require __DIR__ . '/Router.php';
 require __DIR__ . '/DB.php';
 
+require __DIR__ . '/Entity/User.php';
 require __DIR__ . '/Entity/Card.php';
 require __DIR__ . '/Entity/Comment.php';
 require __DIR__ . '/Entity/Rating.php';
-require __DIR__ . '/Entity/User.php';
 require __DIR__ . '/Entity/WebtoonList.php';
 
 require __DIR__ . '/Manager/CardManager.php';

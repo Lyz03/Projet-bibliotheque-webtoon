@@ -1,7 +1,5 @@
 <section class="account">
-    <h1>User name</h1>
-
-    <p class="center">biographie ?</p>
+    <h1><?= $data['user']->getUsername() ?></h1>
 
     <div class="flex">
 

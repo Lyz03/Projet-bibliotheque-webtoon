@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Manager\UserManager;
 
 class ConnectionController extends AbstractController
@@ -52,7 +53,7 @@ class ConnectionController extends AbstractController
 
             $user->setPassword('');
             $_SESSION['user'] = $user;
-            self::render('user/account');
+            self::render('user/account', $data = ['user' => $user]);
 
         } else {
 
@@ -127,7 +128,7 @@ class ConnectionController extends AbstractController
             $user->setPassword('');
             $_SESSION['user'] = $user;
 
-            self::render('user/account');
+            self::render('user/account', $data = ['user' => $user]);
 
         } else {
             $_SESSION['error'] = ["Les mot de passe ne corespondent pas"];
