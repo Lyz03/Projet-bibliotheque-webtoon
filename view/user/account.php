@@ -68,10 +68,6 @@
             </div>
         </div>
 
-        <div class="follow">
-            compte suivis
-        </div>
-
     </div>
 
 </section>

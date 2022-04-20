@@ -7,6 +7,7 @@ class User
     private int $id;
     private string $username;
     private string $email;
+    private string $password;
     private string $role;
 
     /**
@@ -60,6 +61,24 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
         return $this;
     }
 

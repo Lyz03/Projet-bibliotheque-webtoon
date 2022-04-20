@@ -124,6 +124,40 @@ nav button:hover {
 }
 
 /*
+ * php
+ */
+.error {
+    z-index: 30;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    width: 100%;
+    background-color: #d35447;
+    color: white;
+}
+
+.error p {
+    text-align: center;
+}
+
+#close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: transparent;
+    border: 1px solid #953f35;
+    padding: 0.3rem 0.5rem;
+    font-size: 1.3rem;
+    color: white;
+}
+
+#close:hover {
+    cursor: pointer;
+}
+
+/*
  * Card (small)
  */
 .card_container {
@@ -331,7 +365,7 @@ span.createAccount:hover {
     flex-wrap: wrap;
 }
 
-.library, .card_com, .follow {
+.library, .card_com{
     border: 1px solid gray;
     margin: 1rem;
     padding: 0.5rem;
@@ -339,15 +373,11 @@ span.createAccount:hover {
 }
 
 .library {
-    min-width: 40rem;
+    width: 50rem;
 }
 
 .card_com {
-    min-width: 30rem;
-}
-
-.follow {
-    min-width: 10rem;
+    width: 30rem;
 }
 
 /*
@@ -422,7 +452,7 @@ span.createAccount:hover {
         font-size: 1rem;
     }
 
-    .flex {
+    .card_info .flex {
         flex-direction: column;
     }
 

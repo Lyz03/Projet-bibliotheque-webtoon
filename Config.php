@@ -9,6 +9,7 @@ class Config
     public const DB_NAME = "webtoon_library";
     public const USER = "root";
     public const PASSWORD = "";
+    public const CHARSET = "utf8";
 
     public const ROLE = [
         'user',

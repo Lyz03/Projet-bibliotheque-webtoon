@@ -9,9 +9,23 @@
     <title>AnnLio | Webtoon Library</title>
 </head>
 <body>
-<main>
-    <?= $page ?>
-</main>
+<?php
+if (isset($_SESSION['error'])) {
+    ?>
+    <div class="error">
+        <?php
+        foreach ($_SESSION['error'] as $value) {
+            ?>
+            <p><?= $value ?></p>
+            <?php
+        }
+        ?>
+        <button id="close">x</button>
+    </div>
+    <?php
+    unset($_SESSION['error']);
+}
+?>
 <nav>
     <form action="">
         <input type="search" placeholder="Entrez votre recherche" name="search">
@@ -21,13 +35,21 @@
     <span class="menu"><i class="fas fa-bars"></i></span>
     <div class="menu">
         <ul>
-            <li><a href="?c=home">Home</a></li>
-            <li><a href="?c=connection">Connexion</a></li>
-            <li><a href="?c=list">Explorer</a></li>
+            <li><a href="/index.php?c=home">Home</a></li>
+            <?php
+            if (isset($_SESSION['user'])) {?>
+                <a href="/index.php?c=user">Compte</a>
+            <?php } else{?>
+                <a href="/index.php?c=connection"">Connexion</a>
+            <?php }?>
+            <li><a href="/index.php?c=list">Explorer</a></li>
         </ul>
     </div>
 </nav>
 
+<main>
+    <?= $page ?>
+</main>
 
 <footer>
 </footer>

@@ -34,3 +34,14 @@ if (createAccountSpan) {
 
     })
 }
+
+// close php error message
+const close = document.querySelector('#close');
+const errorDiv = document.querySelector('div.error');
+
+if (close) {
+    close.addEventListener('click', () => {
+        errorDiv.remove();
+        close.remove();
+    })
+}

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-class comment
+class Comment
 {
     private int $id;
     private string $content;
+    private bool $validate;
     private int $userId;
     private int $cardId;
 
@@ -19,7 +20,7 @@ class comment
 
     /**
      * @param int $id
-     * @return comment
+     * @return Comment
      */
     public function setId(int $id): self
     {
@@ -37,11 +38,29 @@ class comment
 
     /**
      * @param string $content
-     * @return comment
+     * @return Comment
      */
     public function setContent(string $content): self
     {
         $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getValidate(): bool
+    {
+        return $this->validate;
+    }
+
+    /**
+     * @param bool $validate
+     * @return Comment
+     */
+    public function setValidate(bool $validate): self
+    {
+        $this->validate = $validate;
         return $this;
     }
 
@@ -55,7 +74,7 @@ class comment
 
     /**
      * @param int $userId
-     * @return comment
+     * @return Comment
      */
     public function setUserId(int $userId): self
     {
@@ -73,7 +92,7 @@ class comment
 
     /**
      * @param int $cardId
-     * @return comment
+     * @return Comment
      */
     public function setCardId(int $cardId): self
     {
