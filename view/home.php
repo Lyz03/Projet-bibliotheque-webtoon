@@ -6,7 +6,7 @@
     <div class="card_container">
 
         <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href="?p=card"><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
+            <a class="link" href="?c=card"><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
         </div>
 
         <div class="card" style="background-image: url('/assets/images/ko.jpg')">
@@ -76,9 +76,17 @@
     <h2>Découverte par genre</h2>
 
     <div class="center">
-        <?php
-        require __DIR__ . '/../parts/kindsList.php';
-        ?>
+        <div class="seeAll center">
+            <a href="">Fantastique</a>
+            <a href="">Comédie</a>
+            <a href="">Action</a>
+            <a href="">Tranche de vie</a>
+            <a href="">Romance</a>
+            <a href="">Super Hero</a>
+            <a href="">Sport</a>
+            <a href="">SF</a>
+            <a href="">Horreur</a>
+        </div>
     </div>
 
 </section>

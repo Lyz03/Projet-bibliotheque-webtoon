@@ -6,10 +6,17 @@
             <option value="recent">Les plus récents</option>
         </select>
     </div>
-
-    <?php
-    require __DIR__ . '/../parts/kindsList.php';
-    ?>
+    <div class="seeAll center">
+        <a href="">Fantastique</a>
+        <a href="">Comédie</a>
+        <a href="">Action</a>
+        <a href="">Tranche de vie</a>
+        <a href="">Romance</a>
+        <a href="">Super Hero</a>
+        <a href="">Sport</a>
+        <a href="">SF</a>
+        <a href="">Horreur</a>
+    </div>
 </section>
 
 <section>
