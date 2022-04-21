@@ -77,26 +77,9 @@ class CardController extends AbstractController
         $dateStart = filter_var($_POST['dateStart'], FILTER_SANITIZE_NUMBER_INT);
         $dateEnd = filter_var($_POST['dateEnd'], FILTER_SANITIZE_NUMBER_INT);
         $synopsis = filter_var($_POST['synopsis'], FILTER_SANITIZE_STRING);
+        $image = '';
 
         $error = [];
-
-        // Image
-        if($_FILES['image']['error'] === 0) {
-            if((int)$_FILES['image']['size'] <= (2 * 1024 * 1024)) {
-                $tmp_name = $_FILES['image']['tmp_name'];
-                $extension = pathinfo($_FILES['image']['name'])['extension'];
-                $name = self::randomChars();
-                move_uploaded_file($tmp_name, 'assets/images/' . $name . '.' . $extension);
-
-            } else{
-                $error[] = "L'image sélectionnée est trop grande";
-            }
-
-        } else {
-            $_SESSION['error'] = ['Une erreur est survenue, veillez à remplir tous les champs'];
-            self::updatePage();
-            exit();
-        }
 
         // Title
          if (strlen($title) < 1 || strlen($title) > 90) {
@@ -119,12 +102,16 @@ class CardController extends AbstractController
         }
 
         // Date end
-        if ($dateEnd < 1900 || $dateEnd > 2800) {
-            $error[] = "L'année de fin de publication doit être compris entre 1900 et 2800";
+        if (strlen($dateEnd) === 0) {
+            $dateEnd = 0;
+        } else {
+            if ($dateEnd < 1900 || $dateEnd > 2800) {
+                $error[] = "L'année de fin de publication doit être compris entre 1900 et 2800";
+            }
         }
 
         // Synopsis
-        if ($synopsis < 10 || $synopsis > 600) {
+        if (strlen($synopsis) < 10 || strlen($synopsis) > 600) {
             $error[] = "Le synopsis doit faire entre 10 et 600 caractères";
         }
 
@@ -134,8 +121,57 @@ class CardController extends AbstractController
              exit();
          }
 
-         $cardManager = new CardManager();
+        // Image
+        if($_FILES['image']['error'] === 0) {
+            if((int)$_FILES['image']['size'] <= (2 * 1024 * 1024)) {
+                $tmp_name = $_FILES['image']['tmp_name'];
+                $extension = pathinfo($_FILES['image']['name'])['extension'];
+                $image = self::randomChars();
+                move_uploaded_file($tmp_name, 'assets/images/' . $image . '.' . $extension);
 
+            } else{
+                $_SESSION['error'] = ["L'image sélectionnée est trop grande"];
+                self::updatePage();
+                exit();
+            }
+
+        } else {
+            $_SESSION['error'] = ['Une erreur est survenue, veillez à remplir tous les champs'];
+            self::updatePage();
+            exit();
+        }
+
+
+        $type = [];
+        foreach ($types as $value) {
+            if ($value !== 'none') {
+                $type[] = $value;
+            }
+        }
+
+        $type = array_unique($type);
+        $type = implode(',', $type);
+
+        $cardManager = new CardManager();
+        $id = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
+
+        self::cardPage($id);
+    }
+
+    /**
+     * Link to card (full page)
+     * @param int $id
+     */
+    public function cardPage(int $id) {
+        $cardManager = new CardManager();
+        $card = $cardManager->getCardById($id);
+
+        if ($card !== null) {
+            self::render('card/card', $data = ['card' => $card]);
+            exit();
+        }
+
+        self::default();
     }
 }
 

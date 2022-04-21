@@ -1,7 +1,7 @@
+<?php
+var_dump($data);
+?>
 <section class="card_info">
-
-    <!--personnage principaux  ?-->
-
     <div>
         <h1>titre</h1>
 
