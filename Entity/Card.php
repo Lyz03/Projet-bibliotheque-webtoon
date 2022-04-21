@@ -12,6 +12,7 @@ class Card
     private int $date_end;
     private string $synopsis;
     private string $type;
+    private string $image;
 
     /**
      * @return int
@@ -156,4 +157,23 @@ class Card
         $this->type = $type;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     * @return Card
+     */
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
 }

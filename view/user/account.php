@@ -63,7 +63,19 @@
 
             <div>
                 <a href="">Modifier vos informations personnelles</a>
+            </div>
+
+            <div>
                 <a href="/index.php?c=connection&a=log-out">Déconnexion</a>
+            </div>
+
+            <?php
+            if ($_SESSION['user']->getRole() === 'admin') {
+              echo '<a href="/index.php?c=card&a=update-page">Créer une fiche</a>';
+            }
+            ?>
+            <div>
+
             </div>
         </div>
 

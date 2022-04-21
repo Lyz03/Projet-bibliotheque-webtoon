@@ -53,9 +53,9 @@ class UserManager
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (email, username, password)
             VALUES (:email, :username, :password)");
 
-        $stmt->bindParam('email', $mail);
-        $stmt->bindParam('username', $username);
-        $stmt->bindParam('password', $password);
+        $stmt->bindParam(':email', $mail);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
 
 
         $stmt->execute();

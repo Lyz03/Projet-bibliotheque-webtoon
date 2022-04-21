@@ -41,7 +41,6 @@ class ConnectionController extends AbstractController
             $error[] = "L'utilisateur demandé n'est pas enregistré";
         }
 
-
         if (count($error) > 0) {
 
             $_SESSION['error'] = $error;
