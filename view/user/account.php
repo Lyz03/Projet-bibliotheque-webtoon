@@ -62,7 +62,8 @@
             </div>
 
             <div>
-                information compte
+                <a href="">Modifier vos informations personnelles</a>
+                <a href="/index.php?c=connection&a=log-out">Déconnexion</a>
             </div>
         </div>
 

@@ -63,6 +63,14 @@ class ConnectionController extends AbstractController
         }
     }
 
+    /**
+     * Destroy the session
+     */
+    public function logOut() {
+        session_unset();
+        session_destroy();
+        self::render('home');
+    }
 
     /**
      * sanitize POST content to create a new user
