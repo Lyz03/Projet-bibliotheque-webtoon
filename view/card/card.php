@@ -1,31 +1,38 @@
 <?php
-var_dump($data);
+$card = $data['card'];
 ?>
 <section class="card_info">
     <div>
-        <h1>titre</h1>
+        <h1><?= $card->getTitle() ?></h1>
 
         <div class="flex">
-            <div class="card" style="background-image: url('/assets/images/inplick.jpg')"></div>
+            <div class="card" style="background-image: url('/assets/images/<?= $card->getImage() ?>')"></div>
 
             <div id="text">
-                <span class="kind">genre</span>
-                <span class="kind">genre2</span>
-                <p>scenario : <span>Nom</span> dessin : <span>Nom</span></p>
-                <p>de : <span>00/00/00</span> à : <span>00/00/00</span></p>
-                <p>statut : <span>en cours</span></p>
+                <?php
+                    foreach (explode(',', $card->getType()) as $value) {
+                    ?>
+                        <span class="kind"><?= $value ?></span>
+                    <?php
+                    }
+                ?>
+                <p>scenario : <span><?= $card->getScript() ?></span> dessin : <span><?= $card->getDrawing() ?></span></p>
+                <p>de : <?= $card->getDateStart() ?> à : <?php
+                    if ($card->getDateEnd() === 0) {
+                        echo '<span>En cours de publication</span>';
+                    } else {
+                        echo '<span>' . $card->getDateEnd() . '</span>';
+                    }
+                ?>
+                </p>
                 <p>synopsis :
                     <span>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque distinctio
-                        libero maxime minus modi nulla, perferendis quaerat sed vitae? Aliquam debitis ex
-                        obcaecati quisquam ratione reiciendis soluta? Itaque, pariatur!
+                       <?= $card->getSynopsis() ?>
                     </span>
                 </p>
                 <p>notes : <span>aucun avis pour le moment</span></p>
             </div>
         </div>
 
-
     </div>
-
 </section>

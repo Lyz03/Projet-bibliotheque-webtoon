@@ -126,8 +126,9 @@ class CardController extends AbstractController
             if((int)$_FILES['image']['size'] <= (2 * 1024 * 1024)) {
                 $tmp_name = $_FILES['image']['tmp_name'];
                 $extension = pathinfo($_FILES['image']['name'])['extension'];
-                $image = self::randomChars();
-                move_uploaded_file($tmp_name, 'assets/images/' . $image . '.' . $extension);
+                $name = self::randomChars();
+                move_uploaded_file($tmp_name, 'assets/images/' . $name . '.' . $extension);
+                $image = $name . '.' . $extension;
 
             } else{
                 $_SESSION['error'] = ["L'image sélectionnée est trop grande"];
@@ -140,7 +141,6 @@ class CardController extends AbstractController
             self::updatePage();
             exit();
         }
-
 
         $type = [];
         foreach ($types as $value) {
