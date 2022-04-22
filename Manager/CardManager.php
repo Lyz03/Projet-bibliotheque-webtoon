@@ -65,6 +65,41 @@ class CardManager
     }
 
     /**
+     * Update a card
+     * @param int $id
+     * @param string $title
+     * @param string $script
+     * @param string $drawing
+     * @param int $dateStart
+     * @param int $dateEnd
+     * @param string $synopsis
+     * @param string $type
+     * @param string $image
+     * @return int
+     */
+    public function updateCard(int $id, string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
+                            string $synopsis, string $type, string $image): int
+    {
+
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        title = :title, script = :script, drawing = :drawing, date_start = :dateStart, date_end = :dateEnd, 
+        synopsis = :synopsis, type = :type, image = :image 
+        WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':script', $script);
+        $stmt->bindParam(':drawing', $drawing);
+        $stmt->bindParam(':dateStart', $dateStart);
+        $stmt->bindParam(':dateEnd', $dateEnd);
+        $stmt->bindParam(':synopsis', $synopsis);
+        $stmt->bindParam(':type', $type);
+        $stmt->bindParam(':image', $image);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Return a Card following the given id
      * @param int $id
      * @return Card|null

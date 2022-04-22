@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Config;
 use App\Manager\CardManager;
+use App\Manager\UserManager;
 
 class CardController extends AbstractController
 {
@@ -17,11 +18,20 @@ class CardController extends AbstractController
     /**
      * link to update-card
      */
-    public function updatePage() {
+    public function updatePage(int $id) {
         if (isset($_SESSION['user'])) {
 
             if ($_SESSION['user']->getRole() === 'admin') {
-                self::render('card/update-card');
+                // if new card
+                if ($id === 0) {
+                    self::render('card/update-card');
+                    exit();
+                }
+
+                // if update a card
+                $cardManager = new CardManager();
+
+                self::render('card/update-card', $data = ['card' => $cardManager->getCardById($id)]);
                 exit();
             }
 
@@ -33,8 +43,10 @@ class CardController extends AbstractController
     /**
      * Sanitize POST content to add a new card
      */
-    public function updateCard() {
+    public function updateCard(int $id) {
 
+        // pour la modif (avec id) + faire attention à l'image exemple si id pas null et image pas set refaire un objet
+        // à partir de l'id et reprendre le nom de l'ancienne image sur la pge de modif voir les types
         if (!isset($_SESSION['user'])) {
             self::default();
             exit();
@@ -119,9 +131,11 @@ class CardController extends AbstractController
 
          if (count($error) > 0) {
              $_SESSION['error'] = $error;
-             self::updatePage();
+             self::updatePage($id);
              exit();
          }
+
+        $cardManager = new CardManager();
 
         // Image
         if($_FILES['image']['error'] === 0) {
@@ -132,16 +146,26 @@ class CardController extends AbstractController
                 move_uploaded_file($tmp_name, 'assets/images/' . $name . '.' . $extension);
                 $image = $name . '.' . $extension;
 
+                // delete the older one
+                if ($id !== 0) {
+                    unlink('assets/images/' . $cardManager->getCardById($id)->getImage());
+                }
+
             } else{
                 $_SESSION['error'] = ["L'image sélectionnée est trop grande"];
-                self::updatePage();
+                self::updatePage($id);
                 exit();
             }
 
         } else {
-            $_SESSION['error'] = ['Une erreur est survenue, veillez à remplir tous les champs'];
-            self::updatePage();
-            exit();
+            // if already has an image
+            if ($id !== 0) {
+                $image = $cardManager->getCardById($id)->getImage();
+            } else {
+                $_SESSION['error'] = ['Une erreur est survenue, veillez à remplir tous les champs'];
+                self::updatePage($id);
+                exit();
+            }
         }
 
         $type = [];
@@ -154,10 +178,16 @@ class CardController extends AbstractController
         $type = array_unique($type);
         $type = implode(',', $type);
 
-        $cardManager = new CardManager();
-        $id = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
+        if ($id === 0) {
+            $newId = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
 
+            self::cardPage($newId);
+            exit();
+        }
+
+        $cardManager->updateCard($id, $title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
         self::cardPage($id);
+        exit();
     }
 
     /**

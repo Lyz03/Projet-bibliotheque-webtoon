@@ -58,6 +58,12 @@ footer {
     flex-wrap: wrap;
 }
 
+.right {
+    display: block;
+    text-align: right;
+    margin: 0.3rem 1rem;
+}
+
 /*
  * Menu
  */

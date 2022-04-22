@@ -71,7 +71,7 @@
 
             <?php
             if ($_SESSION['user']->getRole() === 'admin') {
-              echo '<a href="/index.php?c=card&a=update-page">Créer une fiche</a>';
+              echo '<a href="/index.php?c=card&a=update-page&id">Créer une fiche</a>';
             }
             ?>
             <div>

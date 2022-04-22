@@ -3,6 +3,17 @@ $card = $data['card'];
 ?>
 <section class="card_info">
     <div>
+        <?php
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getRole() === 'admin') {
+                ?>
+                <a class="right" href="/index.php?c=card&a=update-page&id=<?= $card->getId() ?>">Modifier</a>
+                <a class="right" href="">Supprimer</a>
+                <?php
+            }
+        }
+        ?>
+
         <h1><?= $card->getTitle() ?></h1>
 
         <div class="flex">
