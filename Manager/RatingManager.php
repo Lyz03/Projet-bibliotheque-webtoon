@@ -62,4 +62,37 @@ class RatingManager
         return array_slice(array_keys($review), 0, 3);
     }
 
+    /**
+     * Return the mark average for a card following the given id
+     * @param int $id
+     * @return float|null
+     */
+    public function getRatingByCardId(int $id): ?float {
+        $review = null;
+        $query = DB::getConnection()->query("SELECT AVG(mark) FROM " . self::TABLE . " WHERE card_id = $id");
+
+        if ($data = $query->fetch()) {
+            $review = $data['AVG(mark)'];
+        }
+
+        return $review;
+    }
+
+    /**
+     * Return the mark for a card from a certain user
+     * @param int $cardId
+     * @param int $UserId
+     * @return float|null
+     */
+    public function getRatingByUserCard(int $cardId, int $UserId): ?float {
+        $review = null;
+        $query = DB::getConnection()->query("SELECT mark FROM " . self::TABLE . " 
+                WHERE card_id = $cardId AND user_id = $UserId");
+
+        if ($data = $query->fetch()) {
+            $review = $data['mark'];
+        }
+
+        return $review;
+    }
 }

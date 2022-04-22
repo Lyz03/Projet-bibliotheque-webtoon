@@ -303,6 +303,16 @@ nav button:hover {
     padding: 0.1rem 0.5rem;
 }
 
+.card_info > div > a > i {
+    color: var(--mainColor3);
+    margin: 0.5rem 1rem;
+}
+
+.star {
+    margin: 0.5rem;
+    color: #ffcd6a;
+}
+
 /*
  * See All
  */
@@ -492,6 +502,9 @@ span.createAccount:hover {
 
     #text {
         width: 95%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Config;
 use App\Manager\CardManager;
+use App\Manager\RatingManager;
 use App\Manager\UserManager;
 
 class CardController extends AbstractController
@@ -41,12 +42,10 @@ class CardController extends AbstractController
     }
 
     /**
-     * Sanitize POST content to add a new card
+     * Sanitize POST content to add or update a new card
      */
     public function updateCard(int $id) {
 
-        // pour la modif (avec id) + faire attention à l'image exemple si id pas null et image pas set refaire un objet
-        // à partir de l'id et reprendre le nom de l'ancienne image sur la pge de modif voir les types
         if (!isset($_SESSION['user'])) {
             self::default();
             exit();
@@ -195,15 +194,38 @@ class CardController extends AbstractController
      * @param int $id
      */
     public function cardPage(int $id) {
+
+        $ratingManager = new RatingManager();
+        $userRating = null;
+        if (isset($_SESSION['user'])) {
+            $userRating = $ratingManager->getRatingByUserCard($id, $_SESSION['user']->getId());;
+        }
+
+
         $cardManager = new CardManager();
         $card = $cardManager->getCardById($id);
 
         if ($card !== null) {
-            self::render('card/card', $data = ['card' => $card]);
+            self::render('card/card', $data = [
+                'card' => $card,
+                'rating' => $ratingManager->getRatingByCardId($id),
+                'userRating' => $userRating,
+            ]);
             exit();
         }
 
         self::default();
+    }
+
+    public function addReview(int $id) {
+        if (isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $ratingManager = new RatingManager();
+
+        self::cardPage($id);
     }
 }
 
