@@ -68,7 +68,8 @@ class ConnectionController extends AbstractController
     public function logOut() {
         session_unset();
         session_destroy();
-        self::render('home');
+        header('Location: /index.php?c=home');
+        exit();
     }
 
     /**

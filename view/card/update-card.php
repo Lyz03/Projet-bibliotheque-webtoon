@@ -15,14 +15,14 @@ use App\Config;
                 <input type="text" name="script" placeholder="Scénario" value="<?= $card->getScript() ?>">
                 <input type="text" name="drawing" placeholder="Dessin" value="<?= $card->getDrawing() ?>">
                 <label for="dateStart">Année de début de publication :</label>
-                <input type="number" name="dateStart" id="dateStart" value="<?= $card->getDateStart() ?>">
+                <input type="number" name="dateStart" id="dateStart" min="1900" max="2800" value="<?= $card->getDateStart() ?>">
                 <label for="dateEnd">Année de fin de publication :</label>
                 <?php
                     if ($card->getDateEnd() === 0) {
-                       echo '<input type="number" name="dateEnd" id="dateEnd">';
+                       echo '<input type="number" name="dateEnd" id="dateEnd" min="1900" max="2800">';
                     } else {
                     ?>
-                        <input type="number" name="dateEnd" id="dateEnd" value="<?= $card->getDateEnd() ?>">
+                        <input type="number" name="dateEnd" id="dateEnd" min="1900" max="2800" value="<?= $card->getDateEnd() ?>">
                     <?php
                     }
                 ?>
@@ -91,9 +91,9 @@ use App\Config;
             <input type="text" name="script" placeholder="Scénario">
             <input type="text" name="drawing" placeholder="Dessin">
             <label for="dateStart">Année de début de publication :</label>
-            <input type="number" name="dateStart" id="dateStart">
+            <input type="number" name="dateStart" id="dateStart" min="1900" max="2800">
             <label for="dateEnd">Année de fin de publication :</label>
-            <input type="number" name="dateEnd" id="dateEnd">
+            <input type="number" name="dateEnd" id="dateEnd" min="1900" max="2800">
             <textarea name="synopsis" cols="50" rows="10" placeholder="Synopsis"></textarea>
             <div>
                 <select name="type">
