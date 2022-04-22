@@ -3,8 +3,8 @@
 :root {
     --white: rgb(252, 252, 252);
     --black: rgb(78, 78, 78);
-    --mainColor: rgb(165, 84, 118);
-    --mainColor2: rgb(78, 137, 146);
+    --mainColor: rgb(217, 109, 155);
+    --mainColor2: rgb(98, 197, 210);
 }
 
 * {
@@ -14,12 +14,13 @@
 }
 
 body {
+    background: url("/assets/images/background.png") fixed;
+    background-size: cover;
     min-height: 100vh;
     padding-bottom: 10rem;
     padding-top: 5rem;
     position: relative;
     font-family: 'Nunito', sans-serif;
-    background-color: var(--white);
     color: var(--black);
 }
 
@@ -217,7 +218,7 @@ nav button:hover {
 .card h3 {
     overflow-wrap: break-word;
     max-width: 100%;
-    background-color: #aed2e8;
+    background-color: #bc8def;
     color: var(--white);
     box-shadow: 6px 7px 2px -2px rgba(0, 0, 0, 0.48);
     border-radius: 15px 5px 5px 0;
