@@ -97,6 +97,11 @@ class CardManager
         return $cards;
     }
 
+    /**
+     * Return the most popular cards
+     * @param array $id
+     * @return array
+     */
     public function getPopularCards(array $id): array {
         $cards = [];
         foreach ($id as $value) {
@@ -106,6 +111,23 @@ class CardManager
                 foreach ($data as $item) {
                     $cards[] = self::createCard($item);
                 }
+            }
+        }
+
+        return $cards;
+    }
+
+    /**
+     * Return all the Cards
+     * @return array
+     */
+    public function getAllCards(): array {
+        $cards = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id DESC");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $cards[] = self::createCard($value);
             }
         }
 

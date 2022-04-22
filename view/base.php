@@ -42,7 +42,7 @@ if (isset($_SESSION['error'])) {
             <?php } else{?>
                 <a href="/index.php?c=connection"">Connexion</a>
             <?php }?>
-            <li><a href="/index.php?c=list">Explorer</a></li>
+            <li><a href="/index.php?c=card">Explorer</a></li>
         </ul>
     </div>
 </nav>
