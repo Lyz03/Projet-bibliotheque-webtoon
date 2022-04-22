@@ -17,7 +17,7 @@ $card = $data['card'];
                     }
                 ?>
                 <p>scenario : <span><?= $card->getScript() ?></span> dessin : <span><?= $card->getDrawing() ?></span></p>
-                <p>de : <?= $card->getDateStart() ?> à : <?php
+                <p>de : <span><?= $card->getDateStart() ?></span> à : <?php
                     if ($card->getDateEnd() === 0) {
                         echo '<span>En cours de publication</span>';
                     } else {

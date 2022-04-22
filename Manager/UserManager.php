@@ -60,4 +60,19 @@ class UserManager
         $stmt->execute();
     }
 
+    /**
+     * Return a User following the given id
+     * @param int $id
+     * @return User|null
+     */
+    public function getUserById(int $id): ?User {
+        $user = null;
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE id = " . $id);
+
+        if ($data = $query->fetch()) {
+            $user = self::createUser($data);
+        }
+
+        return $user;
+    }
 }

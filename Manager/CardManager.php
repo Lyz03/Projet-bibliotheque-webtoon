@@ -79,4 +79,36 @@ class CardManager
 
         return $card;
     }
+
+    /**
+     * Return the 7 last cards
+     * @return array
+     */
+    public function getLastCards(): array {
+        $cards = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id DESC LIMIT 7");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $cards[] = self::createCard($value);
+            }
+        }
+
+        return $cards;
+    }
+
+    public function getPopularCards(array $id): array {
+        $cards = [];
+        foreach ($id as $value) {
+            $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE id = " . $value);
+
+            if ($data = $query->fetchAll()) {
+                foreach ($data as $item) {
+                    $cards[] = self::createCard($item);
+                }
+            }
+        }
+
+        return $cards;
+    }
 }

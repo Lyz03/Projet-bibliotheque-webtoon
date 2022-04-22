@@ -6,8 +6,8 @@ class Rating
 {
     private int $id;
     private int $mark;
-    private int $userId;
-    private int $cardId;
+    private User $user;
+    private Card $card;
 
     /**
      * @return int
@@ -46,38 +46,38 @@ class Rating
     }
 
     /**
-     * @return int
+     * @return User
      */
-    public function getUserId(): int
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return Rating
      */
-    public function setUserId(int $userId): self
+    public function setUser(User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
         return $this;
     }
 
     /**
-     * @return int
+     * @return Card
      */
-    public function getCardId(): int
+    public function getCard(): Card
     {
-        return $this->cardId;
+        return $this->card;
     }
 
     /**
-     * @param int $cardId
+     * @param Card $card
      * @return Rating
      */
-    public function setCardId(int $cardId): self
+    public function setCard(Card $card): self
     {
-        $this->cardId = $cardId;
+        $this->card = $card;
         return $this;
     }
 }

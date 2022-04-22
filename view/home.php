@@ -4,36 +4,20 @@
     <h2>Les plus populaires</h2>
 
     <div class="card_container">
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href="/index.php?c=card"><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/ko.jpg')">
-            <a class="link" href=""><h3>le titre qui est treeeeeeeeeeeeeeees long</h3></a>
-        </div>
+    <?php
+        foreach ($data['popular'] as $value) {
+            ?>
+            <div class="card" style="background-image: url('/assets/images/<?= $value->getImage() ?>')">
+                <a class="link" href="/index.php?c=card&a=card-page&id=<?= $value->getId() ?>">
+                    <h3><?= $value->getTitle() ?></h3>
+                </a>
+            </div>
+            <?php
+        }
+    ?>
 
         <a class="show_more" href="?p=seeAll">Voir plus ></a>
+    </div>
 </section>
 
 <section>
@@ -41,35 +25,20 @@
 
     <div class="card_container">
 
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
-
-        <div class="card" style="background-image: url('/assets/images/lio.jpg')">
-            <a class="link" href=""><h3>le titre</h3></a>
-        </div>
+    <?php
+        foreach ($data['recent'] as $value) {
+        ?>
+            <div class="card" style="background-image: url('/assets/images/<?= $value->getImage() ?>')">
+                <a class="link" href="/index.php?c=card&a=card-page&id=<?= $value->getId() ?>">
+                    <h3><?= $value->getTitle() ?></h3>
+                </a>
+            </div>
+        <?php
+        }
+    ?>
 
         <a class="show_more" href=?p=seeAll">Voir plus ></a>
+    </div>
 </section>
 
 <section>
@@ -88,5 +57,4 @@
             <a href="">Horreur</a>
         </div>
     </div>
-
 </section>
