@@ -190,6 +190,28 @@ class CardController extends AbstractController
     }
 
     /**
+     * Delete a card
+     * @param int $id
+     */
+    public function deleteCard(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $cardManager = new CardManager();
+
+        $image = $cardManager->getCardById($id)->getImage();
+        $var = $cardManager->deleteCard($id);
+
+        if ($var) {
+            unlink('assets/images/' . $image);
+        }
+
+        self::cardPage($id);
+    }
+
+    /**
      * Link to card (full page)
      * @param int $id
      */
@@ -249,6 +271,10 @@ class CardController extends AbstractController
         self::cardPage($id);
     }
 
+    /**
+     * Delete a rating
+     * @param int $id
+     */
     public function deleteReview(int $id) {
         if (!isset($_SESSION['user'])) {
             self::default();

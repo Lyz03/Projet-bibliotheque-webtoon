@@ -9,6 +9,11 @@
     <title>AnnLio | Webtoon Library</title>
 </head>
 <body>
+<div class="delete">
+    <p>Souhaitez vous réellement effectuer cette action ?</p>
+    <button class="closeDelete">Annuler</button>
+    <button class="confirm">Confirmer</button>
+</div>
 <?php
 if (isset($_SESSION['error'])) {
     ?>

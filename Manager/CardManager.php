@@ -99,6 +99,14 @@ class CardManager
         return $stmt->execute();
     }
 
+    public function deleteCard(int $id): bool {
+        $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
     /**
      * Return a Card following the given id
      * @param int $id

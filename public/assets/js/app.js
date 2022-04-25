@@ -45,3 +45,26 @@ if (close) {
         close.remove();
     })
 }
+
+// confirmation before delete
+const deleteLink = document.querySelector('a.delete');
+
+if (deleteLink) {
+    const deleteDiv = document.querySelector('div.delete');
+    const closeDelete = document.querySelector('button.closeDelete');
+    const confirm = document.querySelector('button.confirm');
+
+    deleteLink.addEventListener('click', function (e) {
+        e.preventDefault()
+        deleteDiv.style.display = 'block';
+    })
+
+    closeDelete.addEventListener('click', function () {
+        deleteDiv.style.display = 'none';
+    })
+
+    confirm.addEventListener('click', function () {
+        deleteDiv.style.display = 'none';
+        window.location.replace(deleteLink.href);
+    })
+}

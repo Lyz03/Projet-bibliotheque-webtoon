@@ -9,7 +9,7 @@ $userRating = $data['userRating'];
             if ($_SESSION['user']->getRole() === 'admin') {
                 ?>
                 <a class="right" href="/index.php?c=card&a=update-page&id=<?= $card->getId() ?>"><i class="fas fa-edit"></i></a>
-                <a class="right" href=""><i class="fas fa-trash"></i></a>
+                <a class="right delete" href="/index.php?c=card&a=delete-card&id=<?= $card->getId() ?>"><i class="fas fa-trash"></i></a>
                 <?php
             }
         }

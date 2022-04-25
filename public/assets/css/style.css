@@ -143,6 +143,44 @@ nav button:hover {
 }
 
 /*
+ * Confirm before delete
+ */
+div.delete {
+    display: none;
+    position: absolute;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.08);
+}
+
+.closeDelete, .confirm {
+    border: none;
+    color: var(--white);
+    padding: 0.4rem 0.8rem 0.5rem 0.8rem;
+    margin: 1rem;
+}
+
+.confirm {
+    background-color: #92b985;
+}
+
+.confirm:hover {
+    background-color: #608453;
+}
+
+.closeDelete {
+    background-color: #d35447;
+}
+
+.closeDelete:hover {
+    background-color: #a03c32;
+}
+
+/*
  * php
  */
 .error {
