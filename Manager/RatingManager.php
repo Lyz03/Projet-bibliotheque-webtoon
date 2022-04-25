@@ -95,4 +95,56 @@ class RatingManager
 
         return $review;
     }
+
+    /**
+     * Insert a new rating
+     * @param int $mark
+     * @param int $userId
+     * @param int $cardId
+     * @return bool
+     */
+    public Function addRating(int $mark, int $userId, int $cardId): bool {
+        $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (mark, user_id, card_id)
+            VALUES (:mark, :userId, :cardId)");
+
+        $stmt->bindParam(':mark', $mark);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':cardId', $cardId);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Update a rating
+     * @param int $mark
+     * @param int $userId
+     * @param int $cardId
+     * @return bool
+     */
+    public function updateRating(int $mark, int $userId, int $cardId): bool {
+
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        mark = :mark WHERE user_id = :userId AND card_id = :cardId");
+
+        $stmt->bindParam(':mark', $mark);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':cardId', $cardId);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Delete a rating
+     * @param int $userId
+     * @param int $cardId
+     * @return bool
+     */
+    public function deleteRating(int $userId, int $cardId): bool {
+        $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE user_id = :userId AND card_id = :cardId");
+
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':cardId', $cardId);
+
+        return $stmt->execute();
+    }
 }

@@ -57,23 +57,43 @@ $userRating = $data['userRating'];
                     if (isset($_SESSION['user'])) {
                         if ($userRating === null) {
                         ?>
-                            <a class="star" href=""><i class="far fa-star"></i></a>
-                            <a class="star" href=""><i class="far fa-star"></i></a>
-                            <a class="star" href=""><i class="far fa-star"></i></a>
+                            <a class="star" href="/index.php?c=card&a=add-review&id=<?= $card->getId() ?>&mark=1">
+                                <i class="far fa-star"></i></a>
+
+                            <a class="star" href="/index.php?c=card&a=add-review&id=<?= $card->getId() ?>&mark=2">
+                                <i class="far fa-star"></i></a>
+
+                            <a class="star" href="/index.php?c=card&a=add-review&id=<?= $card->getId() ?>&mark=3">
+                                <i class="far fa-star"></i></a>
                         <?php
                         } else {
                             for ($i = 1; $i <= $userRating; $i++) {
-                            ?>
-                                <a class="star" href=""><i class="fas fa-star"></i></a>
-                            <?php
+                                if ($i === (int) $userRating) {
+                                ?>
+                                    <a class="star" href="/index.php?c=card&a=delete-review&id=<?= $card->getId() ?>"><i class="fas fa-star"></i></a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a class="star" href="/index.php?c=card&a=update-review&id=<?= $card->getId() ?>&mark=<?= $i ?>">
+                                        <i class="fas fa-star"></i></a>
+                                <?php
+                                }
                             }
 
                             $total = 3 - $userRating;
 
                             if ($total > 0) {
-                                for ($i = 1; $i <= $total; $i++) {
+                                if ((int) $total === 1) {
                                 ?>
-                                    <a class="star" href="/index.php?c=card&a=add-review&id=<?= $card->getId() ?>"><i class="far fa-star"></i></a>
+                                    <a class="star" href="/index.php?c=card&a=update-review&id=<?= $card->getId() ?>&mark=3">
+                                        <i class="far fa-star"></i></a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a class="star" href="/index.php?c=card&a=update-review&id=<?= $card->getId() ?>&mark=2">
+                                        <i class="far fa-star"></i></a>
+                                    <a class="star" href="/index.php?c=card&a=update-review&id=<?= $card->getId() ?>&mark=3">
+                                        <i class="far fa-star"></i></a>
                                 <?php
                                 }
                             }

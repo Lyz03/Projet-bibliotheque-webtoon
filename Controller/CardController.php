@@ -217,14 +217,46 @@ class CardController extends AbstractController
         self::default();
     }
 
-    public function addReview(int $id) {
-        if (isset($_SESSION['user'])) {
+    /**
+     * Add a new rating
+     * @param int $id
+     * @param int $mark
+     */
+    public function addReview(int $id, int $mark) {
+        if (!isset($_SESSION['user'])) {
             self::default();
             exit();
         }
 
         $ratingManager = new RatingManager();
+        $ratingManager->addRating($mark, $_SESSION['user']->getId(), $id);
+        self::cardPage($id);
+    }
 
+    /**
+     * Update a rating
+     * @param int $id
+     * @param int $mark
+     */
+    public function updateReview(int $id, int $mark) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $ratingManager = new RatingManager();
+        $ratingManager->updateRating($mark, $_SESSION['user']->getId(), $id);
+        self::cardPage($id);
+    }
+
+    public function deleteReview(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $ratingManager = new RatingManager();
+        $ratingManager->deleteRating($_SESSION['user']->getId(), $id);
         self::cardPage($id);
     }
 }
