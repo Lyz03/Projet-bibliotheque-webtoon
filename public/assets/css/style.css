@@ -45,6 +45,12 @@ footer {
     background-color: var(--mainColor2);
 }
 
+select {
+    background-color: var(--white);
+    padding: 0.2rem 0.6rem 0.3rem 0.6rem;
+    border: 2px solid var(--mainColor2);
+}
+
 .center {
     text-align: center;
 }
@@ -170,6 +176,7 @@ div.delete {
 
 .confirm:hover {
     background-color: #608453;
+    cursor: pointer;
 }
 
 .closeDelete {
@@ -178,6 +185,7 @@ div.delete {
 
 .closeDelete:hover {
     background-color: #a03c32;
+    cursor: pointer;
 }
 
 /*
@@ -307,6 +315,10 @@ div.delete {
     justify-content: center;
 }
 
+.card_info h1 {
+    color: var(--mainColor);
+}
+
 .card_info > div {
     width: 60rem;
     max-width: 95%;
@@ -336,9 +348,18 @@ div.delete {
 
 .card_info .kind {
     background-color: var(--mainColor2);
-    color: var(--white);
     border-radius: 15px;
     padding: 0.1rem 0.5rem;
+}
+
+.card_info .kind a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.card_info .kind:hover {
+    background-color: #399fb9;
+    cursor: pointer;
 }
 
 .card_info > div > a > i {
@@ -349,6 +370,45 @@ div.delete {
 .star {
     margin: 0.5rem;
     color: #ffcd6a;
+}
+
+.show_list {
+    position: relative;
+    bottom: 0.25rem;
+    padding: 0.4rem 0.8rem 0.5rem 0.8rem;
+    font-size: 1rem;
+    color: white;
+    transform: rotate(4deg);
+    border: none;
+    background-color: transparent;
+}
+
+.show_list:hover {
+    cursor: pointer;
+}
+
+.highlight {
+    display: inline-block;
+    height: 1.6rem;
+    background-color: var(--mainColor);
+    transform: rotate(-4deg);
+    transition: trasform 500ms;
+}
+
+.webtoon_list {
+    display: none;
+    width: 10rem;
+    margin: 0.5rem auto;
+    background-color: white;
+}
+.webtoon_list a {
+    display: block;
+    color: var(--black);
+    text-decoration: none;
+}
+
+.webtoon_list a:hover {
+    background-color: #efefef;
 }
 
 /*

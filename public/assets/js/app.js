@@ -68,3 +68,30 @@ if (deleteLink) {
         window.location.replace(deleteLink.href);
     })
 }
+
+// Close / open webtoon list option
+const webtoonListButton = document.querySelector('button.show_list ')
+let b = 0;
+
+if (webtoonListButton) {
+
+    const webtoonList = document.querySelector('div.webtoon_list')
+    const highlight = document.querySelector('div.highlight')
+    webtoonListButton.addEventListener('click', () => {
+
+        if (b === 0) {
+            webtoonList.style.display = 'block';
+            highlight.style.backgroundColor = "#bd4b93";
+            highlight.style.transform = "rotate(2deg)";
+            webtoonListButton.style.transform = "rotate(-2deg)";
+            b++
+        } else if (b === 1) {
+            webtoonList.style.display = 'none';
+            highlight.style.backgroundColor = "var(--mainColor)"
+            highlight.style.transform = "rotate(-4deg)"
+            webtoonListButton.style.transform = "rotate(4deg)";
+            b--
+        }
+
+    })
+}

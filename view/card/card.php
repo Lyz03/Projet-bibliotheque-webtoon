@@ -1,4 +1,7 @@
 <?php
+
+use App\Config;
+
 $card = $data['card'];
 $userRating = $data['userRating'];
 ?>
@@ -25,7 +28,7 @@ $userRating = $data['userRating'];
                     <?php
                         foreach (explode(',', $card->getType()) as $value) {
                         ?>
-                            <span class="kind"><?= $value ?></span>
+                            <span class="kind"><a href=""><?= $value ?></a></span>
                         <?php
                         }
                     ?>
@@ -99,12 +102,23 @@ $userRating = $data['userRating'];
                             }
                         }
                     ?>
-                    <?php
-                    }
-                    ?>
                 </div>
             </div>
         </div>
-
+                        <div class="center">
+                            <div class="highlight"><button class="show_list">Ajouter à une liste</button></div>
+                            <div class="webtoon_list">
+                                <?php
+                                foreach (Config::DEFAULT_LIST as $value) {
+                                    ?>
+                                    <a href=""><?= $value ?></a>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
     </div>
 </section>

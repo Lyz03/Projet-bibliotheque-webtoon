@@ -17,9 +17,9 @@ class Config
     ];
 
     public const DEFAULT_LIST = [
-        'pile à lire',
-        'envies',
-        'lu',
+        'Pile à lire',
+        'Envies',
+        'Lu',
     ];
 
     public const CARD_TYPE = [
