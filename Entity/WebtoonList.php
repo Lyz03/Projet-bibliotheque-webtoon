@@ -7,8 +7,8 @@ class WebtoonList
     private int $id;
     private string $name;
     private bool $visibility;
-    private int $userId;
-    private int $cardId;
+    private User $user;
+    private Card $card;
 
     /**
      * @return int
@@ -65,38 +65,38 @@ class WebtoonList
     }
 
     /**
-     * @return int
+     * @return User
      */
-    public function getUserId(): int
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
-     * @param int $userId
+     * @param User $user
      * @return WebtoonList
      */
-    public function setUserId(int $userId): self
+    public function setUser(User $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
         return $this;
     }
 
     /**
-     * @return int
+     * @return Card
      */
-    public function getCardId(): int
+    public function getCard(): Card
     {
-        return $this->cardId;
+        return $this->card;
     }
 
     /**
-     * @param int $cardId
+     * @param Card $card
      * @return WebtoonList
      */
-    public function setCardId(int $cardId): self
+    public function setCard(Card $card): self
     {
-        $this->cardId = $cardId;
+        $this->card = $card;
         return $this;
     }
 }

@@ -18,6 +18,7 @@
 if (isset($_SESSION['error'])) {
     ?>
     <div class="error">
+
         <?php
         foreach ($_SESSION['error'] as $value) {
             ?>

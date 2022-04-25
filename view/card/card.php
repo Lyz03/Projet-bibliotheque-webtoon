@@ -4,6 +4,7 @@ use App\Config;
 
 $card = $data['card'];
 $userRating = $data['userRating'];
+$userList = $data['userList'];
 ?>
 <section class="card_info">
     <div>
@@ -109,10 +110,33 @@ $userRating = $data['userRating'];
                             <div class="highlight"><button class="show_list">Ajouter à une liste</button></div>
                             <div class="webtoon_list">
                                 <?php
-                                foreach (Config::DEFAULT_LIST as $value) {
+                                if ($userList === null) {
+                                    foreach (Config::DEFAULT_LIST as $key => $value) {
                                     ?>
-                                    <a href=""><?= $value ?></a>
+                                        <a href="/index.php?c=card&a=add-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
+                                            <?= $value ?>
+                                        </a>
                                     <?php
+                                    }
+                                } else {
+                                    foreach (Config::DEFAULT_LIST as $key => $value) {
+                                        foreach ($userList as $item) {
+                                            if ($item->getName() === $value) {
+                                            ?>
+                                                <a style="color: var(--mainColor3)"
+                                                   href="/index.php?c=card&a=remove-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
+                                                    <?= $value ?>
+                                                </a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <a href="/index.php?c=card&a=add-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
+                                                    <?= $value ?>
+                                                </a>
+                                            <?php
+                                            }
+                                        }
+                                    }
                                 }
                                 ?>
                             </div>

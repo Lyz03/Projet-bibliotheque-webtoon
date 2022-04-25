@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Config;
 use App\Manager\CardManager;
+use App\Manager\ListManager;
 use App\Manager\RatingManager;
-use App\Manager\UserManager;
 
 class CardController extends AbstractController
 {
@@ -218,11 +218,15 @@ class CardController extends AbstractController
     public function cardPage(int $id) {
 
         $ratingManager = new RatingManager();
-        $userRating = null;
-        if (isset($_SESSION['user'])) {
-            $userRating = $ratingManager->getRatingByUserCard($id, $_SESSION['user']->getId());;
-        }
+        $listManager = new ListManager();
 
+        $userRating = null;
+        $userList = null;
+
+        if (isset($_SESSION['user'])) {
+            $userRating = $ratingManager->getRatingByUserCard($id, $_SESSION['user']->getId());
+            $userList = $listManager->getListByUserCard($id, $_SESSION['user']->getId());
+        }
 
         $cardManager = new CardManager();
         $card = $cardManager->getCardById($id);
@@ -232,12 +236,17 @@ class CardController extends AbstractController
                 'card' => $card,
                 'rating' => $ratingManager->getRatingByCardId($id),
                 'userRating' => $userRating,
+                'userList' => $userList
             ]);
             exit();
         }
 
         self::default();
     }
+
+    /****************
+     *    Rating    *
+     ****************/
 
     /**
      * Add a new rating
@@ -283,6 +292,42 @@ class CardController extends AbstractController
 
         $ratingManager = new RatingManager();
         $ratingManager->deleteRating($_SESSION['user']->getId(), $id);
+        self::cardPage($id);
+    }
+
+    /***************
+     *     List    *
+     ***************/
+
+    /**
+     * Add a new card in a list
+     * @param int $id
+     * @param int $list
+     */
+    public function addList(int $id, int $list) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $listManager = new ListManager();
+        $listManager->addList(Config::DEFAULT_LIST[$list],1, $_SESSION['user']->getId(), $id);
+        self::cardPage($id);
+    }
+
+    /**
+     * Delete a rating
+     * @param int $id
+     * @param int $list
+     */
+    public function removeList(int $id, int $list) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $listManager = new ListManager();
+        $listManager->removeList($_SESSION['user']->getId(), $id, Config::DEFAULT_LIST[$list]);
         self::cardPage($id);
     }
 }

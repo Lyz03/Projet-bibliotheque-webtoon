@@ -82,9 +82,9 @@ class RatingManager
      * Return the mark for a card from a certain user
      * @param int $cardId
      * @param int $UserId
-     * @return float|null
+     * @return int|null
      */
-    public function getRatingByUserCard(int $cardId, int $UserId): ?float {
+    public function getRatingByUserCard(int $cardId, int $UserId): ?int {
         $review = null;
         $query = DB::getConnection()->query("SELECT mark FROM " . self::TABLE . " 
                 WHERE card_id = $cardId AND user_id = $UserId");
