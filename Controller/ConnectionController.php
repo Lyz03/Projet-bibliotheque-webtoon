@@ -65,7 +65,7 @@ class ConnectionController extends AbstractController
     /**
      * Destroy the session
      */
-    public function logOut() {
+    public static function logOut() {
         session_unset();
         session_destroy();
         header('Location: /index.php?c=home');

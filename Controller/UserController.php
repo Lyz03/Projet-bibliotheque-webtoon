@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Manager\UserManager;
+
 class UserController extends AbstractController
 {
 
@@ -13,5 +15,25 @@ class UserController extends AbstractController
         }
 
         self::render('connection-inscription/connection');
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteUser(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+        $var = $userManager->deleteUser($id);
+
+        if ($var) {
+            ConnectionController::logOut();
+            exit();
+        }
+
+        self::default();
     }
 }

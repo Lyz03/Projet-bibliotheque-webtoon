@@ -62,6 +62,10 @@
             </div>
 
             <div>
+                <a class="delete" href="/index.php?c=user&a=delete-user&id=<?= $_SESSION['user']->getId() ?>">Supprimer le compte</a>
+            </div>
+
+            <div>
                 <a href="">Modifier vos informations personnelles</a>
             </div>
 

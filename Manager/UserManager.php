@@ -75,4 +75,17 @@ class UserManager
 
         return $user;
     }
+
+    /**
+     * Delete a user
+     * @param int $id
+     * @return bool
+     */
+    public function deleteUser(int $id): bool {
+        $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
 }
