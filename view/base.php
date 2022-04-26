@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="delete">
-    <p>Souhaitez vous réellement effectuer cette action ?</p>
+    <p>Souhaitez vous réellement effectuer cette action</p>
     <button class="closeDelete">Annuler</button>
     <button class="confirm">Confirmer</button>
 </div>
@@ -18,7 +18,6 @@
 if (isset($_SESSION['error'])) {
     ?>
     <div class="error">
-
         <?php
         foreach ($_SESSION['error'] as $value) {
             ?>

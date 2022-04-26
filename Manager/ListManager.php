@@ -35,8 +35,10 @@ class ListManager
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
                 WHERE card_id = $cardId AND user_id = $UserId");
 
-        if ($data = $query->fetch()) {
-            $list[] = self::createList($data);
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $list[] = self::createList($value);
+            }
         }
 
         return $list;

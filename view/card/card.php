@@ -119,22 +119,25 @@ $userList = $data['userList'];
                                     <?php
                                     }
                                 } else {
+                                    $array = [];
                                     foreach (Config::DEFAULT_LIST as $key => $value) {
                                         foreach ($userList as $item) {
                                             if ($item->getName() === $value) {
+                                                $array[] = $item->getName();
                                             ?>
                                                 <a style="color: var(--mainColor3)"
                                                    href="/index.php?c=card&a=remove-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
                                                     <?= $value ?>
                                                 </a>
                                             <?php
-                                            } else {
-                                            ?>
-                                                <a href="/index.php?c=card&a=add-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
-                                                    <?= $value ?>
-                                                </a>
-                                            <?php
                                             }
+                                        }
+                                        if (!in_array($value, $array)) {
+                                        ?>
+                                        <a href="/index.php?c=card&a=add-list&id=<?= $card->getId() ?>&list=<?= $key ?>">
+                                            <?= $value ?>
+                                        </a>
+                                        <?php
                                         }
                                     }
                                 }
