@@ -1,3 +1,8 @@
+<?php
+
+use App\Config;
+
+?>
 <section class="account">
     <h1><?= $data['user']->getUsername() ?></h1>
 
@@ -9,7 +14,7 @@
             <?php
                 foreach ($data['list'] as $key => $value) {
                 ?>
-                    <h3><a href=""><?= $key ?></a></h3>
+                    <h3><a href="/index.php?c=card&a=card-list&name=<?= array_search($key, Config::DEFAULT_LIST) ?>"><?= $key ?></a></h3>
 
                     <div class="flex">
                 <?php

@@ -244,6 +244,27 @@ class CardController extends AbstractController
         self::default();
     }
 
+    public function cardList(int $name) {
+        if (isset($_SESSION['user'])) {
+
+            $listManager = new ListManager();
+            $array = $listManager->getCardFromList(Config::DEFAULT_LIST[$name], $_SESSION['user']->getId());
+            $cards = [];
+
+            foreach ($array as $value) {
+                $cards[] = $value->getCard();
+            }
+
+            self::render('list/cardList', $data = [
+                'cards' => $cards,
+                'name' => Config::DEFAULT_LIST[$name],
+            ]);
+            exit();
+        }
+
+        self::default();
+    }
+
     /****************
      *    Rating    *
      ****************/

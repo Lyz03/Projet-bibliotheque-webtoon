@@ -46,14 +46,34 @@ class ListManager
 
     /**
      * Return the last 3 cards from a given list
-     * @param $name
-     * @param $userId
+     * @param string $name
+     * @param int $userId
      * @return array
      */
-    public function getTreeCardlist($name, $userId) {
+    public function getTreeCardlist(string $name, int $userId): array {
         $list = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
                 WHERE name = '$name' AND user_id = $userId ORDER BY id DESC LIMIT 3");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $list[] = self::createList($value);
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Return cards from a given list
+     * @param string $name
+     * @param int $userId
+     * @return array
+     */
+    public function getCardFromList(string $name,int $userId): array {
+        $list = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
+                WHERE name = '$name' AND user_id = $userId ORDER BY id DESC");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {

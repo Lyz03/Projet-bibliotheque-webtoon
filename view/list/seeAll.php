@@ -33,6 +33,5 @@
             <?php
         }
         ?>
-
     </div>
 </section>
