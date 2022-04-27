@@ -27,13 +27,33 @@ class ListManager
     /**
      * Return the mark for a card from a certain user
      * @param int $cardId
-     * @param int $UserId
+     * @param int $userId
      * @return WebtoonList|null
      */
-    public function getListByUserCard(int $cardId, int $UserId): ?array {
+    public function getListByUserCard(int $cardId, int $userId): ?array {
         $list = null;
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE card_id = $cardId AND user_id = $UserId");
+                WHERE card_id = $cardId AND user_id = $userId");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $list[] = self::createList($value);
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Return the last 3 cards from a given list
+     * @param $name
+     * @param $userId
+     * @return array
+     */
+    public function getTreeCardlist($name, $userId) {
+        $list = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
+                WHERE name = '$name' AND user_id = $userId ORDER BY id DESC LIMIT 3");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
