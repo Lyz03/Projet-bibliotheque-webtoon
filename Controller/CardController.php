@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Config;
 use App\Manager\CardManager;
+use App\Manager\CommentManager;
 use App\Manager\ListManager;
 use App\Manager\RatingManager;
 
@@ -231,12 +232,15 @@ class CardController extends AbstractController
         $cardManager = new CardManager();
         $card = $cardManager->getCardById($id);
 
+        $commentManager = new CommentManager();
+
         if ($card !== null) {
             self::render('card/card', $data = [
                 'card' => $card,
                 'rating' => $ratingManager->getRatingByCardId($id),
                 'userRating' => $userRating,
-                'userList' => $userList
+                'userList' => $userList,
+                'comments' => $commentManager->getCommentByCardId($id),
             ]);
             exit();
         }
@@ -350,6 +354,36 @@ class CardController extends AbstractController
         $listManager = new ListManager();
         $listManager->removeList($_SESSION['user']->getId(), $id, Config::DEFAULT_LIST[$list]);
         self::cardPage($id);
+    }
+
+    /***************
+     *   Comments  *
+     ***************/
+
+    public function addComment(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if (!isset($_POST['content']) || !isset($_POST['submit'])) {
+            self::default();
+            exit();
+        }
+
+        $content = $_POST['content'];
+
+        if (strlen($content) < 5 || strlen($content) > 250) {
+            $_SESSION['error'] = ['Votre commentaire doit faire entre 5 et 250 caractères'];
+            self::cardPage($id);
+            exit();
+        }
+
+        $commentManager = new CommentManager();
+        $commentManager->addComment(htmlentities($content), $_SESSION['user']->getId(), $id);
+
+        self::cardPage($id);
+        exit();
     }
 }
 

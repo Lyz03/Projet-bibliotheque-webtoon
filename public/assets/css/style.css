@@ -312,7 +312,8 @@ div.delete {
     font-size: 1.2rem;
     margin-top: 2rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card_info h1 {
@@ -322,9 +323,13 @@ div.delete {
 .card_info > div {
     width: 60rem;
     max-width: 95%;
-    border: 3px solid var(--mainColor3);
     border-radius: 30px;
     padding-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+.border {
+    border: 3px solid var(--mainColor3);
 }
 
 .card_info .card {
@@ -411,6 +416,13 @@ div.delete {
     background-color: #efefef;
 }
 
+.card_info textarea {
+    margin: 1rem;
+    width: 40rem;
+    max-width: 90%;
+    resize: none;
+}
+
 /*
  * See All
  */
@@ -479,6 +491,11 @@ form input[type=submit] {
     background-color: var(--mainColor);
     border: none;
     color: var(--white);
+}
+
+form input[type=submit]:hover {
+    background-color: #b9408e;
+    cursor: pointer;
 }
 
 p.createAccount {

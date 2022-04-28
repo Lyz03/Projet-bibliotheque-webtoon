@@ -7,7 +7,7 @@ $userRating = $data['userRating'];
 $userList = $data['userList'];
 ?>
 <section class="card_info">
-    <div>
+    <div class="border">
         <?php
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->getRole() === 'admin') {
@@ -148,4 +148,29 @@ $userList = $data['userList'];
                     }
                     ?>
     </div>
+
+<?php
+    if (isset($_SESSION['user'])) {
+    ?>
+        <div class="center">
+            <form action="/index.php?c=card&a=add-comment&id=<?= $card->getId() ?>" method="post">
+                <textarea name="content" cols="30" rows="10" placeholder="Ajouter un commentaire ..."></textarea>
+                <input type="submit" name="submit">
+            </form>
+        </div>
+    <?php
+    }
+?>
+
+    <?php
+    foreach ($data['comments'] as $value) {
+    ?>
+        <div>
+            <span><?= $value->getUser()->getUsername() ?></span>
+            <p><?= html_entity_decode($value->getContent()) ?></p>
+        </div>
+    <?php
+    }
+    ?>
+
 </section>

@@ -52,7 +52,8 @@ class ConnectionController extends AbstractController
 
             $user->setPassword('');
             $_SESSION['user'] = $user;
-            self::render('user/account', $data = ['user' => $user]);
+            $userController = new UserController();
+            $userController->default();
 
         } else {
 
@@ -136,7 +137,8 @@ class ConnectionController extends AbstractController
             $user->setPassword('');
             $_SESSION['user'] = $user;
 
-            self::render('user/account', $data = ['user' => $user]);
+            $userController = new UserController();
+            $userController->default();
 
         } else {
             $_SESSION['error'] = ["Les mot de passe ne corespondent pas"];

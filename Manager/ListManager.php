@@ -10,6 +10,11 @@ class ListManager
 
     public const TABLE = 'list';
 
+    /**
+     * Create a WebtoonList Entity
+     * @param array $data
+     * @return WebtoonList
+     */
     private static function createList(array $data): WebtoonList
     {
         $userManager = new UserManager();
