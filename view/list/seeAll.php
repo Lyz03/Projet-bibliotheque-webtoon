@@ -1,9 +1,10 @@
 <section class="filter">
     <div>
-        <select name="showCards" id="showCards">
-            <option value="all">Toutes les catégories</option>
+        <select name="sortBy" id="sortBy">
+            <option value="">Trier par :</option>
             <option value="popular">Les plus populaires</option>
             <option value="recent">Les plus récents</option>
+            <option value="old">Les plus anciens</option>
         </select>
     </div>
     <div class="seeAll center">

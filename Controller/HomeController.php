@@ -10,10 +10,10 @@ class HomeController extends AbstractController
     public function default()
     {
         $cardManager = new CardManager();
-        $ratingManger = new RatingManager();
+        $ratingManager = new RatingManager();
 
         self::render('home', $data = [
-            'popular' => $cardManager->getPopularCards($ratingManger->getRatingForCards()),
+            'popular' => $cardManager->getPopularCards($ratingManager->getRatingForCards()),
             'recent' => $cardManager->getLastCards(),
         ]);
     }

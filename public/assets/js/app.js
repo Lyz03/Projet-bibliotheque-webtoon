@@ -101,3 +101,21 @@ if (webtoonListButton) {
 
     })
 }
+
+// SeeAll sort by
+const sortBySelect = document.querySelector('#sortBy');
+
+if (sortBySelect) {
+    sortBySelect.addEventListener("change", function () {
+        let curentLocation = window.location.search;
+        let param = new URLSearchParams (curentLocation);
+        let type = param.get('type');
+
+        if (type !== null) {
+            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&type=' + type);
+        } else {
+            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&type=0');
+        }
+
+    })
+}

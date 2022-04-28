@@ -27,6 +27,50 @@ class CardController extends AbstractController
         self::render('list/seeAll', $data = ['cards' => $cardManager->getCardByType(Config::CARD_TYPE[$type])]);
     }
 
+    public function sortCards(string $sort, int $type = 0) {
+        $cardManager = new CardManager();
+        $ratingManager = new RatingManager();
+
+        $cards = [];
+
+        if ($type !== 0) {
+            $cards = $cardManager->getCardByType($type);
+            switch ($sort) {
+                case 'popular':
+                    $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false));
+                    foreach ($array as $value) {
+                        if (strpos($value->getType(), $type) !== false) {
+                            $cards[] = $value;
+                        }
+                    }
+                    break;
+                case 'recent':
+                    $cards = $cardManager->getCardByType($type);
+                    break;
+                case 'old':
+                    $cards = $cardManager->getCardByType($type, 'ASC');
+                    break;
+            }
+        } else {
+
+            switch ($sort) {
+                case 'popular':
+                    $cards = $cardManager->getPopularCards($ratingManager->getRatingForCards(false));
+                    break;
+                case 'recent':
+                    $cards = $cardManager->getAllCards();
+                    break;
+                case 'old':
+                    $cards = $cardManager->getAllCards('ASC');
+                    break;
+            }
+        }
+
+        self::render('list/seeAll', $data = [
+            'cards' => $cards
+        ]);
+    }
+
     /**
      * link to update-card
      */

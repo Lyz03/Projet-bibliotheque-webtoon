@@ -30,9 +30,10 @@ class RatingManager
 
     /**
      * Return the 7 most popular Card id
+     * @param bool $seven
      * @return array
      */
-    public function getRatingForCards(): array {
+    public function getRatingForCards(bool $seven = true): array {
         $db = DB::getConnection();
 
         // get Cards id
@@ -48,7 +49,7 @@ class RatingManager
         // get the average of review for each card
         $review = [];
         foreach ($id as $value) {
-            $query = $db->query("SELECT AVG(mark) FROM " . self::TABLE . " WHERE id = " . $value['card_id']);
+            $query = $db->query("SELECT AVG(mark) FROM " . self::TABLE . " WHERE card_id = " . $value['card_id']);
 
             if ($data = $query->fetchAll()) {
                 foreach ($data as $item) {
@@ -59,8 +60,13 @@ class RatingManager
 
         arsort($review, SORT_NATURAL);
 
-        return array_slice(array_keys($review), 0, 3);
+        if ($seven) {
+            return array_slice(array_keys($review), 0, 7);
+        }
+
+        return array_keys($review);
     }
+
 
     /**
      * Return the mark average for a card following the given id

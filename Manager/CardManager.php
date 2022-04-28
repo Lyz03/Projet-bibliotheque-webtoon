@@ -69,11 +69,12 @@ class CardManager
 
     /**
      * Return all the Cards
+     * @param string $orderBy
      * @return array
      */
-    public function getAllCards(): array {
+    public function getAllCards(string $orderBy = 'DESC'): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id DESC");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id $orderBy");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -87,11 +88,12 @@ class CardManager
     /**
      * Get cards by type
      * @param string $type
+     * @param string $orderBy
      * @return array
      */
-    public function getCardByType(string $type): array {
+    public function getCardByType(string $type, string $orderBy = 'DESC'): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id DESC");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id $orderBy");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
