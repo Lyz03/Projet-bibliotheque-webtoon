@@ -159,18 +159,33 @@ $userList = $data['userList'];
             </form>
         </div>
     <?php
-    }
-?>
-
-    <?php
-    foreach ($data['comments'] as $value) {
-    ?>
+        foreach ($data['comments'] as $value) {
+            if ($_SESSION['user']->getId() === $value->getUser()->getId()) {
+            ?>
+                <div>
+                    <span><?= $value->getUser()->getUsername() ?></span>
+                    <p><?= html_entity_decode($value->getContent()) ?></p>
+                    <a class="delete" href="/index.php?c=card&a=delete-comment&id=<?= $value->getId() ?>&card=<?= $card->getId() ?>">supprimer</a>
+                </div>
+            <?php
+            } else {
+            ?>
+                <div>
+                    <span><?= $value->getUser()->getUsername() ?></span>
+                    <p><?= html_entity_decode($value->getContent()) ?></p>
+                </div>
+            <?php
+            }
+        }
+    } else {
+        foreach ($data['comments'] as $value) {
+        ?>
         <div>
             <span><?= $value->getUser()->getUsername() ?></span>
             <p><?= html_entity_decode($value->getContent()) ?></p>
         </div>
-    <?php
+        <?php
+        }
     }
-    ?>
-
+?>
 </section>

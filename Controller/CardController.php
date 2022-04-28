@@ -385,5 +385,18 @@ class CardController extends AbstractController
         self::cardPage($id);
         exit();
     }
+
+    public function deleteComment(int $id, int $card) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $commentManager = new CommentManager();
+        $commentManager->deleteComment($id);
+
+        self::cardPage($card);
+        exit();
+    }
 }
 
