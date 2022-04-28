@@ -78,8 +78,7 @@ class CardManager
      * @return int
      */
     public function updateCard(int $id, string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
-                            string $synopsis, string $type, string $image): int
-    {
+                            string $synopsis, string $type, string $image): int {
 
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         title = :title, script = :script, drawing = :drawing, date_start = :dateStart, date_end = :dateEnd, 

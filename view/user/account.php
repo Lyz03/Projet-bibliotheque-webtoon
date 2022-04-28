@@ -21,7 +21,9 @@ use App\Config;
                     foreach ($value as $item) {
                     ?>
                         <div class="card" style="background-image: url('/assets/images/<?= $item->getCard()->getImage() ?>')">
-                            <a class="link" href="?p=card"><h3><?= $item->getCard()->getTitle() ?></h3></a>
+                            <a class="link" href="?c=card&a=card-page&id=<?= $item->getCard()->getId() ?>">
+                                <h3><?= $item->getCard()->getTitle() ?></h3>
+                            </a>
                         </div>
                     <?php
                     }
@@ -36,10 +38,6 @@ use App\Config;
         <div class="card_com">
 
             <div>
-                commentaires 1
-            </div>
-
-            <div>
                 <a class="delete" href="/index.php?c=user&a=delete-user&id=<?= $_SESSION['user']->getId() ?>">Supprimer le compte</a>
             </div>
 
@@ -51,16 +49,21 @@ use App\Config;
                 <a href="/index.php?c=connection&a=log-out">Déconnexion</a>
             </div>
 
+
             <?php
-            if ($_SESSION['user']->getRole() === 'admin') {
-              echo '<a href="/index.php?c=card&a=update-page&id">Créer une fiche</a>';
-            }
+                if ($_SESSION['user']->getRole() === 'admin') {
+                ?>
+                    <div>
+                        <a href="/index.php?c=card&a=update-page&id">Créer une fiche</a>
+                    </div>
+
+                    <div>
+                        <a href="/index.php?c=user&a=comment-list">Voir les commentaires des utilisateurs</a>
+                    </div>
+                <?php
+                }
             ?>
-            <div>
-
-            </div>
         </div>
-
     </div>
 
 </section>

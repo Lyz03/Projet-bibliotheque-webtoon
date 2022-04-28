@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Config;
+use App\Manager\CommentManager;
 use App\Manager\ListManager;
 use App\Manager\UserManager;
 
@@ -49,5 +50,71 @@ class UserController extends AbstractController
         }
 
         self::default();
+    }
+
+    /***************
+     *   Comments  *
+     ***************/
+
+    /**
+     * go to the comment list page
+     */
+    public function commentList() {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if ($_SESSION['user']->getRole() !== 'admin') {
+            self::default();
+            exit();
+        }
+
+        $commentManager = new CommentManager();
+
+        self::render('list/commentList', $data = [
+            'comments' => $commentManager->getUnvalidatedComment(),
+        ]);
+    }
+
+    /**
+     * Validate a comment
+     * @param int $id
+     */
+    public function validateComment(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if ($_SESSION['user']->getRole() !== 'admin') {
+            self::default();
+            exit();
+        }
+
+        $commentManager = new CommentManager();
+        $commentManager->validateComment($id);
+
+        self::render('list/commentList', $data = [
+            'comments' => $commentManager->getUnvalidatedComment(),
+        ]);
+    }
+
+    /**
+     * Delete comment
+     * @param int $id
+     */
+    public function deleteComment(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        $commentManager = new CommentManager();
+        $commentManager->deleteComment($id);
+
+        self::render('list/commentList', $data = [
+            'comments' => $commentManager->getUnvalidatedComment(),
+        ]);
     }
 }

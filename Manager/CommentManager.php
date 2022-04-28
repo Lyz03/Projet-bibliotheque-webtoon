@@ -25,14 +25,33 @@ class CommentManager
     }
 
     /**
-     * Get all comments for a given card
+     * Get all comments for a given card and its visibility
      * @param int $cardId
+     * @param int $validate
      * @return array
      */
-    public function getCommentByCardId(int $cardId): array {
+    public function getCommentByCardIdValidate(int $cardId, int $validate): array {
         $comments = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE card_id = $cardId ORDER BY id DESC");
+                WHERE card_id = $cardId AND validate = $validate ORDER BY id DESC");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $comments[] = self::createComment($value);
+            }
+        }
+
+        return $comments;
+    }
+
+    /**
+     * Get all unvalidated comments
+     * @return array
+     */
+    public function getUnvalidatedComment():array {
+        $comments = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
+                WHERE validate = 0");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -58,6 +77,21 @@ class CommentManager
         $stmt->bindValue(':validate', 0);
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':cardId', $cardId);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Validate a comment
+     * @param int $id
+     * @return bool
+     */
+    public function validateComment(int $id): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        validate = :validate WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':validate', 1);
 
         return $stmt->execute();
     }

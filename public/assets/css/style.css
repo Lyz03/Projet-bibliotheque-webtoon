@@ -72,6 +72,22 @@ select {
     margin: 0.3rem 1rem;
 }
 
+.list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.list div {
+    margin: 1rem;
+}
+
+.margin {
+    display: inline-block;
+    margin: 1rem;
+}
+
 /*
  * Menu
  */
@@ -325,7 +341,6 @@ div.delete {
     max-width: 95%;
     border-radius: 30px;
     padding-bottom: 2rem;
-    margin-bottom: 1rem;
 }
 
 .border {

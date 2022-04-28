@@ -240,7 +240,7 @@ class CardController extends AbstractController
                 'rating' => $ratingManager->getRatingByCardId($id),
                 'userRating' => $userRating,
                 'userList' => $userList,
-                'comments' => $commentManager->getCommentByCardId($id),
+                'comments' => $commentManager->getCommentByCardIdValidate($id, 1),
             ]);
             exit();
         }
@@ -360,6 +360,10 @@ class CardController extends AbstractController
      *   Comments  *
      ***************/
 
+    /**
+     * Add a comment
+     * @param int $id
+     */
     public function addComment(int $id) {
         if (!isset($_SESSION['user'])) {
             self::default();
@@ -386,6 +390,11 @@ class CardController extends AbstractController
         exit();
     }
 
+    /**
+     * Delete comment
+     * @param int $id
+     * @param int $card
+     */
     public function deleteComment(int $id, int $card) {
         if (!isset($_SESSION['user'])) {
             self::default();
