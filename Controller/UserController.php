@@ -71,6 +71,33 @@ class UserController extends AbstractController
     }
 
     /**
+     * Update a user's role
+     * @param int $id
+     * @param string $role
+     */
+    public function changeRole(int $id, string $role) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if ($_SESSION['user']->getRole() !== 'admin') {
+            self::default();
+            exit();
+        }
+
+        if (!in_array($role, Config::ROLE)) {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+        $userManager->updateRole($id, $role);
+
+        self::userList();
+    }
+
+    /**
      * Delete a User
      * @param int $id
      */

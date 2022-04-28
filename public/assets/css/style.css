@@ -37,6 +37,10 @@ h2 {
     margin: 1rem;
 }
 
+h3 {
+    font-family: 'Nunito', sans-serif;
+}
+
 footer {
     position: absolute;
     width: 100%;
@@ -380,6 +384,7 @@ div.delete {
 .card_info .kind a {
     color: var(--white);
     text-decoration: none;
+    font-family: 'Nunito', sans-serif;
 }
 
 .card_info .kind:hover {
@@ -471,6 +476,7 @@ div.delete {
     color: var(--white);
     text-decoration: none;
     transition: background-color 300ms;
+    font-family: 'Nunito', sans-serif;
 }
 
 .seeAll a:hover {

@@ -7,11 +7,12 @@
             <?= $value->getUsername() ?>
         </a>
         <p><?= $value->getEmail() ?></p>
+        <p><?= $value->getRole() ?></p>
 
         <?php
             if ($value->getRole() === 'user') {
             ?>
-                <a href="/index.php?c=user&a=change-role&id=<?= $value->getId() ?>"&role="admin">
+                <a href="/index.php?c=user&a=change-role&id=<?= $value->getId() ?>&role=admin">
                     Changer le role pour Administrateur
                 </a>
             <?php

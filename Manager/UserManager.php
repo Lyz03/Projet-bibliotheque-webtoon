@@ -94,6 +94,22 @@ class UserManager
     }
 
     /**
+     * Update a user's role
+     * @param int $id
+     * @param string $role
+     * @return bool
+     */
+    public function updateRole(int $id, string $role): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        role = :role WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':role', $role);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Delete a user
      * @param int $id
      * @return bool
