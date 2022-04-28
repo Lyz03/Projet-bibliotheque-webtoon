@@ -32,6 +32,26 @@ class UserController extends AbstractController
     }
 
     /**
+     * Go to a user's profile
+     * @param int $id
+     */
+    public function userProfile(int $id) {
+        $userManager = new UserManager();
+        $listManager = new ListManager();
+
+        $list = [];
+
+        foreach (Config::DEFAULT_LIST as $value) {
+            $list[$value] = $listManager->getTreeCardlist($value, $id);
+        }
+
+        self::render('user/account', $data = [
+            'user' => $userManager->getUserById($id),
+            'list' => $list,
+        ]);
+    }
+
+    /**
      * Delete a User
      * @param int $id
      */

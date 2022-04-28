@@ -35,35 +35,41 @@ use App\Config;
 
         </div>
 
-        <div class="card_com">
-
-            <div>
-                <a class="delete" href="/index.php?c=user&a=delete-user&id=<?= $_SESSION['user']->getId() ?>">Supprimer le compte</a>
-            </div>
-
-            <div>
-                <a href="">Modifier vos informations personnelles</a>
-            </div>
-
-            <div>
-                <a href="/index.php?c=connection&a=log-out">Déconnexion</a>
-            </div>
-
-
-            <?php
-                if ($_SESSION['user']->getRole() === 'admin') {
-                ?>
-                    <div>
-                        <a href="/index.php?c=card&a=update-page&id">Créer une fiche</a>
-                    </div>
-
-                    <div>
-                        <a href="/index.php?c=user&a=comment-list">Voir les commentaires des utilisateurs</a>
-                    </div>
-                <?php
-                }
+        <?php
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->getId() === $data['user']->getId()) {
             ?>
-        </div>
+                <div class="links">
+                    <div>
+                        <a href="/index.php?c=connection&a=log-out">Déconnexion</a>
+                    </div>
+
+                    <div>
+                        <a href="">Modifier vos informations personnelles</a>
+                    </div>
+
+                    <?php
+                    if ($_SESSION['user']->getRole() === 'admin') {
+                        ?>
+                        <div>
+                            <a href="/index.php?c=card&a=update-page&id">Créer une fiche</a>
+                        </div>
+
+                        <div>
+                            <a href="/index.php?c=user&a=comment-list">Voir les commentaires des utilisateurs</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <div>
+                        <a class="delete" href="/index.php?c=user&a=delete-user&id=<?= $_SESSION['user']->getId() ?>">Supprimer le compte</a>
+                    </div>
+                </div>
+            <?php
+            }
+        }
+        ?>
     </div>
 
 </section>

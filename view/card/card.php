@@ -174,7 +174,9 @@ $userList = $data['userList'];
             if ($_SESSION['user']->getId() === $value->getUser()->getId()) {
             ?>
                 <div>
-                    <span><?= $value->getUser()->getUsername() ?></span>
+                     <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
+                        <?= $value->getUser()->getUsername() ?>
+                     </a>
                     <p><?= html_entity_decode($value->getContent()) ?></p>
                     <a class="delete" href="/index.php?c=card&a=delete-comment&id=<?= $value->getId() ?>&card=<?= $card->getId() ?>">supprimer</a>
                 </div>
@@ -182,7 +184,9 @@ $userList = $data['userList'];
             } else {
             ?>
                 <div>
-                    <span><?= $value->getUser()->getUsername() ?></span>
+                     <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
+                        <?= $value->getUser()->getUsername() ?>
+                     </a>
                     <p><?= html_entity_decode($value->getContent()) ?></p>
                 </div>
             <?php
@@ -239,7 +243,9 @@ $userList = $data['userList'];
         foreach ($data['comments'] as $value) {
             ?>
             <div>
-                <span><?= $value->getUser()->getUsername() ?></span>
+                <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
+                    <?= $value->getUser()->getUsername() ?>
+                </a>
                 <p><?= html_entity_decode($value->getContent()) ?></p>
             </div>
             <?php

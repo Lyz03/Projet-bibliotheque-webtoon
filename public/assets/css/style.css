@@ -51,6 +51,11 @@ select {
     border: 2px solid var(--mainColor2);
 }
 
+a {
+    color: #7e6cd9;
+    font-family: monospace;
+}
+
 .center {
     text-align: center;
 }
@@ -438,6 +443,11 @@ div.delete {
     resize: none;
 }
 
+.username {
+    color: var(--black);
+    text-decoration: none;
+}
+
 /*
  * See All
  */
@@ -539,8 +549,7 @@ span.createAccount:hover {
     flex-wrap: wrap;
 }
 
-.library, .card_com{
-    border: 1px solid gray;
+.library, .links{
     margin: 1rem;
     padding: 0.5rem;
     max-width: 90%;
@@ -550,13 +559,29 @@ span.createAccount:hover {
     width: 50rem;
 }
 
-.card_com {
+.library a {
+    color: var(--mainColor2);
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.links {
     width: 30rem;
+    max-width: 90%;
 }
 
 /*
  * RESPONSIVE
  */
+
+/*
+ * Account
+ */
+@media screen and (max-width: 1320px) {
+    .library {
+        order: 1;
+    }
+}
 
 /*
  * Menu
