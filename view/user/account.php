@@ -58,6 +58,10 @@ use App\Config;
                         <div>
                             <a href="/index.php?c=user&a=comment-list">Voir les commentaires des utilisateurs</a>
                         </div>
+
+                        <div>
+                            <a href="/index.php?c=user&a=user-list">Liste des utilisateurs</a>
+                        </div>
                         <?php
                     }
                     ?>

@@ -77,6 +77,23 @@ class UserManager
     }
 
     /**
+     * Return all users
+     * @return array
+     */
+    public function getAllUser(): array {
+        $user = [];
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE);
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $user[] = self::createUser($value);
+            }
+        }
+
+        return $user;
+    }
+
+    /**
      * Delete a user
      * @param int $id
      * @return bool

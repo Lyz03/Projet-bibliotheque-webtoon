@@ -52,6 +52,25 @@ class UserController extends AbstractController
     }
 
     /**
+     * Go to user list
+     */
+    public function userList() {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if ($_SESSION['user']->getRole() !== 'admin') {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+
+        self::render('list/userList', $data = ['users' => $userManager->getAllUser()]);
+    }
+
+    /**
      * Delete a User
      * @param int $id
      */
@@ -61,10 +80,15 @@ class UserController extends AbstractController
             exit();
         }
 
+        if ($_SESSION['user']->getRole() !== 'admin' && $_SESSION['user']->getId() !== $id) {
+            self::default();
+            exit();
+        }
+
         $userManager = new UserManager();
         $var = $userManager->deleteUser($id);
 
-        if ($var) {
+        if ($var && $_SESSION['user']->getId() === $id) {
             ConnectionController::logOut();
             exit();
         }
