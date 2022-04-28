@@ -39,7 +39,7 @@ class CardController extends AbstractController
                 case 'popular':
                     $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false));
                     foreach ($array as $value) {
-                        if (strpos($value->getType(), $type) !== false) {
+                        if (strpos($value->getType(), Config::CARD_TYPE[$type]) !== false) {
                             $cards[] = $value;
                         }
                     }
