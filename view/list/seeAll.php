@@ -7,15 +7,18 @@
         </select>
     </div>
     <div class="seeAll center">
-        <a href="">Fantastique</a>
-        <a href="">Comédie</a>
-        <a href="">Action</a>
-        <a href="">Tranche de vie</a>
-        <a href="">Romance</a>
-        <a href="">Super Hero</a>
-        <a href="">Sport</a>
-        <a href="">SF</a>
-        <a href="">Horreur</a>
+
+        <a href="/index.php?c=card">Tout</a>
+        <?php
+
+        use App\Config;
+
+        foreach (Config::CARD_TYPE as $key => $value) {
+            ?>
+            <a href="/index.php?c=card&a=kind&type=<?= $key ?>"><?= $value ?></a>
+            <?php
+        }
+        ?>
     </div>
 </section>
 

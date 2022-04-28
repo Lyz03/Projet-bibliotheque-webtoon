@@ -5,7 +5,10 @@
 
     <div class="card_container">
     <?php
-        foreach ($data['popular'] as $value) {
+
+    use App\Config;
+
+    foreach ($data['popular'] as $value) {
             ?>
             <div class="card" style="background-image: url('/assets/images/<?= $value->getImage() ?>')">
                 <a class="link" href="/index.php?c=card&a=card-page&id=<?= $value->getId() ?>">
@@ -46,15 +49,13 @@
 
     <div class="center">
         <div class="seeAll center">
-            <a href="">Fantastique</a>
-            <a href="">Comédie</a>
-            <a href="">Action</a>
-            <a href="">Tranche de vie</a>
-            <a href="">Romance</a>
-            <a href="">Super Hero</a>
-            <a href="">Sport</a>
-            <a href="">SF</a>
-            <a href="">Horreur</a>
+        <?php
+            foreach (Config::CARD_TYPE as $key => $value) {
+            ?>
+                <a href="/index.php?c=card&a=kind&type=<?= $key ?>"><?= $value ?></a>
+            <?php
+            }
+        ?>
         </div>
     </div>
 </section>

@@ -12,9 +12,19 @@ class CardController extends AbstractController
 {
     public function default()
     {
-        $carManager = new CardManager();
+        $cardManager = new CardManager();
 
-        self::render('list/seeAll', $data = ['cards' => $carManager->getAllCards()]);
+        self::render('list/seeAll', $data = ['cards' => $cardManager->getAllCards()]);
+    }
+
+    /**
+     * Get cards by type
+     * @param int $type
+     */
+    public function kind(int $type) {
+        $cardManager = new CardManager();
+
+        self::render('list/seeAll', $data = ['cards' => $cardManager->getCardByType(Config::CARD_TYPE[$type])]);
     }
 
     /**
