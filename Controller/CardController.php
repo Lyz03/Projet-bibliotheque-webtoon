@@ -301,6 +301,11 @@ class CardController extends AbstractController
         self::default();
     }
 
+    /**
+     * Show a user's list
+     * @param int $name
+     * @param int $id
+     */
     public function cardList(int $name, int $id) {
         if (isset($_SESSION['user'])) {
 
