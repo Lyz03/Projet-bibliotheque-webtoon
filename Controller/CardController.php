@@ -301,11 +301,11 @@ class CardController extends AbstractController
         self::default();
     }
 
-    public function cardList(int $name) {
+    public function cardList(int $name, int $id) {
         if (isset($_SESSION['user'])) {
 
             $listManager = new ListManager();
-            $array = $listManager->getCardFromList(Config::DEFAULT_LIST[$name], $_SESSION['user']->getId());
+            $array = $listManager->getCardFromList(Config::DEFAULT_LIST[$name], $id);
             $cards = [];
 
             foreach ($array as $value) {

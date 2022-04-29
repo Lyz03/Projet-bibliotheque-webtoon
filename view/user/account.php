@@ -28,7 +28,11 @@ use App\Config;
             <?php
                 foreach ($data['list'] as $key => $value) {
                 ?>
-                    <h3><a href="/index.php?c=card&a=card-list&name=<?= array_search($key, Config::DEFAULT_LIST) ?>"><?= $key ?></a></h3>
+                    <h3>
+                        <a href="/index.php?c=card&a=card-list&name=<?= array_search($key, Config::DEFAULT_LIST) ?>&id=<?= $data['user']->getId() ?>">
+                            <?= $key ?>
+                        </a>
+                    </h3>
 
                     <div class="flex">
                 <?php
