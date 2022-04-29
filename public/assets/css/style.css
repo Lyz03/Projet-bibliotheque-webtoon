@@ -15,7 +15,7 @@
 }
 
 body {
-    background: url("/assets/images/background.png") fixed;
+    background: url("/assets/background/background.png") fixed;
     background-size: cover;
     min-height: 100vh;
     padding-bottom: 10rem;
@@ -658,6 +658,11 @@ footer a:hover {
  * Menu
  */
 @media screen and (max-width: 1000px) {
+
+    body {
+        background-image: url("/assets/background/background2.png");
+    }
+
     nav div {
         display: none;
     }
@@ -692,20 +697,20 @@ footer a:hover {
     }
 }
 
-@media screen and (max-width: 530px) {
-    input[type=search] {
-        margin-left: 0.8rem;
-        width: 14rem;
-    }
+/*
+ * Card (full page)
+ */
+@media screen and (max-width: 890px) {
 
-    nav div {
-        width: 7rem;
+    .card_info {
         font-size: 1rem;
     }
 
-    .filter {
-        flex-direction: column;
+    .card_info .card {
+        width: 10rem;
+        height: 15rem;
     }
+
 }
 
 /*
@@ -737,25 +742,32 @@ footer a:hover {
 }
 
 /*
- * Card (full page)
+ * Menu
  */
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 530px) {
+    input[type=search] {
+        margin-left: 0.8rem;
+        width: 14rem;
+    }
 
-    .card_info {
+    nav div {
+        width: 7rem;
         font-size: 1rem;
     }
 
-    .card_info .card {
-        width: 10rem;
-        height: 15rem;
+    .filter {
+        flex-direction: column;
     }
-
 }
 
 /*
  * Connection / Register | Card (full page)
  */
 @media screen and (max-width: 500px) {
+
+    body {
+        background-image: url("/assets/background/background3.png");
+    }
 
     form input:not([type=submit], [type=search]) {
         width: 80%;

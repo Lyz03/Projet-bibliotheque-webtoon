@@ -19,7 +19,7 @@
         }
     ?>
 
-        <a class="show_more" href="?p=seeAll">Voir plus ></a>
+        <a class="show_more" href="/index.php?c=card&a=sort-cards&sort=popular&type=0">Voir plus ></a>
     </div>
 </section>
 
@@ -40,7 +40,7 @@
         }
     ?>
 
-        <a class="show_more" href=?p=seeAll">Voir plus ></a>
+        <a class="show_more" href="/index.php?c=card&a=sort-cards&sort=recent&type=0">Voir plus ></a>
     </div>
 </section>
 
