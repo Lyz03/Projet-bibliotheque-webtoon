@@ -173,7 +173,8 @@ $userList = $data['userList'];
         foreach ($data['comments'] as $value) {
             if ($_SESSION['user']->getId() === $value->getUser()->getId()) {
             ?>
-                <div>
+                <div class="comment">
+                    <div class="avatar" style="background-image: url('/assets/avatar/<?= $value->getUser()->getAvatar() ?>')"></div>
                      <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
                         <?= $value->getUser()->getUsername() ?>
                      </a>
@@ -183,7 +184,8 @@ $userList = $data['userList'];
             <?php
             } else {
             ?>
-                <div>
+                <div class="comment">
+                    <div class="avatar" style="background-image: url('/assets/avatar/<?= $value->getUser()->getAvatar() ?>')"></div>
                      <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
                         <?= $value->getUser()->getUsername() ?>
                      </a>
@@ -242,7 +244,8 @@ $userList = $data['userList'];
     <?php
         foreach ($data['comments'] as $value) {
             ?>
-            <div>
+            <div class="comment margin">
+                <div class="avatar" style="background-image: url('/assets/avatar/<?= $value->getUser()->getAvatar() ?>')"></div>
                 <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getUser()->getId() ?>">
                     <?= $value->getUser()->getUsername() ?>
                 </a>
