@@ -45,10 +45,10 @@ class CardController extends AbstractController
                     }
                     break;
                 case 'recent':
-                    $cards = $cardManager->getCardByType($type);
+                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type]);
                     break;
                 case 'old':
-                    $cards = $cardManager->getCardByType($type, 'ASC');
+                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], 'ASC');
                     break;
             }
         } else {
