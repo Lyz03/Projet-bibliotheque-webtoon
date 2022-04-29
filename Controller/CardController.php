@@ -429,6 +429,7 @@ class CardController extends AbstractController
         }
 
         $content = $_POST['content'];
+        $content = filter_var($content, FILTER_SANITIZE_STRING);
 
         if (strlen($content) < 5 || strlen($content) > 250) {
             $_SESSION['error'] = ['Votre commentaire doit faire entre 5 et 250 caractères'];

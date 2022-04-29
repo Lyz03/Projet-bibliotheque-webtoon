@@ -58,12 +58,13 @@ if (connection) {
     })
 }
 
-// Js verification for connection form
+// Js verification for register form
 const register = document.querySelector('#register');
 
-if (connection) {
+if (register) {
     const email = document.querySelector('#register input[type=email]');
-    const password = document.querySelector('#register input[type=password]');
+    const password = document.querySelectorAll('#register input[type=password]');
+    const username = document.querySelector('#register input[type=text]');
     const submit = document.querySelector('#register input[type=submit]');
 
     submit.addEventListener('click', e => {
@@ -74,13 +75,29 @@ if (connection) {
             email.setCustomValidity('');
 
         // username
-
+        if (username.value.length < 3 || username.value.length > 45)
+            username.setCustomValidity("Le pseudo doit faire entre 3 et 45 caractères");
+        else
+            username.setCustomValidity('');
 
         // password (!!! 2 champ!!!!)
-        if (password.value.length < 8 || password.value.length > 255)
-            password.setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
+        if (password[0].value.length < 8 || password[0].value.length > 255)
+            password[0].setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
         else
-            password.setCustomValidity('');
+            password[0].setCustomValidity('');
+
+        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/);
+        if (regExp.test(password[0].value))
+            password[0].setCustomValidity('');
+        else
+            password[0].setCustomValidity("Le mot de passe n'est pas assez sécurisé");
+
+        if (password[0].value !== password[1].value)
+            password[0].setCustomValidity('Les mots de passe ne corespondent pas');
+        else
+            password[0].setCustomValidity('');
+
+
     })
 }
 
