@@ -17,4 +17,8 @@ class HomeController extends AbstractController
             'recent' => $cardManager->getLastCards(),
         ]);
     }
+
+    public function confidentiality() {
+        self::render('user/confidentiality');
+    }
 }

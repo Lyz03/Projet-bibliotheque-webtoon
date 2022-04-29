@@ -19,7 +19,7 @@ body {
     background-size: cover;
     min-height: 100vh;
     padding-bottom: 10rem;
-    padding-top: 5rem;
+    padding-top: 3rem;
     position: relative;
     font-family: 'Nunito', sans-serif;
     color: var(--black);
@@ -39,14 +39,6 @@ h2 {
 
 h3 {
     font-family: 'Nunito', sans-serif;
-}
-
-footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    padding: 1rem;
-    background-color: var(--mainColor2);
 }
 
 select {
@@ -580,6 +572,11 @@ span.createAccount:hover {
 .links {
     width: 30rem;
     max-width: 90%;
+    font-size: 0.9rem;
+}
+
+.links div {
+    margin-top: 0.5rem;
 }
 
 .avatar {
@@ -610,6 +607,38 @@ span.createAccount:hover {
 #change_avatar > a.avatar {
     display: inline-block;
     margin: 1rem;
+}
+
+/*
+ * Footer
+ */
+
+footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: var(--mainColor2);
+    color: var(--white);
+}
+
+footer a {
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+}
+
+footer a:hover {
+    text-decoration: underline var(--white);
+}
+
+/*
+ * Confidentiality
+ */
+#confidentiality {
+    padding: 1rem;
 }
 
 /*
@@ -654,6 +683,7 @@ span.createAccount:hover {
 
     nav ul {
         flex-direction: column;
+        align-items: center;
     }
 
     nav a {

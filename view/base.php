@@ -62,6 +62,12 @@ if (isset($_SESSION['error'])) {
 </main>
 
 <footer>
+    <div>
+        <p>Nous contacter : </p>
+        <address><a href="mailto:lizoe.lallier@net-c.com">lizoe.lallier@net-c.com</a></address>
+    </div>
+
+    <a href="/index.php?c=home&a=confidentiality">Politique de confidentialité</a>
 </footer>
 <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>
 <script src="/assets/js/app.js"></script>
