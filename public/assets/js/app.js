@@ -96,7 +96,47 @@ if (register) {
             password[0].setCustomValidity('Les mots de passe ne corespondent pas');
         else
             password[0].setCustomValidity('');
+    })
+}
 
+// JS verification for update card
+const updateCard = document.querySelector('.update_card');
+if (updateCard) {
+    const submit = document.querySelector('.update_card');
+    const text = document.querySelectorAll('.update_card input[type=text]');
+    const dateStart = document.querySelector('.update_card input[type=number]');
+    const synopsis = document.querySelector('.update_card textarea');
+
+    submit.addEventListener('click', function (e) {
+        // title
+        if (text[0].value.length < 1 || text[0].value.length > 90)
+            text[0].setCustomValidity('Le titre doit faire entre 1 et 90 caractères');
+        else
+            text[0].setCustomValidity('');
+
+        // script
+        if (text[1].value.length < 1 || text[1].value.length > 60)
+            text[1].setCustomValidity('Le champ scénariste doit faire entre 1 et 60 caractères');
+        else
+            text[1].setCustomValidity('');
+
+        // drawing
+        if (text[2].value.length < 1 || text[2].value.length > 60)
+            text[2].setCustomValidity('Le champ dessinateur doit faire entre 1 et 60 caractères');
+        else
+            text[2].setCustomValidity('');
+
+        // date start
+        if (parseInt(dateStart.value) < 1900 || parseInt(dateStart.value) > 2800)
+            dateStart.setCustomValidity("L'année de début de publication doit être comprise entre 1900 et 2800");
+        else
+            dateStart.setCustomValidity('');
+
+        // synopsis
+        if (synopsis.value.length < 10 || synopsis.value.length > 600)
+            synopsis.setCustomValidity('Le synopsis doit faire entre 10 et 600 caractères');
+        else
+            synopsis.setCustomValidity('');
 
     })
 }

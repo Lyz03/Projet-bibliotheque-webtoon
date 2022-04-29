@@ -10,7 +10,7 @@ use App\Config;
         if ($card !== null) {
             $types = explode(',', $card->getType());
         ?>
-            <form action="/index.php?c=card&a=update-card&id=<?= $card->getId() ?>" method="post" id="update_card" enctype="multipart/form-data">
+            <form class="update_card" action="/index.php?c=card&a=update-card&id=<?= $card->getId() ?>" method="post" id="update_card" enctype="multipart/form-data">
                 <input type="text" name="title" placeholder="Titre" value="<?= $card->getTitle() ?>" minlength="1" maxlength="90" required>
                 <input type="text" name="script" placeholder="Scénario" value="<?= $card->getScript() ?>" minlength="1" maxlength="60" required>
                 <input type="text" name="drawing" placeholder="Dessin" value="<?= $card->getDrawing() ?>" minlength="1" maxlength="60" required>
@@ -86,7 +86,7 @@ use App\Config;
         }
     } else {
     ?>
-        <form action="/index.php?c=card&a=update-card&id" method="post" id="update_card" enctype="multipart/form-data">
+        <form class="update_card" action="/index.php?c=card&a=update-card&id" method="post" id="update_card" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="Titre" minlength="1" maxlength="90" required>
             <input type="text" name="script" placeholder="Scénario" minlength="1" maxlength="60" required>
             <input type="text" name="drawing" placeholder="Dessin" minlength="1" maxlength="60" required>
