@@ -34,4 +34,13 @@ class Config
         'Horreur',
     ];
 
+    public const AVATAR = [
+        'asmo.png',
+        'asmo2.png',
+        'bitna.png',
+        'lyz.png',
+        'lyz2.png',
+        'lyz3.png',
+        'tenes.png',
+    ];
 }

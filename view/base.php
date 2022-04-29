@@ -41,13 +41,18 @@ if (isset($_SESSION['error'])) {
     <div class="menu">
         <ul>
             <li><a href="/index.php?c=home">Home</a></li>
-            <?php
-            if (isset($_SESSION['user'])) {?>
-                <a href="/index.php?c=user">Compte</a>
-            <?php } else{?>
-                <a href="/index.php?c=connection"">Connexion</a>
-            <?php }?>
             <li><a href="/index.php?c=card">Explorer</a></li>
+            <?php
+            if (isset($_SESSION['user'])) {
+                ?>
+                <li><a href="/index.php?c=user" class="avatar" style="background-image: url('/assets/avatar/<?= $_SESSION['user']->getAvatar() ?>')"></a></li>
+                <?php
+            } else{
+                ?>
+                <li><a href="/index.php?c=connection">Connexion</a></li>
+                <?php
+            }
+            ?>
         </ul>
     </div>
 </nav>

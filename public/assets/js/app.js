@@ -119,3 +119,14 @@ if (sortBySelect) {
 
     })
 }
+
+// Display change_avatar
+const avatar = document.querySelector('.account .avatar');
+
+if (avatar) {
+    const changeAvatar = document.querySelector('#change_avatar');
+
+    avatar.addEventListener('click', function () {
+        changeAvatar.style.display = 'flex';
+    })
+}

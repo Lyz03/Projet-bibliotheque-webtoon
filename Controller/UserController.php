@@ -97,6 +97,24 @@ class UserController extends AbstractController
         self::userList();
     }
 
+    public function changeAvatar(int $avatar) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if (!key_exists($avatar, Config::AVATAR)) {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+        $userManager->updateAvatar($_SESSION['user']->getId(), Config::AVATAR[$avatar]);
+
+        $_SESSION['user']->setAvatar(Config::AVATAR[$avatar]);
+        self::default();
+    }
+
     /**
      * Delete a User
      * @param int $id

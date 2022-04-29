@@ -146,6 +146,12 @@ nav a:hover {
     border-bottom: 3px solid var(--white);
 }
 
+nav a.avatar {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.2rem;
+}
+
 input[type=search] {
     margin-left: 2rem;
     width: 18rem;
@@ -574,6 +580,36 @@ span.createAccount:hover {
 .links {
     width: 30rem;
     max-width: 90%;
+}
+
+.avatar {
+    background-size: cover;
+    margin: auto;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 15rem;
+}
+
+.avatar:hover {
+    cursor: pointer;
+}
+
+#change_avatar {
+    border: 1px solid gray;
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: var(--white);
+    width: 90%;
+}
+
+#change_avatar > a.avatar {
+    display: inline-block;
+    margin: 1rem;
 }
 
 /*

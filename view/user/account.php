@@ -4,6 +4,20 @@ use App\Config;
 
 ?>
 <section class="account">
+    <div class="avatar" style="background-image: url('/assets/avatar/<?= $data['user']->getAvatar() ?>')"></div>
+
+    <div id="change_avatar">
+    <?php
+        foreach (Config::AVATAR as $key => $value) {
+        ?>
+            <a href="/index.php?c=user&a=change-avatar&avatar=<?= $key ?>" class="avatar"
+               style="background-image: url('/assets/avatar/<?= $value ?>')" title="<?= $value ?>">
+            </a>
+        <?php
+        }
+    ?>
+    </div>
+
     <h1><?= $data['user']->getUsername() ?></h1>
 
     <div class="flex">

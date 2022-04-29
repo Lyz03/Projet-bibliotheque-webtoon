@@ -22,6 +22,7 @@ class UserManager
             ->setUsername($data['username'])
             ->setPassword($data['password'])
             ->setRole($data['role'])
+            ->setAvatar($data['avatar'])
             ;
     }
 
@@ -105,6 +106,22 @@ class UserManager
 
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':role', $role);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Update the avatar
+     * @param int $id
+     * @param string $avatar
+     * @return bool
+     */
+    public function updateAvatar(int $id, string $avatar): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        avatar = :avatar WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':avatar', $avatar);
 
         return $stmt->execute();
     }

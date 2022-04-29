@@ -9,6 +9,7 @@ class User
     private string $email;
     private string $password;
     private string $role;
+    private string $avatar;
 
     /**
      * @return int
@@ -99,4 +100,23 @@ class User
         $this->role = $role;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
 }
