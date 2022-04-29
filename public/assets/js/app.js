@@ -35,6 +35,55 @@ if (createAccountSpan) {
     })
 }
 
+// Js verification for connection form
+const connection = document.querySelector('#connection');
+
+if (connection) {
+    const email = document.querySelector('#connection input[type=email]');
+    const password = document.querySelector('#connection input[type=password]');
+    const submit = document.querySelector('#connection input[type=submit]');
+
+    submit.addEventListener('click', e => {
+        // email
+        if (email.value.length < 8 || email.value.length > 100)
+            email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
+        else
+            email.setCustomValidity('');
+
+        // password
+        if (password.value.length < 8 || password.value.length > 255)
+            password.setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
+        else
+            password.setCustomValidity('');
+    })
+}
+
+// Js verification for connection form
+const register = document.querySelector('#register');
+
+if (connection) {
+    const email = document.querySelector('#register input[type=email]');
+    const password = document.querySelector('#register input[type=password]');
+    const submit = document.querySelector('#register input[type=submit]');
+
+    submit.addEventListener('click', e => {
+        // email
+        if (email.value.length < 8 || email.value.length > 100)
+            email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
+        else
+            email.setCustomValidity('');
+
+        // username
+
+
+        // password (!!! 2 champ!!!!)
+        if (password.value.length < 8 || password.value.length > 255)
+            password.setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
+        else
+            password.setCustomValidity('');
+    })
+}
+
 // close php error message
 const close = document.querySelector('#close');
 const errorDiv = document.querySelector('div.error');
