@@ -49,8 +49,8 @@ $userList = $data['userList'];
                         </p>
                         <p>synopsis :
                             <span>
-                           <?= $card->getSynopsis() ?>
-                        </span>
+                                <?= html_entity_decode($card->getSynopsis()) ?>
+                            </span>
                         </p>
                         <?php
                         if ($data['rating'] === null) {
@@ -221,8 +221,8 @@ $userList = $data['userList'];
                         </p>
                         <p>synopsis :
                             <span>
-                           <?= $card->getSynopsis() ?>
-                        </span>
+                                <?= html_entity_decode($card->getSynopsis() )?>
+                            </span>
                         </p>
                         <?php
                         if ($data['rating'] === null) {

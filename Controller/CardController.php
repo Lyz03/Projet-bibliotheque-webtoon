@@ -145,7 +145,6 @@ class CardController extends AbstractController
         $dateStart = filter_var($_POST['dateStart'], FILTER_SANITIZE_NUMBER_INT);
         $dateEnd = filter_var($_POST['dateEnd'], FILTER_SANITIZE_NUMBER_INT);
         $synopsis = filter_var($_POST['synopsis'], FILTER_SANITIZE_STRING);
-        $image = '';
 
         $error = [];
 
@@ -233,13 +232,13 @@ class CardController extends AbstractController
         $type = implode(',', $type);
 
         if ($id === 0) {
-            $newId = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
+            $newId = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
 
             self::cardPage($newId);
             exit();
         }
 
-        $cardManager->updateCard($id, $title, $script, $drawing, $dateStart, $dateEnd, $synopsis, $type, $image);
+        $cardManager->updateCard($id, $title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
         self::cardPage($id);
         exit();
     }
