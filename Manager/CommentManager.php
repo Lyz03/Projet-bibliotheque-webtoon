@@ -8,7 +8,7 @@ use App\Entity\Comment;
 class CommentManager
 {
 
-    public const TABLE = 'comment';
+    public const TABLE = 'wtl_comment';
 
     /**
      * Create a new Comment Entity
@@ -113,5 +113,4 @@ class CommentManager
 
         return $stmt->execute();
     }
-
 }

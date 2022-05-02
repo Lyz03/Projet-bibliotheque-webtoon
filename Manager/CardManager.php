@@ -8,7 +8,7 @@ use App\Entity\Card;
 class CardManager
 {
 
-    public const TABLE = 'card';
+    public const TABLE = 'wtl_card';
 
     /**
      * Create a new Card Entity

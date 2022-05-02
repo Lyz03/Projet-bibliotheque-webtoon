@@ -8,7 +8,7 @@ use App\Entity\Rating;
 class RatingManager
 {
 
-    public const TABLE = 'rating';
+    public const TABLE = 'wtl_rating';
 
     /**
      * Create a new Rating Entity

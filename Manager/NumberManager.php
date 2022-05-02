@@ -9,7 +9,7 @@ use DateTime;
 class NumberManager
 {
 
-    public const TABLE = 'number';
+    public const TABLE = 'wtl_number';
 
     /**
      * Create a new Number Entity

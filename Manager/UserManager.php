@@ -7,7 +7,7 @@ use App\Entity\User;
 
 class UserManager
 {
-    public const TABLE = 'user';
+    public const TABLE = 'wtl_user';
 
     /**
      * Create a new User Entity

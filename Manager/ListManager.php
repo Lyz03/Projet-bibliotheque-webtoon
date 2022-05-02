@@ -8,7 +8,7 @@ use App\Entity\WebtoonList;
 class ListManager
 {
 
-    public const TABLE = 'list';
+    public const TABLE = 'wtl_list';
 
     /**
      * Create a WebtoonList Entity
