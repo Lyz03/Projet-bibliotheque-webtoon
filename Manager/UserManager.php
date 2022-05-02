@@ -127,6 +127,22 @@ class UserManager
     }
 
     /**
+     * Update the username
+     * @param int $id
+     * @param string $username
+     * @return bool
+     */
+    public function updateUsername(int $id, string $username): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        username = :username WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':username', $username);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Delete a user
      * @param int $id
      * @return bool

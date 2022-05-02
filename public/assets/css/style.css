@@ -222,7 +222,6 @@ div.delete {
     left: 0;
     padding: 1rem;
     width: 100%;
-    background-color: #d35447;
     color: white;
 }
 
@@ -502,7 +501,7 @@ form h2 {
     color: var(--mainColor);
 }
 
-#register, #connection {
+#register, #connection, .update_user {
     padding: 1rem;
     border: 2px solid var(--mainColor2);
     border-radius: 15px;

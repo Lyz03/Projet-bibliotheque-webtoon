@@ -16,8 +16,11 @@
 </div>
 <?php
 if (isset($_SESSION['error'])) {
+
+    $color = $_SESSION['color'] ?? '#d35447';
+
     ?>
-    <div class="error">
+    <div class="error" style="background-color: <?= $color ?>">
         <?php
         foreach ($_SESSION['error'] as $value) {
             ?>
@@ -29,6 +32,7 @@ if (isset($_SESSION['error'])) {
     </div>
     <?php
     unset($_SESSION['error']);
+    unset($_SESSION['color']);
 }
 ?>
 <nav>

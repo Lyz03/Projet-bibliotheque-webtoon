@@ -12,8 +12,11 @@ class Config
     public const PASSWORD = "";
     public const CHARSET = "utf8";
 
-    // send mail
+    // Send mail
     public const APP_URL = 'http://localhost:8000';
+
+    // Success message color
+    public const SUCCESS = '#92b985';
 
     // Role
     public const ROLE = [

@@ -38,10 +38,13 @@ class ConnectionController extends AbstractController
         }
 
         $userManager = new UserManager();
+        $numberManager = new NumberManager();
         $user = $userManager->userExist($mail);
 
         if ($user === null) {
             $error[] = "L'utilisateur demandé n'est pas enregistré";
+        } elseif ($numberManager->getNumberByUserId($user->getId()) !== null) {
+            $error[] = "Veuillez vérifier votre compte avant de vous connecter";
         }
 
         if (count($error) > 0) {
@@ -245,10 +248,50 @@ class ConnectionController extends AbstractController
         if ((int) $_POST['code'] === $numberManager->getNumberByUserId($id)->getNumber() ) {
             $numberManager->deleteNumber($id);
             $_SESSION['error'] = ['Compte validé, vous pouvez désormais vous connecter'];
+            $_SESSION['color'] = Config::SUCCESS;
             self::default();
         } else {
             $_SESSION['error'] = ['Code non valide'];
             self::codePage($id);
         }
+    }
+
+    /**
+     * Go to changeUserInfo page
+     * @param int $id
+     */
+    public function changeInfo(int $id) {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        self::render('connection-inscription/changeUserInfo', $data = ['user' => $_SESSION['user']]);
+    }
+
+    public function changeUsername() {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if (!isset($_POST['submit']) || !isset($_POST['username']) || !isset($_POST['id'])) {
+            self::default();
+            exit();
+        }
+
+        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+        $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+
+        $userManager = new UserManager();
+        if ($userManager->updateUsername($id, $username)) {
+            $_SESSION['user']->setUsername($username);
+            $_SESSION['error'] = ["Nom d'utilisateur changé avec succès"];
+            $_SESSION['color'] = Config::SUCCESS;
+        } else {
+            $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+        }
+
+        (new UserController())->default();
     }
 }
