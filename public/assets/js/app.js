@@ -80,9 +80,9 @@ if (register) {
         else
             username.setCustomValidity('');
 
-        // password (!!! 2 champ!!!!)
+        // password
         if (password[0].value.length < 8 || password[0].value.length > 255)
-            password[0].setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
+            password[0].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
         else
             password[0].setCustomValidity('');
 
@@ -96,6 +96,60 @@ if (register) {
             password[0].setCustomValidity('Les mots de passe ne corespondent pas');
         else
             password[0].setCustomValidity('');
+    })
+}
+
+// JS verification for change user info
+const updateUser = document.querySelector('.update_user');
+
+if (updateUser) {
+    const email = document.querySelector('.update_user input[type=email]');
+    const username = document.querySelector('.update_user input[type=text]');
+    const password = document.querySelectorAll('.update_user input[type=password]');
+    const usernameSubmit = document.querySelector('#username_submit');
+    const emailSubmit = document.querySelector('#email_submit');
+    const passwordSubmit = document.querySelector('#password_submit');
+
+    // username
+    usernameSubmit.addEventListener('click', e => {
+
+        if (username.value.length < 3 || username.value.length > 45)
+            username.setCustomValidity("Le pseudo doit faire entre 3 et 45 caractères");
+        else
+            username.setCustomValidity('');
+    });
+
+    // email
+    emailSubmit.addEventListener('click', e => {
+
+        if (email.value.length < 8 || email.value.length > 100)
+            email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
+        else
+            email.setCustomValidity('');
+    })
+
+    // password
+    passwordSubmit.addEventListener('click', e => {
+
+        if (password[1].value.length < 8 || password[1].value.length > 255) {
+            password[1].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
+            password[1].reportValidity();
+        } else {
+            password[1].setCustomValidity('');
+        }
+
+        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/);
+        if (regExp.test(password[1].value)) {
+            password[1].setCustomValidity('');
+        } else {
+            password[1].setCustomValidity("Le mot de passe n'est pas assez sécurisé");
+            password[1].reportValidity();
+        }
+
+        if (password[1].value !== password[2].value)
+            password[1].setCustomValidity('Les mots de passe ne corespondent pas');
+        else
+            password[1].setCustomValidity('');
     })
 }
 
