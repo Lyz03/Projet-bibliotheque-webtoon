@@ -245,6 +245,27 @@ div.delete {
 }
 
 /*
+ * Home
+ */
+blockquote {
+    font-family: monospace;
+    font-size: 1rem;
+    color: #8d8d8d;
+    width: 60rem;
+    max-width: 90%;
+    margin: 1rem auto 3rem auto;
+}
+
+blockquote div {
+    margin-bottom: 1rem;
+}
+
+blockquote h3 {
+    font-family: monospace;
+    color: #6f6f6f;
+}
+
+/*
  * Update card
  */
 
