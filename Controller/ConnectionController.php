@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Manager\NumberManager;
 use App\Manager\UserManager;
 use DateTime;
+use Exception;
 
 class ConnectionController extends AbstractController
 {
@@ -418,5 +419,94 @@ class ConnectionController extends AbstractController
         }
 
         (new UserController())->default();
+    }
+
+    /**
+     * Go to forgottenPassword page
+     */
+    public function forgottenPassword() {
+        self::render('connection-inscription/forgottenPassword');
+        exit();
+    }
+
+    public function newPassword() {
+        if (isset($_SESSION['user'])) {
+            self::render('home');
+            exit();
+        }
+
+        if (!isset($_POST['submit']) || !isset($_POST['email'])) {
+            self::default();
+            exit();
+        }
+
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $userManager = new UserManager();
+
+        if (empty($email)) {
+            $_SESSION['error'] = ["Veuillez renseigner une adresse email valide"];
+            self::forgottenPassword();
+            exit();
+        }
+
+        $user = $userManager->userExist($email);
+
+        if ($user === null) {
+            $_SESSION['error'] = ["L'adresse email n'existe pas"];
+            self::forgottenPassword();
+            exit();
+        }
+
+        $newPassword = self::randomChars(5);
+
+
+        if (self::forgottenPasswordMail($email, $newPassword)) {
+            $userManager->updatePassword($user->getId(), password_hash($newPassword, PASSWORD_BCRYPT));
+            $_SESSION['error'] = ["Un email vous à été envoyer avec un nouveau mot de passe"];
+            $_SESSION['color'] = Config::SUCCESS;
+        } else {
+            $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+        }
+
+        self::default();
+    }
+
+    /**
+     * Send a mail with a new password
+     * @param string $mail
+     * @param string $password
+     * @return bool
+     */
+    public function forgottenPasswordMail(string $mail, string $password): bool {
+        $message = "
+        <html lang='fr'>
+            <head>
+                <title>Changement de mot de passe email</title>
+            </head>
+            <body>
+                <span>Bonjour,</span>
+                <p>
+                    Une demande de nouveau mot de passea été effectué sur votre compte Webtoon Library (annlio.com)
+                    <br>
+                    Votre nouveau mot de passe : $password
+                    <br>
+                    Pensez à le changer rapidement.
+                    <br>
+                    s'il ne s'agit pas de vous, contactez rapidement le support : lizoe.lallier@net-c.com
+                </p>
+            </body>
+        </html>
+        ";
+
+        $to = $mail;
+        $subject = "Changement d'adresse email";
+        $headers = [
+            'Reply-to' => "no-reply@email.com",
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'Mime-version' => '1.0',
+            'Content-type' => 'text/html; charset=utf-8'
+        ];
+
+        return mail($to, $subject, $message, $headers, "-f no-reply@email.com");
     }
 }

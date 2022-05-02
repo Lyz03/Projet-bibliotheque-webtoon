@@ -6,6 +6,10 @@
     <input type="password" placeholder="Votre mot de passe" name="password" minlength="8" maxlength="255" required>
 
     <input type="submit" name="submit">
+
+    <div class="center">
+        <a href="/index.php?c=connection&a=forgotten-password">Mot de passe oublié</a>
+    </div>
 </form>
 
 <p class="createAccount">Vous ne  possédez pas de compte créer en un <span class="createAccount">ici</span></p>
