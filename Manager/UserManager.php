@@ -143,6 +143,38 @@ class UserManager
     }
 
     /**
+     * Update the email
+     * @param int $id
+     * @param string $email
+     * @return bool
+     */
+    public function updateEmail(int $id, string $email): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        email = :email WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':email', $email);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Update the password
+     * @param int $id
+     * @param string $password
+     * @return bool
+     */
+    public function updatePassword(int $id, string $password): bool {
+        $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
+        password = :password WHERE id = :id");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':password', $password);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Delete a user
      * @param int $id
      * @return bool

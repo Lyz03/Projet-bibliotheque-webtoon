@@ -158,7 +158,7 @@ class ConnectionController extends AbstractController
             }
 
         } else {
-            $_SESSION['error'] = ["Les mot de passe ne corespondent pas"];
+            $_SESSION['error'] = ["Les mots de passe ne corespondent pas"];
             self::default();
             exit();
         }
@@ -258,9 +258,8 @@ class ConnectionController extends AbstractController
 
     /**
      * Go to changeUserInfo page
-     * @param int $id
      */
-    public function changeInfo(int $id) {
+    public function changeInfo() {
         if (!isset($_SESSION['user'])) {
             self::default();
             exit();
@@ -269,18 +268,21 @@ class ConnectionController extends AbstractController
         self::render('connection-inscription/changeUserInfo', $data = ['user' => $_SESSION['user']]);
     }
 
+    /**
+     * Change the Username
+     */
     public function changeUsername() {
         if (!isset($_SESSION['user'])) {
             self::default();
             exit();
         }
 
-        if (!isset($_POST['submit']) || !isset($_POST['username']) || !isset($_POST['id'])) {
+        if (!isset($_POST['submit']) || !isset($_POST['username'])) {
             self::default();
             exit();
         }
 
-        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+        $id = $_SESSION['user']->getId();
         $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
 
         $userManager = new UserManager();
@@ -290,6 +292,129 @@ class ConnectionController extends AbstractController
             $_SESSION['color'] = Config::SUCCESS;
         } else {
             $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+        }
+
+        (new UserController())->default();
+    }
+
+    /**
+     * Change the email
+     */
+    public function changeEmail() {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if (!isset($_POST['submit']) || !isset($_POST['email'])) {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+        $id = $_SESSION['user']->getId();
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+
+        if ($userManager->userExist($email) !== null) {
+            $_SESSION['error'] = ["Adresse email déjà utilisée"];
+            self::changeInfo($_SESSION['user']->getId());
+            exit();
+        }
+
+        if ($userManager->updateEmail($id, $email)) {
+            self::changeEmailMail($_SESSION['user']->getEmail(), $email);
+            $_SESSION['user']->setEmail($email);
+            $_SESSION['error'] = ["Adresse email changée avec succès"];
+            $_SESSION['color'] = Config::SUCCESS;
+        } else {
+            $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+        }
+
+        (new UserController())->default();
+    }
+
+    /**
+     * Send mail when the email address is changed
+     * @param string $oldMail
+     * @param string $newMail
+     * @return bool
+     */
+    public function changeEmailMail(string $oldMail, string $newMail): bool {
+        $message = "
+        <html lang='fr'>
+            <head>
+                <title>Changement d'adresse email</title>
+            </head>
+            <body>
+                <span>Bonjour,</span>
+                <p>
+                    Un changement d'adresse email a été effectué sur votre compte Webtoon Library (annlio.com)
+                    <br>
+                    il s'agit désormais de : $newMail
+                    <br>
+                    s'il ne s'agit pas de vous, contactez rapidement le support : lizoe.lallier@net-c.com
+                </p>
+            </body>
+        </html>
+        ";
+
+        $to = $oldMail;
+        $subject = "Changement d'adresse email";
+        $headers = [
+            'Reply-to' => "no-reply@email.com",
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'Mime-version' => '1.0',
+            'Content-type' => 'text/html; charset=utf-8'
+        ];
+
+        return mail($to, $subject, $message, $headers, "-f no-reply@email.com");
+    }
+
+    /**
+     * Change the password
+     */
+    public function changePassword() {
+        if (!isset($_SESSION['user'])) {
+            self::default();
+            exit();
+        }
+
+        if (!isset($_POST['submit']) || !isset($_POST['password']) || !isset($_POST['oldPassword']) || !isset($_POST['passwordRepeat'])) {
+            self::default();
+            exit();
+        }
+
+        $userManager = new UserManager();
+        $password = $_POST['password'];
+        $id = $_SESSION['user']->getId();
+
+        if (!password_verify($_POST['oldPassword'], $userManager->getUserById($id)->getPassword())) {
+            $_SESSION['error'] = ["Votre mot de passe est incorrecte"];
+            self::changeInfo();
+            exit();
+        }
+
+        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+            $_SESSION['error'] = ["Le mot de passe n'est pas assez sécurisé"];
+            self::changeInfo();
+            exit();
+        }
+
+        if ($password === $_POST['passwordRepeat']) {
+
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+            if ($userManager->updatePassword($id, $password)) {
+                $_SESSION['error'] = ["Mot de passe changé avec succès"];
+                $_SESSION['color'] = Config::SUCCESS;
+            } else {
+                $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+            }
+
+        } else {
+            $_SESSION['error'] = ["Les mots de passe ne corespondent pas"];
+            self::changeInfo();
+            exit();
         }
 
         (new UserController())->default();

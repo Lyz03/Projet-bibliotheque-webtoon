@@ -63,7 +63,7 @@ use App\Config;
                     </div>
 
                     <div>
-                        <a href="/index.php?c=connection&a=change-info&id=<?= $_SESSION['user']->getId() ?>">Modifier vos informations personnelles</a>
+                        <a href="/index.php?c=connection&a=change-info">Modifier vos informations personnelles</a>
                     </div>
 
                     <?php
