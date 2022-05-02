@@ -6,7 +6,7 @@
 
 <form class="update_user" action="/index.php?c=connection&a=change-email" method="post">
     <h2>Email</h2>
-    <input type="email" name="email" value="<?= $data['user']->getEmail() ?>" required minlength="8" maxlength="100" required>
+    <input type="email" name="email" value="<?= $data['user']->getEmail() ?>" minlength="8" maxlength="100" required>
     <input type="submit" name="submit">
 </form>
 
