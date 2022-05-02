@@ -10,6 +10,11 @@ class CommentManager
 
     public const TABLE = 'comment';
 
+    /**
+     * Create a new Comment Entity
+     * @param array $data
+     * @return Comment
+     */
     private static function createComment(array $data): Comment
     {
         $userManager = new UserManager();
