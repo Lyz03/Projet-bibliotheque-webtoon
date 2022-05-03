@@ -207,7 +207,11 @@ $userList = $data['userList'];
                         <?php
                         foreach (explode(',', $card->getType()) as $value) {
                             ?>
-                            <span class="kind"><a href=""><?= $value ?></a></span>
+                            <span class="kind">
+                                <a href="/index.php?c=card&a=kind&type=<?= array_keys(Config::CARD_TYPE, $value)[0] ?>">
+                                    <?= $value ?>
+                                </a>
+                            </span>
                             <?php
                         }
                         ?>
