@@ -38,9 +38,9 @@ if (isset($_SESSION['error'])) {
 <nav>
     <div class="container">
         <input type="search" placeholder="Entrez votre recherche" name="search">
-        <div id="suggestions"></div>
         <button type="submit" name="searchSubmit"><i class="fas fa-search"></i></button>
     </div>
+    <div id="suggestions"></div>
 
     <span class="menu"><i class="fas fa-bars"></i></span>
     <div class="menu">

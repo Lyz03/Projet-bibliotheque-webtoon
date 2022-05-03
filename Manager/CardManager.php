@@ -105,7 +105,20 @@ class CardManager
     }
 
 
-    //public function getCardNameThatContain($search)
+    public static function getCardNameThatContain(string $search) {
+        $cards = [];
+        $query = DB::getConnection()->query("SELECT title, id FROM " . self::TABLE . " WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 5");
+
+        if ($data = $query->fetchAll()) {
+            foreach ($data as $value) {
+                $cards[] = (new Card)
+                    ->setId($value['id'])
+                    ->setTitle($value['title'])
+                ;
+            }
+        }
+        return $cards;
+    }
 
     /**
      * Insert a new Card

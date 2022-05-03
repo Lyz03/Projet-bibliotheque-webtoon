@@ -95,7 +95,7 @@ nav {
     justify-content: space-between;
 }
 
-nav div {
+nav div.menu {
     display: inline-block;
     width: 50%;
 }
@@ -106,7 +106,7 @@ nav ul {
     justify-content: space-around;
 }
 
-nav form {
+nav .container {
     display: inline-block;
     padding: 0.4rem 0;
 }
@@ -158,6 +158,28 @@ nav button {
 nav button:hover {
     color: rgb(52, 52, 52);
     cursor: pointer;
+}
+
+#suggestions {
+    display: block;
+    position: absolute;
+    left: 1rem;
+    top: 2.55rem;
+    background-color: var(--white);
+    width: 20rem;
+    max-width: 90%;
+}
+
+#suggestions > a {
+    color: var(--black);
+    border: none;
+    transition: background-color 500ms;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+#suggestions > a:hover {
+    background-color: #dcdcdc;
 }
 
 /*
@@ -710,7 +732,7 @@ footer a:hover {
         background-image: url("/assets/background/background2.png");
     }
 
-    nav div {
+    nav div.menu {
         display: none;
     }
 
@@ -724,7 +746,7 @@ footer a:hover {
         font-size: 1.3rem;
     }
 
-    nav div {
+    nav div.menu {
         position: absolute;
         z-index: 10;
         right: 0;
@@ -797,13 +819,17 @@ footer a:hover {
         width: 14rem;
     }
 
-    nav div {
+    nav div.menu {
         width: 7rem;
         font-size: 1rem;
     }
 
     .filter {
         flex-direction: column;
+    }
+
+    nav button {
+        width: 1rem;
     }
 }
 

@@ -7,24 +7,23 @@ use App\Manager\CardManager;
 class ApiController extends AbstractController
 {
 
-
     public function default()
     {
-        $cardManager = new CardManager();
         $array = [];
 
         $payload = file_get_contents('php://input');
         $payload = json_decode($payload);
 
-        foreach($cardManager->getAllCards() as $value) {
+        foreach(CardManager::getCardNameThatContain($payload->search) as $value) {
             $array[] = [
                 'id' => $value->getId(),
+                'title' => $value->getTitle(),
             ];
         }
 
-        http_response_code(200);
-        echo json_encode($payload->search);
+        echo json_encode($array);
 
+        http_response_code(200);
         exit;
     }
 }

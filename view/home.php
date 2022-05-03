@@ -5,7 +5,7 @@
 
     <blockquote>
         <div>
-            <h3>webtoon</h3>
+            <h3>Webtoon</h3>
             <p>
                 Un webtoon (웹툰) est un manhwa publié en ligne.
                 Plus largement, le terme s'applique à des bandes dessinées en ligne,
@@ -14,7 +14,7 @@
         </div>
 
         <div>
-            <h3>manhwa</h3>
+            <h3>Manhwa</h3>
             <p>
                 Manhwa (만화) est le nom donné à la bande dessinée en Corée,
                 ce terme est aussi utilisé à l'étranger pour désigner la bande dessinée coréenne.
