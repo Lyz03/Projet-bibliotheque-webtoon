@@ -73,17 +73,6 @@ a {
     margin: 0.3rem 1rem;
 }
 
-.list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.list div {
-    margin: 1rem;
-}
-
 .margin {
     display: inline-block;
     margin: 1rem;
@@ -265,10 +254,38 @@ blockquote h3 {
     color: #6f6f6f;
 }
 
+blockquote span {
+    float: right;
+}
+
+blockquote a {
+    color: #8d8d8d;
+}
+
+/*
+ * List
+ */
+.list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.list > div {
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--black);
+}
+
+.list .avatar {
+    width: 3rem;
+    height: 3rem;
+}
+
 /*
  * Update card
  */
-
 #update_card {
     display: flex;
     justify-content: center;

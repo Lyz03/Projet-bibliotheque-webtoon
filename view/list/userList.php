@@ -3,6 +3,7 @@
     foreach ($data['users'] as $value) {
     ?>
     <div>
+        <div class="avatar" style="background-image: url('assets/avatar/<?= $value->getAvatar() ?>')"></div>
         <a class="username" href="/index.php?c=user&a=user-profile&id=<?= $value->getId() ?>">
             <?= $value->getUsername() ?>
         </a>

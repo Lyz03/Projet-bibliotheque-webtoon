@@ -74,7 +74,7 @@ use App\Config;
                         </div>
 
                         <div>
-                            <a href="/index.php?c=user&a=comment-list">Voir les commentaires des utilisateurs</a>
+                            <a href="/index.php?c=user&a=comment-list">Commentaires des utilisateurs en attente</a>
                         </div>
 
                         <div>
