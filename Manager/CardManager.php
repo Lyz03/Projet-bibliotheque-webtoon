@@ -104,6 +104,9 @@ class CardManager
         return $cards;
     }
 
+
+    //public function getCardNameThatContain($search)
+
     /**
      * Insert a new Card
      * @param string $title

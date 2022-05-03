@@ -36,10 +36,11 @@ if (isset($_SESSION['error'])) {
 }
 ?>
 <nav>
-    <form action="">
+    <div class="container">
         <input type="search" placeholder="Entrez votre recherche" name="search">
+        <div id="suggestions"></div>
         <button type="submit" name="searchSubmit"><i class="fas fa-search"></i></button>
-    </form>
+    </div>
 
     <span class="menu"><i class="fas fa-bars"></i></span>
     <div class="menu">
@@ -75,5 +76,6 @@ if (isset($_SESSION['error'])) {
 </footer>
 <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>
 <script src="/assets/js/app.js"></script>
+<script src="/assets/js/search.js"></script>
 </body>
 </html>

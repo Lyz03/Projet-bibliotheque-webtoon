@@ -24,3 +24,4 @@ require __DIR__ . "/Controller/HomeController.php";
 require __DIR__ . "/Controller/ConnectionController.php";
 require __DIR__ . "/Controller/CardController.php";
 require __DIR__ . "/Controller/UserController.php";
+require __DIR__ . "/Controller/ApiController.php";
