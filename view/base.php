@@ -37,10 +37,11 @@ if (isset($_SESSION['error'])) {
 ?>
 <nav>
     <div class="container">
-        <form action="">
+        <form action="/index.php?c=card&a=search" method="post">
             <input type="search" placeholder="Entrez votre recherche" name="search">
-            <button type="submit" name="searchSubmit"><i class="fas fa-search"></i></button>
+            <button type="submit" name="submit"><i class="fas fa-search"></i></button>
         </form>
+
 
         <div id="suggestions"></div>
     </div>

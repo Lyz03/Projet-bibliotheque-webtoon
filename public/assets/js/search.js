@@ -5,13 +5,13 @@ if (search) {
 
     search.addEventListener('keyup', function () {
 
-        if (search.value !== '') {
+        if (search.value.trim() !== '') {
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'json';
             xhr.open('POST', '/index.php?c=api');
 
             const json = {
-                search: search.value
+                search: search.value.trim()
             }
 
             xhr.onload = function() {

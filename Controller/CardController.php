@@ -18,6 +18,20 @@ class CardController extends AbstractController
     }
 
     /**
+     * Go to search page
+     */
+    public function search() {
+        if (!isset($_POST['submit']) || !isset($_POST['search']) || empty(trim($_POST['search']))) {
+            var_dump('test');
+            exit();
+        }
+
+        self::render('list/seeAll', $data = [
+            'cards' => (new CardManager())->getCardBySearch(filter_var($_POST['search'], FILTER_SANITIZE_STRING))
+        ]);
+    }
+
+    /**
      * Get cards by type
      * @param int $type
      */
