@@ -20,7 +20,7 @@
                 ce terme est aussi utilisé à l'étranger pour désigner la bande dessinée coréenne.
             </p>
         </div>
-        <span>- <a href="wikipedia.org" target="_blank">wikipedia.org</a></span>
+        <span>- <a href="https://fr.wikipedia.org/wiki/Webtoon" target="_blank">wikipedia.org</a></span>
     </blockquote>
 </section>
 

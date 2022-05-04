@@ -112,7 +112,8 @@ class CardManager
      */
     public static function getCardNameThatContain(string $search): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT title, id FROM " . self::TABLE . " WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 5");
+        $query = DB::getConnection()->query("SELECT title, id FROM " . self::TABLE . " WHERE LOWER(title) 
+        LIKE LOWER('%$search%') ORDER BY id DESC LIMIT 5");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -132,8 +133,8 @@ class CardManager
      */
     public function getCardBySearch(string $search): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE title LIKE '%$search%' 
-        OR script LIKE '%$search%' OR drawing LIKE '%$search%' ORDER BY id DESC");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE LOWER(title) LIKE LOWER('%$search%') 
+        OR LOWER(script) LIKE LOWER('%$search%') OR LOWER(drawing) LIKE LOWER('%$search%') ORDER BY id DESC");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
