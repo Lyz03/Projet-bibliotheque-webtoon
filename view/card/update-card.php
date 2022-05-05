@@ -127,7 +127,7 @@ use App\Config;
                     }
                     ?>
                 </select>
-                <input type="file" accept=".image/jpeg, .jpg, .png" name="image" required>
+                <input type="file" accept=".jpeg, .jpg, .png" name="image" required>
                 <span>Taille maximum : 2Mo</span>
                 <input type="submit" name="submit">
         </form>
