@@ -459,6 +459,8 @@ class CardController extends AbstractController
         $commentManager = new CommentManager();
         $commentManager->addComment(htmlentities($content), $_SESSION['user']->getId(), $id);
 
+        $_SESSION['error'] = ['Votre commentaire est en attente de validation par un administrateur'];
+        $_SESSION['color'] = Config::SUCCESS;
         self::cardPage($id);
         exit();
     }
