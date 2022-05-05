@@ -215,8 +215,11 @@ $userList = $data['userList'];
                             <?php
                         }
                         ?>
-                        <p>scenario : <span><?= $card->getScript() ?></span> dessin :
-                            <span><?= $card->getDrawing() ?></span></p>
+                        <p>
+                            scenario : <span><?= $card->getScript() ?></span>
+                            <br>
+                            dessin : <span><?= $card->getDrawing() ?></span>
+                        </p>
                         <p>de : <span><?= $card->getDateStart() ?></span> à : <?php
                             if ($card->getDateEnd() === 0) {
                                 echo '<span>En cours de publication</span>';

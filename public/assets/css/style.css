@@ -436,6 +436,7 @@ blockquote a {
     background-color: var(--mainColor2);
     border-radius: 15px;
     padding: 0.1rem 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .card_info .kind a {
@@ -661,6 +662,7 @@ span.createAccount:hover {
 }
 
 #change_avatar {
+    z-index: 10;
     border: 1px solid gray;
     position: absolute;
     top: 5rem;
@@ -811,7 +813,7 @@ footer a:hover {
 }
 
 /*
- * Menu
+ * Menu | Card (small) | Account
  */
 @media screen and (max-width: 530px) {
     input[type=search] {
@@ -830,6 +832,15 @@ footer a:hover {
 
     nav button {
         width: 1rem;
+    }
+
+    .card h3 {
+        font-size: 0.8rem;
+    }
+
+    #change_avatar .avatar{
+        width: 5rem;
+        height: 5rem;
     }
 }
 
