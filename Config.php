@@ -33,15 +33,16 @@ class Config
 
     // Card's type name
     public const CARD_TYPE = [
-        'Fantastique',
-        'Comédie',
         'Action',
-        'Tranche de vie',
-        'Romance',
-        'Super Hero',
-        'Sport',
-        'SF',
+        'Aventure',
+        'Comédie',
+        'Fantastique',
         'Horreur',
+        'Mystère',
+        'Romance',
+        'SF',
+        'Thriller',
+        'Tranche de vie',
     ];
 
     // Avatar list
