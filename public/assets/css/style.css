@@ -535,6 +535,7 @@ blockquote a {
     padding: 0.3rem 0.5rem;
     background-color: var(--white);
     border: 2px solid var(--mainColor);
+    color: var(--black);
 }
 
 .seeAll a {
