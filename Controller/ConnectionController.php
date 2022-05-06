@@ -481,12 +481,12 @@ class ConnectionController extends AbstractController
         $message = "
         <html lang='fr'>
             <head>
-                <title>Changement de mot de passe email</title>
+                <title>Changement de mot de passe</title>
             </head>
             <body>
                 <span>Bonjour,</span>
                 <p>
-                    Une demande de nouveau mot de passea été effectué sur votre compte Webtoon Library (annlio.com)
+                    Une demande de nouveau mot de passe a été effectué sur votre compte Webtoon Library (annlio.com)
                     <br>
                     Votre nouveau mot de passe : $password
                     <br>
@@ -499,7 +499,7 @@ class ConnectionController extends AbstractController
         ";
 
         $to = $mail;
-        $subject = "Changement d'adresse email";
+        $subject = "Changement de mot de passe";
         $headers = [
             'Reply-to' => "no-reply@email.com",
             'X-Mailer' => 'PHP/' . phpversion(),
