@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\Card;
 
@@ -69,12 +70,14 @@ class CardManager
 
     /**
      * Return all the Cards
+     * @param int $offset
      * @param string $orderBy
      * @return array
      */
-    public function getAllCards(string $orderBy = 'DESC'): array {
+    public function getAllCards( int $offset = 0, string $orderBy = 'DESC'): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id $orderBy");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id $orderBy 
+                LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -86,14 +89,37 @@ class CardManager
     }
 
     /**
+     * Return the number of cards
+     * @return int
+     */
+    public function getCardNb(): int {
+        $query = DB::getConnection()->query("SELECT COUNT(*) FROM " . self::TABLE);
+
+        return $query->fetch()['COUNT(*)'];
+    }
+
+    /**
+     * Return the number of cards
+     * @param string $type
+     * @return int
+     */
+    public function getCardNbByType(string $type): int {
+        $query = DB::getConnection()->query("SELECT COUNT(*) FROM " . self::TABLE . " WHERE type LIKE '%$type%'");
+
+        return $query->fetch()['COUNT(*)'];
+    }
+
+    /**
      * Get cards by type
      * @param string $type
+     * @param int $offset
      * @param string $orderBy
      * @return array
      */
-    public function getCardByType(string $type, string $orderBy = 'DESC'): array {
+    public function getCardByType(string $type, int $offset = 0, string $orderBy = 'DESC'): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id $orderBy");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id $orderBy
+                LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {

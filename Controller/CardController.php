@@ -14,7 +14,28 @@ class CardController extends AbstractController
     {
         $cardManager = new CardManager();
 
-        self::render('list/seeAll', $data = ['cards' => $cardManager->getAllCards()]);
+        self::render('list/seeAll', $data = [
+            'cards' => $cardManager->getAllCards(),
+            'page' => $cardManager->getCardNb() / Config::CARD_LIMIT,
+        ]);
+    }
+
+    /**
+     * Go to seeAll page following the page number
+     * @param int $page
+     */
+    public function seeAll(int $page) {
+        if ($page === 0 || $page === 1){
+            self::default();
+            exit();
+        }
+
+        $cardManager = new CardManager();
+
+        self::render('list/seeAll', $data = [
+            'cards' => $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT),
+            'page' => $cardManager->getCardNb() / Config::CARD_LIMIT,
+        ]);
     }
 
     /**
@@ -22,7 +43,6 @@ class CardController extends AbstractController
      */
     public function search() {
         if (!isset($_POST['submit']) || !isset($_POST['search']) || empty(trim($_POST['search']))) {
-            var_dump('test');
             exit();
         }
 
@@ -34,11 +54,20 @@ class CardController extends AbstractController
     /**
      * Get cards by type
      * @param int $type
+     * @param int $page
      */
-    public function kind(int $type) {
+    public function kind(int $type, int $page) {
         $cardManager = new CardManager();
 
-        self::render('list/seeAll', $data = ['cards' => $cardManager->getCardByType(Config::CARD_TYPE[$type])]);
+        if ($page === 0) {
+            $page = 1;
+        }
+
+        self::render('list/seeAll', $data = [
+            'cards' => $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT),
+            'page' => $cardManager->getCardNbByType(Config::CARD_TYPE[$type]) / Config::CARD_LIMIT,
+            'type' => $type,
+        ]);
     }
 
     public function sortCards(string $sort, int $type = 0) {

@@ -16,7 +16,7 @@
 
         foreach (Config::CARD_TYPE as $key => $value) {
             ?>
-            <a href="/index.php?c=card&a=kind&type=<?= $key ?>"><?= $value ?></a>
+            <a href="/index.php?c=card&a=kind&type=<?= $key ?>&page"><?= $value ?></a>
             <?php
         }
         ?>
@@ -37,5 +37,23 @@
             <?php
         }
         ?>
+    </div>
+
+    <div class="pages">
+    <?php
+        if (isset($data['type'])) {
+            for ($i = 0; $i < $data['page']; $i++) {
+                ?>
+                <a href="/index.php?c=card&a=kind&type=<?= $data['type'] ?>&page=<?= $i+1 ?>"><?= $i+1 ?></a>
+                <?php
+            }
+        } else {
+            for ($i = 0; $i < $data['page']; $i++) {
+                ?>
+                <a href="/index.php?c=card&a=kind&page=<?= $i+1 ?>"><?= $i+1 ?></a>
+                <?php
+            }
+        }
+    ?>
     </div>
 </section>

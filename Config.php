@@ -12,6 +12,9 @@ class Config
     public const PASSWORD = "";
     public const CHARSET = "utf8";
 
+    // Card nb by page
+    public const CARD_LIMIT = 2;
+
     // Send mail
     public const APP_URL = 'http://localhost:8000';
 
