@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\Rating;
 
@@ -11,34 +12,18 @@ class RatingManager
     public const TABLE = 'wtl_rating';
 
     /**
-     * Create a new Rating Entity
-     * @param array $data
-     * @return Rating
-     */
-    private static function createRating(array $data): Rating
-    {
-        $userManager = new UserManager();
-        $cardManager = new CardManager();
-
-        return (new Rating())
-            ->setId($data['id'])
-            ->setMark($data['mark'])
-            ->setUser($userManager->getUserById($data['user_id']))
-            ->setCard($cardManager->getCardById($data['card_id']))
-            ;
-    }
-
-    /**
-     * Return the 7 most popular Card id
+     * Return the most popular Card id
      * @param bool $seven
+     * @param int $offset
      * @return array
      */
-    public function getRatingForCards(bool $seven = true): array {
+    public function getRatingForCards(bool $seven = true, int $offset = 0): array {
         $db = DB::getConnection();
 
         // get Cards id
         $id = [];
-        $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE);
+        $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE .
+                " LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -100,6 +85,16 @@ class RatingManager
         }
 
         return $review;
+    }
+
+    /**
+     * Count all cards which have rating
+     * @return int
+     */
+    public function getCardRatingNb(): int {
+        $query = DB::getConnection()->query("SELECT DISTINCT card_id FROM " . self::TABLE);
+
+        return count($query->fetchAll());
     }
 
     /**

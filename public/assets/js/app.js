@@ -223,8 +223,6 @@ if (deleteLink) {
         })
     })
 
-
-
     closeDelete.addEventListener('click', function () {
         deleteDiv.style.display = 'none';
     })
@@ -272,9 +270,9 @@ if (sortBySelect) {
         let type = param.get('type');
 
         if (type !== null) {
-            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&type=' + type);
+            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&page=1&type=' + type);
         } else {
-            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&type=0');
+            window.location.replace('/index.php?c=card&a=sort-cards&sort=' + this.value + '&page=1&type=-1');
         }
 
     })

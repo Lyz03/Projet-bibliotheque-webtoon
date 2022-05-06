@@ -47,10 +47,18 @@
                 <a href="/index.php?c=card&a=kind&type=<?= $data['type'] ?>&page=<?= $i+1 ?>"><?= $i+1 ?></a>
                 <?php
             }
+        } elseif (isset($data['sortCard'])) {
+            for ($i = 0; $i < $data['page']; $i++) {
+                ?>
+                <a href="/index.php?c=card&a=sort-cards&sort=<?= $data['sortCard'] ?>&page=<?= $i+1 ?>&type=-1">
+                    <?= $i+1 ?>
+                </a>
+                <?php
+            }
         } else {
             for ($i = 0; $i < $data['page']; $i++) {
                 ?>
-                <a href="/index.php?c=card&a=kind&page=<?= $i+1 ?>"><?= $i+1 ?></a>
+                <a href="/index.php?c=card&a=see-all&page=<?= $i+1 ?>"><?= $i+1 ?></a>
                 <?php
             }
         }

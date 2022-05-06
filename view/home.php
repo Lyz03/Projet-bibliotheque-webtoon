@@ -42,7 +42,7 @@
         }
     ?>
 
-        <a class="show_more" href="/index.php?c=card&a=sort-cards&sort=popular&type=0">Voir plus ></a>
+        <a class="show_more" href="/index.php?c=card&a=sort-cards&page=1&sort=popular&type=-1">Voir plus ></a>
     </div>
 </section>
 

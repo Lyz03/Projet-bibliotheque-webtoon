@@ -70,22 +70,30 @@ class CardController extends AbstractController
         ]);
     }
 
-    public function sortCards(string $sort, int $type = 0) {
+    public function sortCards(string $sort, int $page,  int $type = -1) {
+
+        if ($page === 0) {
+            $page = 1;
+        }
+
         $cardManager = new CardManager();
         $ratingManager = new RatingManager();
 
         $cards = [];
+        $pageNb = 0;
 
-        if ($type !== 0) {
+        if ($type !== -1) {
             $cards = $cardManager->getCardByType($type);
             switch ($sort) {
                 case 'popular':
-                    $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false));
+                    $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false,
+                        ($page - 1) * Config::CARD_LIMIT));
                     foreach ($array as $value) {
                         if (strpos($value->getType(), Config::CARD_TYPE[$type]) !== false) {
                             $cards[] = $value;
                         }
                     }
+                    // page count rating by type
                     break;
                 case 'recent':
                     $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type]);
@@ -94,24 +102,37 @@ class CardController extends AbstractController
                     $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], 'ASC');
                     break;
             }
-        } else {
 
+            self::render('list/seeAll', $data = [
+                'cards' => $cards,
+                'page' => $pageNb / Config::CARD_LIMIT,
+                'sortCard' => $sort,
+                'type' => $type,
+            ]);
+
+        } else {
             switch ($sort) {
                 case 'popular':
-                    $cards = $cardManager->getPopularCards($ratingManager->getRatingForCards(false));
+                    $cards = $cardManager->getPopularCards($ratingManager->getRatingForCards(false,
+                        ($page - 1) * Config::CARD_LIMIT));
+                    $pageNb = $ratingManager->getCardRatingNb();
                     break;
                 case 'recent':
-                    $cards = $cardManager->getAllCards();
+                    $cards = $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT);
+                    $pageNb = $cardManager->getCardNb();
                     break;
                 case 'old':
-                    $cards = $cardManager->getAllCards('ASC');
+                    $cards = $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT,'ASC');
+                    $pageNb = $cardManager->getCardNb();
                     break;
             }
-        }
 
-        self::render('list/seeAll', $data = [
-            'cards' => $cards
-        ]);
+            self::render('list/seeAll', $data = [
+                'cards' => $cards,
+                'page' => $pageNb / Config::CARD_LIMIT,
+                'sortCard' => $sort,
+            ]);
+        }
     }
 
     /**

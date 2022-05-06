@@ -99,7 +99,7 @@ class CardManager
     }
 
     /**
-     * Return the number of cards
+     * Return the number of cards having $type for type
      * @param string $type
      * @return int
      */
