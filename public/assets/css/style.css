@@ -3,9 +3,9 @@
 :root {
     --white: rgb(252, 252, 252);
     --black: rgb(78, 78, 78);
-    --mainColor: rgb(217, 109, 155);
-    --mainColor2: rgb(98, 197, 210);
-    --mainColor3: rgb(188, 141, 239);
+    --mainColor: rgb(198, 83, 132);
+    --mainColor2: rgb(95, 194, 207);
+    --mainColor3: rgb(177, 135, 221);
 }
 
 * {
