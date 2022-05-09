@@ -16,7 +16,7 @@
 
         foreach (Config::CARD_TYPE as $key => $value) {
             ?>
-            <a href="/index.php?c=card&a=kind&type=<?= $key ?>&page"><?= $value ?></a>
+            <a href="/index.php?c=card&a=kind&type=<?= $key ?>&page=1"><?= $value ?></a>
             <?php
         }
         ?>
@@ -41,24 +41,34 @@
 
     <div class="pages">
     <?php
-        if (isset($data['type'])) {
+        if (isset($data['type']) && isset($data['sortCard'])) {
             for ($i = 0; $i < $data['page']; $i++) {
                 ?>
-                <a href="/index.php?c=card&a=kind&type=<?= $data['type'] ?>&page=<?= $i+1 ?>"><?= $i+1 ?></a>
+                <a id="page<?= $i + 1 ?>"
+                   href="/index.php?c=card&a=sort-cards&sort=<?= $data['sortCard'] ?>&page=<?= $i + 1 ?>&type=<?= $data['type'] ?>">
+                    <?= $i + 1 ?></a>
+                <?php
+            }
+        } elseif (isset($data['type'])) {
+            for ($i = 0; $i < $data['page']; $i++) {
+                ?>
+                <a id="page<?= $i + 1 ?>"
+                   href="/index.php?c=card&a=kind&type=<?= $data['type'] ?>&page=<?= $i + 1 ?>"><?= $i + 1 ?></a>
                 <?php
             }
         } elseif (isset($data['sortCard'])) {
             for ($i = 0; $i < $data['page']; $i++) {
                 ?>
-                <a href="/index.php?c=card&a=sort-cards&sort=<?= $data['sortCard'] ?>&page=<?= $i+1 ?>&type=-1">
-                    <?= $i+1 ?>
-                </a>
+                <a id="page<?= $i + 1 ?>"
+                   href="/index.php?c=card&a=sort-cards&sort=<?= $data['sortCard'] ?>&page=<?= $i + 1 ?>&type=-1">
+                    <?= $i + 1 ?></a>
                 <?php
             }
         } else {
             for ($i = 0; $i < $data['page']; $i++) {
                 ?>
-                <a href="/index.php?c=card&a=see-all&page=<?= $i+1 ?>"><?= $i+1 ?></a>
+                <a id="page<?= $i + 1 ?>"
+                   href="/index.php?c=card&a=see-all&page=<?= $i + 1 ?>"><?= $i + 1 ?></a>
                 <?php
             }
         }

@@ -87,19 +87,25 @@ class CardController extends AbstractController
             switch ($sort) {
                 case 'popular':
                     $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false,
-                        ($page - 1) * Config::CARD_LIMIT));
+                        ($page - 1) * Config::CARD_LIMIT, false));
+
                     foreach ($array as $value) {
                         if (strpos($value->getType(), Config::CARD_TYPE[$type]) !== false) {
                             $cards[] = $value;
                         }
                     }
-                    // page count rating by type
+
+                    $cards = array_slice($cards, ($page - 1) * Config::CARD_LIMIT, Config::CARD_LIMIT);
+                    $pageNb = $ratingManager->getRatingNbByType(Config::CARD_TYPE[$type]);
                     break;
                 case 'recent':
-                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type]);
+                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT);
+                    $pageNb = $cardManager->getCardNbByType(Config::CARD_TYPE[$type]);
                     break;
                 case 'old':
-                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], 'ASC');
+                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT,
+                        'ASC');
+                    $pageNb = $cardManager->getCardNbByType(Config::CARD_TYPE[$type]);
                     break;
             }
 

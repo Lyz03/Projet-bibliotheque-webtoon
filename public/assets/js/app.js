@@ -264,9 +264,10 @@ if (webtoonListButton) {
 const sortBySelect = document.querySelector('#sortBy');
 
 if (sortBySelect) {
+    const curentLocation = window.location.search;
+    const param = new URLSearchParams (curentLocation);
+
     sortBySelect.addEventListener("change", function () {
-        let curentLocation = window.location.search;
-        let param = new URLSearchParams (curentLocation);
         let type = param.get('type');
 
         if (type !== null) {
@@ -276,6 +277,13 @@ if (sortBySelect) {
         }
 
     })
+
+    // Change the link color corresponding the page you're on
+    let page = param.get('page');
+    let a = document.getElementById('page' + page);
+    a.style.backgroundColor = "var(--mainColor3)";
+    a.style.color = "var(--white)";
+
 }
 
 // Display change_avatar

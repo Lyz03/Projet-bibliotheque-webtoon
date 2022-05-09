@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\Config;
+use App\Controller\CardController;
 use App\DB;
 use App\Entity\Rating;
 
@@ -15,15 +16,26 @@ class RatingManager
      * Return the most popular Card id
      * @param bool $seven
      * @param int $offset
+     * @param bool $limit
      * @return array
      */
-    public function getRatingForCards(bool $seven = true, int $offset = 0): array {
+    public function getRatingForCards(bool $seven = true, int $offset = 0, bool $limit = true): array {
         $db = DB::getConnection();
 
         // get Cards id
         $id = [];
-        $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE .
-                " LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
+        if ($limit) {
+            if ($seven) {
+                $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE .
+                    " LIMIT 7 OFFSET $offset");
+
+            } else {
+                $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE .
+                    " LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
+            }
+        } else {
+            $query = $db->query("SELECT DISTINCT card_id FROM " . self::TABLE);
+        }
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {
@@ -51,6 +63,7 @@ class RatingManager
 
         return array_keys($review);
     }
+
 
 
     /**
@@ -93,6 +106,18 @@ class RatingManager
      */
     public function getCardRatingNb(): int {
         $query = DB::getConnection()->query("SELECT DISTINCT card_id FROM " . self::TABLE);
+
+        return count($query->fetchAll());
+    }
+
+    /**
+     * Count All card which have a rating and a given type
+     * @param string $type
+     * @return int
+     */
+    public function getRatingNbByType(string $type): int {
+        $query = DB::getConnection()->query("SELECT DISTINCT wtl_rating.card_id FROM wtl_rating
+             INNER JOIN wtl_card ON wtl_rating.card_id = wtl_card.id WHERE wtl_card.type LIKE '%$type%'");
 
         return count($query->fetchAll());
     }

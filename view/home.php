@@ -63,7 +63,7 @@
         }
     ?>
 
-        <a class="show_more" href="/index.php?c=card&a=sort-cards&sort=recent&type=0">Voir plus ></a>
+        <a class="show_more" href="/index.php?c=card&a=see-all&page=1">Voir plus ></a>
     </div>
 </section>
 
@@ -75,7 +75,7 @@
         <?php
             foreach (Config::CARD_TYPE as $key => $value) {
             ?>
-                <a href="/index.php?c=card&a=kind&type=<?= $key ?>"><?= $value ?></a>
+                <a href="/index.php?c=card&a=kind&type=<?= $key ?>&page=1"><?= $value ?></a>
             <?php
             }
         ?>

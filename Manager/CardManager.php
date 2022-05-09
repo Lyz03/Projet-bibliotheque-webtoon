@@ -55,6 +55,7 @@ class CardManager
      */
     public function getPopularCards(array $id): array {
         $cards = [];
+
         foreach ($id as $value) {
             $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE id = " . $value);
 
