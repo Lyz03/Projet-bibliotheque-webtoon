@@ -13,7 +13,7 @@ class Config
     public const CHARSET = "utf8";
 
     // Card nb by page
-    public const CARD_LIMIT = 1;
+    public const CARD_LIMIT = 10;
 
     // Send mail
     public const APP_URL = 'http://localhost:8000';

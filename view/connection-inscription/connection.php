@@ -5,14 +5,14 @@
     <input type="email" placeholder="Votre email" name="email" minlength="8" maxlength="100" required>
     <input type="password" placeholder="Votre mot de passe" name="password" minlength="8" maxlength="255" required>
 
-    <input type="submit" name="submit">
+    <input type="submit" name="submit" value="connexion">
 
     <div class="center">
         <a href="/index.php?c=connection&a=forgotten-password">Mot de passe oublié</a>
     </div>
 </form>
 
-<p class="createAccount">Vous ne  possédez pas de compte créer en un <span class="createAccount">ici</span></p>
+<p class="createAccount">Vous ne  possédez pas de compte, créez en un <span class="createAccount">ici</span></p>
 
 <form id="register" action="/index.php?c=connection&a=register" method="post">
     <h2>Inscription</h2>
@@ -22,5 +22,5 @@
     <input type="password" placeholder="Votre mot de passe" name="password" minlength="8" maxlength="255" required>
     <input type="password" placeholder="Répéter votre mot de passe" name="passwordRepeat" minlength="8" maxlength="255" required>
 
-    <input type="submit" name="submit">
+    <input type="submit" name="submit" value="inscription">
 </form>
