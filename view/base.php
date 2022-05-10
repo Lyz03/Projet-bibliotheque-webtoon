@@ -41,7 +41,7 @@ if (isset($_SESSION['error'])) {
 ?>
 <nav>
     <div class="container">
-        <form action="/index.php?c=card&a=search&page=1" method="get">
+        <form action="/index.php" method="get">
             <input type="hidden" name="c" value="card">
             <input type="hidden" name="a" value="search">
             <input type="hidden" name="page" value="1">
