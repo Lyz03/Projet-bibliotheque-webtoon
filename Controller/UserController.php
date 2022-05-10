@@ -18,7 +18,7 @@ class UserController extends AbstractController
             $list = [];
 
             foreach (Config::DEFAULT_LIST as $value) {
-                $list[$value] = $listManager->getTreeCardlist($value, $_SESSION['user']->getId());
+                $list[$value] = $listManager->getTreeCardList($value, $_SESSION['user']->getId());
             }
 
             self::render('user/account', $data = [

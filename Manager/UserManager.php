@@ -68,9 +68,11 @@ class UserManager
      */
     public function getUserById(int $id): ?User {
         $user = null;
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE id = " . $id);
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE id = :id");
 
-        if ($data = $query->fetch()) {
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute() && $data = $stmt->fetch()) {
             $user = self::createUser($data);
         }
 

@@ -35,10 +35,12 @@ class NumberManager
      */
     public function getNumberByUserId(int $userId): ?Number {
         $number = null;
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE user_id = $userId");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
+                WHERE user_id = :userId");
 
-        if ($data = $query->fetch()) {
+        $stmt->bindParam(':userId', $userId);
+
+        if ($stmt->execute() && $data = $stmt->fetch()) {
             $number = self::createNumber($data);
         }
 

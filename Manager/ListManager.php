@@ -37,10 +37,13 @@ class ListManager
      */
     public function getListByUserCard(int $cardId, int $userId): ?array {
         $list = null;
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE card_id = $cardId AND user_id = $userId");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
+                WHERE card_id = :cardId AND user_id = :userId");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindParam(':cardId', $cardId);
+        $stmt->bindParam(':userId', $userId);
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $list[] = self::createList($value);
             }
@@ -55,12 +58,15 @@ class ListManager
      * @param int $userId
      * @return array
      */
-    public function getTreeCardlist(string $name, int $userId): array {
+    public function getTreeCardList(string $name, int $userId): array {
         $list = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE name = '$name' AND user_id = $userId ORDER BY id DESC LIMIT 3");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
+                WHERE name = :name AND user_id = :userId ORDER BY id DESC LIMIT 3");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':userId', $userId);
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $list[] = self::createList($value);
             }
@@ -77,10 +83,13 @@ class ListManager
      */
     public function getCardFromList(string $name,int $userId): array {
         $list = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE name = '$name' AND user_id = $userId ORDER BY id DESC");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
+                WHERE name = :name AND user_id = :userId ORDER BY id DESC");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':userId', $userId);
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $list[] = self::createList($value);
             }

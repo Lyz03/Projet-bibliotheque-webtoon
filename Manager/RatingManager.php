@@ -73,9 +73,11 @@ class RatingManager
      */
     public function getRatingByCardId(int $id): ?float {
         $review = null;
-        $query = DB::getConnection()->query("SELECT AVG(mark) FROM " . self::TABLE . " WHERE card_id = $id");
+        $stmt = DB::getConnection()->prepare("SELECT AVG(mark) FROM " . self::TABLE . " WHERE card_id = :cardId");
 
-        if ($data = $query->fetch()) {
+        $stmt->bindParam(':cardId', $id);
+
+        if ($stmt->execute() && $data = $stmt->fetch()) {
             $review = $data['AVG(mark)'];
         }
 
@@ -85,15 +87,18 @@ class RatingManager
     /**
      * Return the mark for a card from a certain user
      * @param int $cardId
-     * @param int $UserId
+     * @param int $userId
      * @return int|null
      */
-    public function getRatingByUserCard(int $cardId, int $UserId): ?int {
+    public function getRatingByUserCard(int $cardId, int $userId): ?int {
         $review = null;
-        $query = DB::getConnection()->query("SELECT mark FROM " . self::TABLE . " 
-                WHERE card_id = $cardId AND user_id = $UserId");
+        $stmt = DB::getConnection()->prepare("SELECT mark FROM " . self::TABLE . " 
+                WHERE card_id = :cardId AND user_id = :userId");
 
-        if ($data = $query->fetch()) {
+        $stmt->bindParam('cardId', $cardId);
+        $stmt->bindParam('userId', $userId);
+
+        if ($stmt->execute() && $data = $stmt->fetch()) {
             $review = $data['mark'];
         }
 
@@ -116,10 +121,16 @@ class RatingManager
      * @return int
      */
     public function getRatingNbByType(string $type): int {
-        $query = DB::getConnection()->query("SELECT DISTINCT wtl_rating.card_id FROM wtl_rating
-             INNER JOIN wtl_card ON wtl_rating.card_id = wtl_card.id WHERE wtl_card.type LIKE '%$type%'");
+        $stmt = DB::getConnection()->prepare("SELECT DISTINCT wtl_rating.card_id FROM wtl_rating
+             INNER JOIN wtl_card ON wtl_rating.card_id = wtl_card.id WHERE wtl_card.type LIKE :type");
 
-        return count($query->fetchAll());
+        $stmt->bindValue(':type', '%' . $type . '%');
+
+        if ($stmt->execute()) {
+            return count($stmt->fetchAll());
+        }
+
+        return 0;
     }
 
     /**

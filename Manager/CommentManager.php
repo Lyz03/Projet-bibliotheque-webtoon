@@ -37,10 +37,13 @@ class CommentManager
      */
     public function getCommentByCardIdValidate(int $cardId, int $validate): array {
         $comments = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
-                WHERE card_id = $cardId AND validate = $validate ORDER BY id DESC");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
+                WHERE card_id = :cardId AND validate = :validate ORDER BY id DESC");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindParam(':cardId', $cardId);
+        $stmt->bindParam(':validate', $validate);
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $comments[] = self::createComment($value);
             }
@@ -70,11 +73,11 @@ class CommentManager
     /**
      * Insert a new comment
      * @param string $content
-     * @param $userId
-     * @param $cardId
+     * @param int $userId
+     * @param int $cardId
      * @return bool
      */
-    public function addComment(string $content, $userId, $cardId): bool {
+    public function addComment(string $content, int $userId, int $cardId): bool {
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (content, validate, user_id, card_id)
             VALUES (:content, :validate, :userId, :cardId)");
 
