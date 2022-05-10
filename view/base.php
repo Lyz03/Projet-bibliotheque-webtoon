@@ -41,9 +41,12 @@ if (isset($_SESSION['error'])) {
 ?>
 <nav>
     <div class="container">
-        <form action="/index.php?c=card&a=search" method="post">
+        <form action="/index.php?c=card&a=search&page=1" method="get">
+            <input type="hidden" name="c" value="card">
+            <input type="hidden" name="a" value="search">
+            <input type="hidden" name="page" value="1">
             <input type="search" placeholder="Entrez votre recherche" name="search">
-            <button type="submit" name="submit"><i class="fas fa-search"></i></button>
+            <button type="submit"><i class="fas fa-search"></i></button>
         </form>
 
 

@@ -41,13 +41,24 @@ class CardController extends AbstractController
     /**
      * Go to search page
      */
-    public function search() {
-        if (!isset($_POST['submit']) || !isset($_POST['search']) || empty(trim($_POST['search']))) {
+    public function search(int $page, string $search) {
+        if (!isset($search) || empty(trim($search))) {
+            $this->default();
             exit();
         }
 
+        if ($page === 0) {
+            $page = 1;
+        }
+
+        $cardManager = new CardManager();
+        $searchContent = filter_var($search, FILTER_SANITIZE_STRING);
+        $searchContent = implode(' ', explode('+', $searchContent));
+
         self::render('list/seeAll', $data = [
-            'cards' => (new CardManager())->getCardBySearch(filter_var($_POST['search'], FILTER_SANITIZE_STRING))
+            'cards' => $cardManager->getCardBySearch($searchContent, ($page - 1) * Config::CARD_LIMIT),
+            'page' => $cardManager->getSearchCardNb($searchContent) / Config::CARD_LIMIT,
+            'search' => $searchContent
         ]);
     }
 
@@ -57,6 +68,12 @@ class CardController extends AbstractController
      * @param int $page
      */
     public function kind(int $type, int $page) {
+        // if the type don't exist
+        if (!isset(Config::CARD_TYPE[$type])) {
+            $this->default();
+            exit();
+        }
+
         $cardManager = new CardManager();
 
         if ($page === 0) {
@@ -71,6 +88,11 @@ class CardController extends AbstractController
     }
 
     public function sortCards(string $sort, int $page,  int $type = -1) {
+        // if the type don't exist
+        if (!isset(Config::CARD_TYPE[$type])) {
+            $this->default();
+            exit();
+        }
 
         if ($page === 0) {
             $page = 1;

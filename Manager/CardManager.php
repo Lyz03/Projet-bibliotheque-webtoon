@@ -139,10 +139,12 @@ class CardManager
      */
     public static function getCardNameThatContain(string $search): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT title, id FROM " . self::TABLE . " WHERE LOWER(title) 
-        LIKE LOWER('%$search%') ORDER BY id DESC LIMIT 5");
+        $stmt = DB::getConnection()->prepare("SELECT title, id FROM " . self::TABLE . " WHERE LOWER(title) 
+        LIKE LOWER(:search) ORDER BY id DESC LIMIT 5");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindValue(':search', '%' . $search . '%');
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $cards[] = (new Card)
                     ->setId($value['id'])
@@ -156,20 +158,41 @@ class CardManager
     /**
      * Get cards by title, script or drawing like search
      * @param string $search
+     * @param int $offset
      * @return array
      */
-    public function getCardBySearch(string $search): array {
+    public function getCardBySearch(string $search, int $offset = 0): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE LOWER(title) LIKE LOWER('%$search%') 
-        OR LOWER(script) LIKE LOWER('%$search%') OR LOWER(drawing) LIKE LOWER('%$search%') ORDER BY id DESC");
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE LOWER(title) LIKE LOWER(:search) 
+        OR LOWER(script) LIKE LOWER(:search) OR LOWER(drawing) LIKE LOWER(:search) ORDER BY id DESC 
+        LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
 
-        if ($data = $query->fetchAll()) {
+        $stmt->bindValue(':search', '%' . $search . '%');
+
+        if ($stmt->execute() && $data = $stmt->fetchAll()) {
             foreach ($data as $value) {
                 $cards[] = self::createCard($value)
                 ;
             }
         }
         return $cards;
+    }
+
+    /**
+     * Count the card that have been searched
+     * @param string $search
+     * @return int
+     */
+    public function getSearchCardNb(string $search): int {
+        $stmt = DB::getConnection()->prepare("SELECT COUNT(*) FROM " . self::TABLE . " WHERE LOWER(title) 
+            LIKE LOWER(:search) OR LOWER(script) LIKE LOWER(:search) OR LOWER(drawing) LIKE LOWER(:search) 
+            ORDER BY id DESC");
+
+        $stmt->bindValue(':search', '%' . $search . '%');
+
+        $stmt->execute();
+
+        return $stmt->fetch()['COUNT(*)'];
     }
 
     /**
@@ -255,9 +278,11 @@ class CardManager
      */
     public function getCardById(int $id): ?Card {
         $card = null;
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE id = " . $id);
+        $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE id = :id");
 
-        if ($data = $query->fetch()) {
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute() && $data = $stmt->fetch()) {
             $card = self::createCard($data);
         }
 

@@ -64,6 +64,14 @@
                     <?= $i + 1 ?></a>
                 <?php
             }
+        } elseif (isset($data['search'])) {
+            for ($i = 0; $i < $data['page']; $i++) {
+                ?>
+                <a id="page<?= $i + 1 ?>"
+                   href="/index.php?c=card&a=search&search=<?= $data['search'] ?>&page=<?= $i + 1 ?>">
+                    <?= $i + 1 ?></a>
+                <?php
+            }
         } else {
             for ($i = 0; $i < $data['page']; $i++) {
                 ?>
