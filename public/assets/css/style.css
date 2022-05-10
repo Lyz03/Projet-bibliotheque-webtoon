@@ -258,6 +258,16 @@ div.delete {
 /*
  * Home
  */
+.logo {
+   display: flex;
+   align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    width: 15rem;
+}
+
 blockquote {
     font-family: monospace;
     font-size: 1rem;

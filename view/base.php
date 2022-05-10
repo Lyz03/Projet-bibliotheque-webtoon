@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="/assets/avatar/bitna.ico">
-    <link rel="apple-touch-icon" href="/assets/avatar/bitna.ico">
+    <link rel="shortcut icon" href="/assets/logo/logo.ico">
+    <link rel="apple-touch-icon" href="/assets/logo/logo.ico">
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>AnnLio | Webtoon Library</title>

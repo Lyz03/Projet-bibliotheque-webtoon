@@ -1,4 +1,8 @@
-<h1>Annlio : Webtoon Library</h1>
+<div class="logo">
+    <img src="/assets/logo/logo.png" alt="Annlio">
+    <h1>: Webtoon Library</h1>
+</div>
+
 
 <section>
     <h2>Définition</h2>
