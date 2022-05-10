@@ -89,7 +89,7 @@ class CardController extends AbstractController
 
     public function sortCards(string $sort, int $page,  int $type = -1) {
         // if the type don't exist
-        if (!isset(Config::CARD_TYPE[$type])) {
+        if ($type !== -1 && !isset(Config::CARD_TYPE[$type])) {
             $this->default();
             exit();
         }
