@@ -287,6 +287,14 @@ class CardController extends AbstractController
             if((int)$_FILES['image']['size'] <= (2 * 1024 * 1024)) {
                 $tmp_name = $_FILES['image']['tmp_name'];
                 $extension = pathinfo($_FILES['image']['name'])['extension'];
+                $allowed = ['jpeg', 'jpg', 'png'];
+
+                if (!in_array($extension, $allowed)) {
+                    $_SESSION['error'] = ["Le format de l'image n'est pas autorisé"];
+                    self::updatePage($id);
+                    exit();
+                }
+
                 $name = self::randomChars();
                 move_uploaded_file($tmp_name, 'assets/images/' . $name . '.' . $extension);
                 $image = $name . '.' . $extension;
