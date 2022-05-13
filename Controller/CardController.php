@@ -10,13 +10,10 @@ use App\Manager\RatingManager;
 
 class CardController extends AbstractController
 {
-    public function default()
-    {
-        $cardManager = new CardManager();
-
+    public function default() {
         self::render('list/seeAll', $data = [
-            'cards' => $cardManager->getAllCards(),
-            'page' => $cardManager->getCardNb() / Config::CARD_LIMIT,
+            'cards' => CardManager::getAllCards(),
+            'page' => CardManager::getCardNb() / Config::CARD_LIMIT,
         ]);
     }
 
@@ -30,11 +27,10 @@ class CardController extends AbstractController
             exit();
         }
 
-        $cardManager = new CardManager();
 
         self::render('list/seeAll', $data = [
-            'cards' => $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT),
-            'page' => $cardManager->getCardNb() / Config::CARD_LIMIT,
+            'cards' => CardManager::getAllCards(($page - 1) * Config::CARD_LIMIT),
+            'page' => CardManager::getCardNb() / Config::CARD_LIMIT,
         ]);
     }
 
@@ -51,13 +47,12 @@ class CardController extends AbstractController
             $page = 1;
         }
 
-        $cardManager = new CardManager();
         $searchContent = filter_var($search, FILTER_SANITIZE_STRING);
         $searchContent = implode(' ', explode('+', $searchContent));
 
         self::render('list/seeAll', $data = [
-            'cards' => $cardManager->getCardBySearch($searchContent, ($page - 1) * Config::CARD_LIMIT),
-            'page' => $cardManager->getSearchCardNb($searchContent) / Config::CARD_LIMIT,
+            'cards' => CardManager::getCardBySearch($searchContent, ($page - 1) * Config::CARD_LIMIT),
+            'page' => CardManager::getSearchCardNb($searchContent) / Config::CARD_LIMIT,
             'search' => $searchContent
         ]);
     }
@@ -74,15 +69,13 @@ class CardController extends AbstractController
             exit();
         }
 
-        $cardManager = new CardManager();
-
         if ($page === 0) {
             $page = 1;
         }
 
         self::render('list/seeAll', $data = [
-            'cards' => $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT),
-            'page' => $cardManager->getCardNbByType(Config::CARD_TYPE[$type]) / Config::CARD_LIMIT,
+            'cards' => CardManager::getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT),
+            'page' => CardManager::getCardNbByType(Config::CARD_TYPE[$type]) / Config::CARD_LIMIT,
             'type' => $type,
         ]);
     }
@@ -98,17 +91,14 @@ class CardController extends AbstractController
             $page = 1;
         }
 
-        $cardManager = new CardManager();
-        $ratingManager = new RatingManager();
-
         $cards = [];
         $pageNb = 0;
 
         if ($type !== -1) {
-            $cards = $cardManager->getCardByType($type);
+            $cards = CardManager::getCardByType($type);
             switch ($sort) {
                 case 'popular':
-                    $array = $cardManager->getPopularCards($ratingManager->getRatingForCards(false,
+                    $array = CardManager::getPopularCards(RatingManager::getRatingForCards(false,
                         ($page - 1) * Config::CARD_LIMIT, false));
 
                     foreach ($array as $value) {
@@ -118,16 +108,16 @@ class CardController extends AbstractController
                     }
 
                     $cards = array_slice($cards, ($page - 1) * Config::CARD_LIMIT, Config::CARD_LIMIT);
-                    $pageNb = $ratingManager->getRatingNbByType(Config::CARD_TYPE[$type]);
+                    $pageNb = RatingManager::getRatingNbByType(Config::CARD_TYPE[$type]);
                     break;
                 case 'recent':
-                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT);
-                    $pageNb = $cardManager->getCardNbByType(Config::CARD_TYPE[$type]);
+                    $cards = CardManager::getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT);
+                    $pageNb = CardManager::getCardNbByType(Config::CARD_TYPE[$type]);
                     break;
                 case 'old':
-                    $cards = $cardManager->getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT,
+                    $cards = CardManager::getCardByType(Config::CARD_TYPE[$type], ($page - 1) * Config::CARD_LIMIT,
                         'ASC');
-                    $pageNb = $cardManager->getCardNbByType(Config::CARD_TYPE[$type]);
+                    $pageNb = CardManager::getCardNbByType(Config::CARD_TYPE[$type]);
                     break;
             }
 
@@ -141,17 +131,17 @@ class CardController extends AbstractController
         } else {
             switch ($sort) {
                 case 'popular':
-                    $cards = $cardManager->getPopularCards($ratingManager->getRatingForCards(false,
+                    $cards = CardManager::getPopularCards(RatingManager::getRatingForCards(false,
                         ($page - 1) * Config::CARD_LIMIT));
-                    $pageNb = $ratingManager->getCardRatingNb();
+                    $pageNb = RatingManager::getCardRatingNb();
                     break;
                 case 'recent':
-                    $cards = $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT);
-                    $pageNb = $cardManager->getCardNb();
+                    $cards = CardManager::getAllCards(($page - 1) * Config::CARD_LIMIT);
+                    $pageNb = CardManager::getCardNb();
                     break;
                 case 'old':
-                    $cards = $cardManager->getAllCards(($page - 1) * Config::CARD_LIMIT,'ASC');
-                    $pageNb = $cardManager->getCardNb();
+                    $cards = CardManager::getAllCards(($page - 1) * Config::CARD_LIMIT,'ASC');
+                    $pageNb = CardManager::getCardNb();
                     break;
             }
 
@@ -177,9 +167,7 @@ class CardController extends AbstractController
                 }
 
                 // if update a card
-                $cardManager = new CardManager();
-
-                self::render('card/update-card', $data = ['card' => $cardManager->getCardById($id)]);
+                self::render('card/update-card', $data = ['card' => CardManager::getCardById($id)]);
                 exit();
             }
 
@@ -280,8 +268,6 @@ class CardController extends AbstractController
              exit();
          }
 
-        $cardManager = new CardManager();
-
         // Image
         if($_FILES['image']['error'] === 0) {
             if((int)$_FILES['image']['size'] <= (2 * 1024 * 1024)) {
@@ -301,7 +287,7 @@ class CardController extends AbstractController
 
                 // delete the older one
                 if ($id !== 0) {
-                    unlink('assets/images/' . $cardManager->getCardById($id)->getImage());
+                    unlink('assets/images/' . CardManager::getCardById($id)->getImage());
                 }
 
             } else{
@@ -313,7 +299,7 @@ class CardController extends AbstractController
         } else {
             // if already has an image
             if ($id !== 0) {
-                $image = $cardManager->getCardById($id)->getImage();
+                $image = CardManager::getCardById($id)->getImage();
             } else {
                 $_SESSION['error'] = ['Une erreur est survenue, veillez à remplir tous les champs'];
                 self::updatePage($id);
@@ -332,13 +318,13 @@ class CardController extends AbstractController
         $type = implode(',', $type);
 
         if ($id === 0) {
-            $newId = $cardManager->addCard($title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
+            $newId = CardManager::addCard($title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
 
             self::cardPage($newId);
             exit();
         }
 
-        $cardManager->updateCard($id, $title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
+        CardManager::updateCard($id, $title, $script, $drawing, $dateStart, $dateEnd, htmlentities($synopsis), $type, $image);
         self::cardPage($id);
         exit();
     }
@@ -353,10 +339,8 @@ class CardController extends AbstractController
             exit();
         }
 
-        $cardManager = new CardManager();
-
-        $image = $cardManager->getCardById($id)->getImage();
-        $var = $cardManager->deleteCard($id);
+        $image = CardManager::getCardById($id)->getImage();
+        $var = CardManager::deleteCard($id);
 
         if ($var) {
             unlink('assets/images/' . $image);
@@ -371,29 +355,23 @@ class CardController extends AbstractController
      */
     public function cardPage(int $id) {
 
-        $ratingManager = new RatingManager();
-        $listManager = new ListManager();
-
         $userRating = null;
         $userList = null;
 
         if (isset($_SESSION['user'])) {
-            $userRating = $ratingManager->getRatingByUserCard($id, $_SESSION['user']->getId());
-            $userList = $listManager->getListByUserCard($id, $_SESSION['user']->getId());
+            $userRating = RatingManager::getRatingByUserCard($id, $_SESSION['user']->getId());
+            $userList = ListManager::getListByUserCard($id, $_SESSION['user']->getId());
         }
 
-        $cardManager = new CardManager();
-        $card = $cardManager->getCardById($id);
-
-        $commentManager = new CommentManager();
+        $card = CardManager::getCardById($id);
 
         if ($card !== null) {
             self::render('card/card', $data = [
                 'card' => $card,
-                'rating' => $ratingManager->getRatingByCardId($id),
+                'rating' => RatingManager::getRatingByCardId($id),
                 'userRating' => $userRating,
                 'userList' => $userList,
-                'comments' => $commentManager->getCommentByCardIdValidate($id, 1),
+                'comments' => CommentManager::getCommentByCardIdValidate($id, 1),
             ]);
             exit();
         }
@@ -409,8 +387,7 @@ class CardController extends AbstractController
     public function cardList(int $name, int $id) {
         if (isset($_SESSION['user'])) {
 
-            $listManager = new ListManager();
-            $array = $listManager->getCardFromList(Config::DEFAULT_LIST[$name], $id);
+            $array = ListManager::getCardFromList(Config::DEFAULT_LIST[$name], $id);
             $cards = [];
 
             foreach ($array as $value) {
@@ -442,8 +419,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $ratingManager = new RatingManager();
-        $ratingManager->addRating($mark, $_SESSION['user']->getId(), $id);
+        RatingManager::addRating($mark, $_SESSION['user']->getId(), $id);
         self::cardPage($id);
     }
 
@@ -458,8 +434,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $ratingManager = new RatingManager();
-        $ratingManager->updateRating($mark, $_SESSION['user']->getId(), $id);
+        RatingManager::updateRating($mark, $_SESSION['user']->getId(), $id);
         self::cardPage($id);
     }
 
@@ -473,8 +448,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $ratingManager = new RatingManager();
-        $ratingManager->deleteRating($_SESSION['user']->getId(), $id);
+        RatingManager::deleteRating($_SESSION['user']->getId(), $id);
         self::cardPage($id);
     }
 
@@ -493,8 +467,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $listManager = new ListManager();
-        $listManager->addList(Config::DEFAULT_LIST[$list],1, $_SESSION['user']->getId(), $id);
+        ListManager::addList(Config::DEFAULT_LIST[$list],1, $_SESSION['user']->getId(), $id);
         self::cardPage($id);
     }
 
@@ -509,8 +482,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $listManager = new ListManager();
-        $listManager->removeList($_SESSION['user']->getId(), $id, Config::DEFAULT_LIST[$list]);
+        ListManager::removeList($_SESSION['user']->getId(), $id, Config::DEFAULT_LIST[$list]);
         self::cardPage($id);
     }
 
@@ -542,8 +514,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $commentManager = new CommentManager();
-        $commentManager->addComment(htmlentities($content), $_SESSION['user']->getId(), $id);
+        CommentManager::addComment(htmlentities($content), $_SESSION['user']->getId(), $id);
 
         $_SESSION['error'] = ['Votre commentaire est en attente de validation par un administrateur'];
         $_SESSION['color'] = Config::SUCCESS;
@@ -562,8 +533,7 @@ class CardController extends AbstractController
             exit();
         }
 
-        $commentManager = new CommentManager();
-        $commentManager->deleteComment($id);
+        CommentManager::deleteComment($id);
 
         self::cardPage($card);
         exit();

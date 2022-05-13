@@ -35,7 +35,7 @@ class ListManager
      * @param int $userId
      * @return WebtoonList|null
      */
-    public function getListByUserCard(int $cardId, int $userId): ?array {
+    public static function getListByUserCard(int $cardId, int $userId): ?array {
         $list = null;
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
                 WHERE card_id = :cardId AND user_id = :userId");
@@ -58,7 +58,7 @@ class ListManager
      * @param int $userId
      * @return array
      */
-    public function getTreeCardList(string $name, int $userId): array {
+    public static function getTreeCardList(string $name, int $userId): array {
         $list = [];
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
                 WHERE name = :name AND user_id = :userId ORDER BY id DESC LIMIT 3");
@@ -81,7 +81,7 @@ class ListManager
      * @param int $userId
      * @return array
      */
-    public function getCardFromList(string $name,int $userId): array {
+    public static function getCardFromList(string $name,int $userId): array {
         $list = [];
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
                 WHERE name = :name AND user_id = :userId ORDER BY id DESC");
@@ -106,7 +106,7 @@ class ListManager
      * @param int $cardId
      * @return bool
      */
-    public Function addList(string $name, int $visibility, int $userId, int $cardId): bool {
+    public static Function addList(string $name, int $visibility, int $userId, int $cardId): bool {
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (name, visibility, user_id, card_id)
             VALUES (:name, :visibility, :userId, :cardId)");
 
@@ -125,7 +125,7 @@ class ListManager
      * @param string $listName
      * @return bool
      */
-    public function removeList(int $userId, int $cardId, string $listName): bool {
+    public static function removeList(int $userId, int $cardId, string $listName): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE name = :name AND user_id = :userId AND card_id = :cardId");
 
         $stmt->bindParam(':name', $listName);

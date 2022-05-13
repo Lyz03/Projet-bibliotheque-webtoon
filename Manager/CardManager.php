@@ -35,7 +35,7 @@ class CardManager
      * Return the 7 last cards
      * @return array
      */
-    public function getLastCards(): array {
+    public static function getLastCards(): array {
         $cards = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id DESC LIMIT 7");
 
@@ -53,7 +53,7 @@ class CardManager
      * @param array $id
      * @return array
      */
-    public function getPopularCards(array $id): array {
+    public static function getPopularCards(array $id): array {
         $cards = [];
 
         foreach ($id as $value) {
@@ -75,7 +75,7 @@ class CardManager
      * @param string $orderBy
      * @return array
      */
-    public function getAllCards( int $offset = 0, string $orderBy = 'DESC'): array {
+    public static function getAllCards( int $offset = 0, string $orderBy = 'DESC'): array {
         $cards = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " ORDER BY id $orderBy 
                 LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
@@ -93,7 +93,7 @@ class CardManager
      * Return the number of cards
      * @return int
      */
-    public function getCardNb(): int {
+    public static function getCardNb(): int {
         $query = DB::getConnection()->query("SELECT COUNT(*) FROM " . self::TABLE);
 
         return $query->fetch()['COUNT(*)'];
@@ -104,7 +104,7 @@ class CardManager
      * @param string $type
      * @return int
      */
-    public function getCardNbByType(string $type): int {
+    public static function getCardNbByType(string $type): int {
         $query = DB::getConnection()->query("SELECT COUNT(*) FROM " . self::TABLE . " WHERE type LIKE '%$type%'");
 
         return $query->fetch()['COUNT(*)'];
@@ -117,7 +117,7 @@ class CardManager
      * @param string $orderBy
      * @return array
      */
-    public function getCardByType(string $type, int $offset = 0, string $orderBy = 'DESC'): array {
+    public static function getCardByType(string $type, int $offset = 0, string $orderBy = 'DESC'): array {
         $cards = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id $orderBy
                 LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
@@ -161,7 +161,7 @@ class CardManager
      * @param int $offset
      * @return array
      */
-    public function getCardBySearch(string $search, int $offset = 0): array {
+    public static function getCardBySearch(string $search, int $offset = 0): array {
         $cards = [];
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE LOWER(title) LIKE LOWER(:search) 
         OR LOWER(script) LIKE LOWER(:search) OR LOWER(drawing) LIKE LOWER(:search) ORDER BY id DESC 
@@ -183,7 +183,7 @@ class CardManager
      * @param string $search
      * @return int
      */
-    public function getSearchCardNb(string $search): int {
+    public static function getSearchCardNb(string $search): int {
         $stmt = DB::getConnection()->prepare("SELECT COUNT(*) FROM " . self::TABLE . " WHERE LOWER(title) 
             LIKE LOWER(:search) OR LOWER(script) LIKE LOWER(:search) OR LOWER(drawing) LIKE LOWER(:search) 
             ORDER BY id DESC");
@@ -207,7 +207,7 @@ class CardManager
      * @param string $image
      * @return int
      */
-    public function addCard(string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
+    public static function addCard(string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
                             string $synopsis, string $type, string $image): int
     {
 
@@ -242,7 +242,7 @@ class CardManager
      * @param string $image
      * @return int
      */
-    public function updateCard(int $id, string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
+    public static function updateCard(int $id, string $title, string $script, string $drawing, int $dateStart, int $dateEnd,
                             string $synopsis, string $type, string $image): int {
 
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
@@ -263,7 +263,7 @@ class CardManager
         return $stmt->execute();
     }
 
-    public function deleteCard(int $id): bool {
+    public static function deleteCard(int $id): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
 
         $stmt->bindParam(':id', $id);
@@ -276,7 +276,7 @@ class CardManager
      * @param int $id
      * @return Card|null
      */
-    public function getCardById(int $id): ?Card {
+    public static function getCardById(int $id): ?Card {
         $card = null;
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE id = :id");
 

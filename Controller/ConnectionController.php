@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Config;
-use App\Entity\User;
 use App\Manager\NumberManager;
 use App\Manager\UserManager;
 use DateTime;
-use Exception;
 
 class ConnectionController extends AbstractController
 {
@@ -38,13 +36,11 @@ class ConnectionController extends AbstractController
             $error[] = "l'adresse email doit faire entre 8 et 150 caractères";
         }
 
-        $userManager = new UserManager();
-        $numberManager = new NumberManager();
-        $user = $userManager->userExist($mail);
+        $user = UserManager::userExist($mail);
 
         if ($user === null) {
             $error[] = "L'utilisateur demandé n'est pas enregistré";
-        } elseif ($numberManager->getNumberByUserId($user->getId()) !== null) {
+        } elseif (NumberManager::getNumberByUserId($user->getId()) !== null) {
             $error[] = "Veuillez vérifier votre compte avant de vous connecter";
         }
 
@@ -122,9 +118,7 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
-
-        if ($userManager->userExist($mail) !== null) {
+        if (UserManager::userExist($mail) !== null) {
             $_SESSION['error'] = ['adresse mail déjà enregistré'];
             self::default();
             exit();
@@ -140,16 +134,15 @@ class ConnectionController extends AbstractController
 
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-            $userManager->registerUser($mail, $username, $password);
+            UserManager::registerUser($mail, $username, $password);
 
-            $user = $userManager->userExist($mail);
+            $user = UserManager::userExist($mail);
 
             //send a mail with a code + the redirect link
-            $numberManager = new NumberManager();
             $code = [rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9)];
             $code = join('', $code);
 
-            $numberManager->addNumber($user->getId(), $code);
+            NumberManager::addNumber($user->getId(), $code);
 
             if (self::createAccountMail($user->getId())) {
                 self::codePage($user->getId());
@@ -170,9 +163,8 @@ class ConnectionController extends AbstractController
      * @param int $id
      */
     public function codePage(int $id) {
-        $numberManager = new NumberManager();
 
-        $number = $numberManager->getNumberByUserId($id);
+        $number = NumberManager::getNumberByUserId($id);
 
         if ($number === null) {
             self::default();
@@ -200,8 +192,7 @@ class ConnectionController extends AbstractController
      */
     public function createAccountMail(int $id): bool {
         $url = Config::APP_URL . '/index.php?c=connection&a=code-page&id=' . $id;
-        $numberManager = new NumberManager();
-        $code = $numberManager->getNumberByUserId($id)->getNumber();
+        $code = NumberManager::getNumberByUserId($id)->getNumber();
 
         $message = "
         <html lang='fr'>
@@ -221,8 +212,7 @@ class ConnectionController extends AbstractController
         </html>
         ";
 
-        $userManager = new UserManager();
-        $to = $userManager->getUserById($id)->getEmail();
+        $to = UserManager::getUserById($id)->getEmail();
         $subject = 'Vérification de votre adresse email';
         $headers = [
             'Reply-to' => "no-reply@email.com",
@@ -244,10 +234,8 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $numberManager = new NumberManager();
-
-        if ((int) $_POST['code'] === $numberManager->getNumberByUserId($id)->getNumber() ) {
-            $numberManager->deleteNumber($id);
+        if ((int) $_POST['code'] === NumberManager::getNumberByUserId($id)->getNumber() ) {
+            NumberManager::deleteNumber($id);
             $_SESSION['error'] = ['Compte validé, vous pouvez désormais vous connecter'];
             $_SESSION['color'] = Config::SUCCESS;
             self::default();
@@ -286,8 +274,7 @@ class ConnectionController extends AbstractController
         $id = $_SESSION['user']->getId();
         $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
 
-        $userManager = new UserManager();
-        if ($userManager->updateUsername($id, $username)) {
+        if (UserManager::updateUsername($id, $username)) {
             $_SESSION['user']->setUsername($username);
             $_SESSION['error'] = ["Nom d'utilisateur changé avec succès"];
             $_SESSION['color'] = Config::SUCCESS;
@@ -312,17 +299,16 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
         $id = $_SESSION['user']->getId();
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
-        if ($userManager->userExist($email) !== null) {
+        if (UserManager::userExist($email) !== null) {
             $_SESSION['error'] = ["Adresse email déjà utilisée"];
             self::changeInfo($_SESSION['user']->getId());
             exit();
         }
 
-        if ($userManager->updateEmail($id, $email)) {
+        if (UserManager::updateEmail($id, $email)) {
             self::changeEmailMail($_SESSION['user']->getEmail(), $email);
             $_SESSION['user']->setEmail($email);
             $_SESSION['error'] = ["Adresse email changée avec succès"];
@@ -385,11 +371,10 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
         $password = $_POST['password'];
         $id = $_SESSION['user']->getId();
 
-        if (!password_verify($_POST['oldPassword'], $userManager->getUserById($id)->getPassword())) {
+        if (!password_verify($_POST['oldPassword'], UserManager::getUserById($id)->getPassword())) {
             $_SESSION['error'] = ["Votre mot de passe est incorrecte"];
             self::changeInfo();
             exit();
@@ -405,7 +390,7 @@ class ConnectionController extends AbstractController
 
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-            if ($userManager->updatePassword($id, $password)) {
+            if (UserManager::updatePassword($id, $password)) {
                 $_SESSION['error'] = ["Mot de passe changé avec succès"];
                 $_SESSION['color'] = Config::SUCCESS;
             } else {
@@ -441,7 +426,6 @@ class ConnectionController extends AbstractController
         }
 
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $userManager = new UserManager();
 
         if (empty($email)) {
             $_SESSION['error'] = ["Veuillez renseigner une adresse email valide"];
@@ -449,7 +433,7 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $user = $userManager->userExist($email);
+        $user = UserManager::userExist($email);
 
         if ($user === null) {
             $_SESSION['error'] = ["L'adresse email n'existe pas"];
@@ -461,7 +445,7 @@ class ConnectionController extends AbstractController
 
 
         if (self::forgottenPasswordMail($email, $newPassword)) {
-            $userManager->updatePassword($user->getId(), password_hash($newPassword, PASSWORD_BCRYPT));
+            UserManager::updatePassword($user->getId(), password_hash($newPassword, PASSWORD_BCRYPT));
             $_SESSION['error'] = ["Un email vous à été envoyer avec un nouveau mot de passe"];
             $_SESSION['color'] = Config::SUCCESS;
         } else {

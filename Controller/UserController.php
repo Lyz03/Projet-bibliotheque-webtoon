@@ -13,12 +13,11 @@ class UserController extends AbstractController
     public function default()
     {
         if (isset($_SESSION['user'])) {
-            $listManager = new ListManager();
 
             $list = [];
 
             foreach (Config::DEFAULT_LIST as $value) {
-                $list[$value] = $listManager->getTreeCardList($value, $_SESSION['user']->getId());
+                $list[$value] = ListManager::getTreeCardList($value, $_SESSION['user']->getId());
             }
 
             self::render('user/account', $data = [
@@ -36,17 +35,15 @@ class UserController extends AbstractController
      * @param int $id
      */
     public function userProfile(int $id) {
-        $userManager = new UserManager();
-        $listManager = new ListManager();
 
         $list = [];
 
         foreach (Config::DEFAULT_LIST as $value) {
-            $list[$value] = $listManager->getTreeCardlist($value, $id);
+            $list[$value] = ListManager::getTreeCardlist($value, $id);
         }
 
         self::render('user/account', $data = [
-            'user' => $userManager->getUserById($id),
+            'user' => UserManager::getUserById($id),
             'list' => $list,
         ]);
     }
@@ -65,9 +62,7 @@ class UserController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
-
-        self::render('list/userList', $data = ['users' => $userManager->getAllUser()]);
+        self::render('list/userList', $data = ['users' => UserManager::getAllUser()]);
     }
 
     /**
@@ -91,8 +86,7 @@ class UserController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
-        $userManager->updateRole($id, $role);
+        UserManager::updateRole($id, $role);
 
         self::userList();
     }
@@ -108,8 +102,7 @@ class UserController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
-        $userManager->updateAvatar($_SESSION['user']->getId(), Config::AVATAR[$avatar]);
+        UserManager::updateAvatar($_SESSION['user']->getId(), Config::AVATAR[$avatar]);
 
         $_SESSION['user']->setAvatar(Config::AVATAR[$avatar]);
         self::default();
@@ -130,8 +123,7 @@ class UserController extends AbstractController
             exit();
         }
 
-        $userManager = new UserManager();
-        $var = $userManager->deleteUser($id);
+        $var = UserManager::deleteUser($id);
 
         if ($var && $_SESSION['user']->getId() === $id) {
             ConnectionController::logOut();
@@ -159,10 +151,8 @@ class UserController extends AbstractController
             exit();
         }
 
-        $commentManager = new CommentManager();
-
         self::render('list/commentList', $data = [
-            'comments' => $commentManager->getUnvalidatedComment(),
+            'comments' => CommentManager::getUnvalidatedComment(),
         ]);
     }
 
@@ -181,11 +171,10 @@ class UserController extends AbstractController
             exit();
         }
 
-        $commentManager = new CommentManager();
-        $commentManager->validateComment($id);
+        CommentManager::validateComment($id);
 
         self::render('list/commentList', $data = [
-            'comments' => $commentManager->getUnvalidatedComment(),
+            'comments' => CommentManager::getUnvalidatedComment(),
         ]);
     }
 
@@ -199,11 +188,10 @@ class UserController extends AbstractController
             exit();
         }
 
-        $commentManager = new CommentManager();
-        $commentManager->deleteComment($id);
+        CommentManager::deleteComment($id);
 
         self::render('list/commentList', $data = [
-            'comments' => $commentManager->getUnvalidatedComment(),
+            'comments' => CommentManager::getUnvalidatedComment(),
         ]);
     }
 }

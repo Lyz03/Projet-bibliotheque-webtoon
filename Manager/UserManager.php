@@ -31,7 +31,7 @@ class UserManager
      * @param string $mail
      * @return User|null
      */
-    public function userExist(string $mail): ?User {
+    public static function userExist(string $mail): ?User {
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE email = :mail");
 
         $stmt->bindParam('mail', $mail);
@@ -49,7 +49,7 @@ class UserManager
      * @param string $username
      * @param string $password
      */
-    public function registerUser(string $mail, string $username, string $password) {
+    public static function registerUser(string $mail, string $username, string $password) {
 
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (email, username, password)
             VALUES (:email, :username, :password)");
@@ -66,7 +66,7 @@ class UserManager
      * @param int $id
      * @return User|null
      */
-    public function getUserById(int $id): ?User {
+    public static function getUserById(int $id): ?User {
         $user = null;
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " WHERE id = :id");
 
@@ -83,7 +83,7 @@ class UserManager
      * Return all users
      * @return array
      */
-    public function getAllUser(): array {
+    public static function getAllUser(): array {
         $user = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE);
 
@@ -102,7 +102,7 @@ class UserManager
      * @param string $role
      * @return bool
      */
-    public function updateRole(int $id, string $role): bool {
+    public static function updateRole(int $id, string $role): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         role = :role WHERE id = :id");
 
@@ -118,7 +118,7 @@ class UserManager
      * @param string $avatar
      * @return bool
      */
-    public function updateAvatar(int $id, string $avatar): bool {
+    public static function updateAvatar(int $id, string $avatar): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         avatar = :avatar WHERE id = :id");
 
@@ -134,7 +134,7 @@ class UserManager
      * @param string $username
      * @return bool
      */
-    public function updateUsername(int $id, string $username): bool {
+    public static function updateUsername(int $id, string $username): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         username = :username WHERE id = :id");
 
@@ -150,7 +150,7 @@ class UserManager
      * @param string $email
      * @return bool
      */
-    public function updateEmail(int $id, string $email): bool {
+    public static function updateEmail(int $id, string $email): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         email = :email WHERE id = :id");
 
@@ -166,7 +166,7 @@ class UserManager
      * @param string $password
      * @return bool
      */
-    public function updatePassword(int $id, string $password): bool {
+    public static function updatePassword(int $id, string $password): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         password = :password WHERE id = :id");
 
@@ -181,7 +181,7 @@ class UserManager
      * @param int $id
      * @return bool
      */
-    public function deleteUser(int $id): bool {
+    public static function deleteUser(int $id): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
 
         $stmt->bindParam(':id', $id);

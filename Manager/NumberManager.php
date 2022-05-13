@@ -33,7 +33,7 @@ class NumberManager
      * @param int $userId
      * @return Number|null
      */
-    public function getNumberByUserId(int $userId): ?Number {
+    public static function getNumberByUserId(int $userId): ?Number {
         $number = null;
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
                 WHERE user_id = :userId");
@@ -53,7 +53,7 @@ class NumberManager
      * @param int $number
      * @return bool
      */
-    public function addNumber(int $userId, int $number): bool {
+    public static function addNumber(int $userId, int $number): bool {
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (number, user_id)
             VALUES (:number, :userId)");
 
@@ -68,7 +68,7 @@ class NumberManager
      * @param int $userId
      * @return bool
      */
-    public function deleteNumber(int $userId): bool {
+    public static function deleteNumber(int $userId): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE user_id = :userId");
 
         $stmt->bindParam(':userId', $userId);

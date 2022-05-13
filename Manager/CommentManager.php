@@ -35,7 +35,7 @@ class CommentManager
      * @param int $validate
      * @return array
      */
-    public function getCommentByCardIdValidate(int $cardId, int $validate): array {
+    public static function getCommentByCardIdValidate(int $cardId, int $validate): array {
         $comments = [];
         $stmt = DB::getConnection()->prepare("SELECT * FROM " . self::TABLE . " 
                 WHERE card_id = :cardId AND validate = :validate ORDER BY id DESC");
@@ -56,7 +56,7 @@ class CommentManager
      * Get all unvalidated comments
      * @return array
      */
-    public function getUnvalidatedComment():array {
+    public static function getUnvalidatedComment():array {
         $comments = [];
         $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " 
                 WHERE validate = 0");
@@ -77,7 +77,7 @@ class CommentManager
      * @param int $cardId
      * @return bool
      */
-    public function addComment(string $content, int $userId, int $cardId): bool {
+    public static function addComment(string $content, int $userId, int $cardId): bool {
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (content, validate, user_id, card_id)
             VALUES (:content, :validate, :userId, :cardId)");
 
@@ -94,7 +94,7 @@ class CommentManager
      * @param int $id
      * @return bool
      */
-    public function validateComment(int $id): bool {
+    public static function validateComment(int $id): bool {
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         validate = :validate WHERE id = :id");
 
@@ -109,7 +109,7 @@ class CommentManager
      * @param int $id
      * @return bool
      */
-    public function deleteComment(int $id): bool {
+    public static function deleteComment(int $id): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
 
         $stmt->bindParam(':id', $id);

@@ -19,7 +19,7 @@ class RatingManager
      * @param bool $limit
      * @return array
      */
-    public function getRatingForCards(bool $seven = true, int $offset = 0, bool $limit = true): array {
+    public static function getRatingForCards(bool $seven = true, int $offset = 0, bool $limit = true): array {
         $db = DB::getConnection();
 
         // get Cards id
@@ -71,7 +71,7 @@ class RatingManager
      * @param int $id
      * @return float|null
      */
-    public function getRatingByCardId(int $id): ?float {
+    public static function getRatingByCardId(int $id): ?float {
         $review = null;
         $stmt = DB::getConnection()->prepare("SELECT AVG(mark) FROM " . self::TABLE . " WHERE card_id = :cardId");
 
@@ -90,7 +90,7 @@ class RatingManager
      * @param int $userId
      * @return int|null
      */
-    public function getRatingByUserCard(int $cardId, int $userId): ?int {
+    public static function getRatingByUserCard(int $cardId, int $userId): ?int {
         $review = null;
         $stmt = DB::getConnection()->prepare("SELECT mark FROM " . self::TABLE . " 
                 WHERE card_id = :cardId AND user_id = :userId");
@@ -109,7 +109,7 @@ class RatingManager
      * Count all cards which have rating
      * @return int
      */
-    public function getCardRatingNb(): int {
+    public static function getCardRatingNb(): int {
         $query = DB::getConnection()->query("SELECT DISTINCT card_id FROM " . self::TABLE);
 
         return count($query->fetchAll());
@@ -120,7 +120,7 @@ class RatingManager
      * @param string $type
      * @return int
      */
-    public function getRatingNbByType(string $type): int {
+    public static function getRatingNbByType(string $type): int {
         $stmt = DB::getConnection()->prepare("SELECT DISTINCT wtl_rating.card_id FROM wtl_rating
              INNER JOIN wtl_card ON wtl_rating.card_id = wtl_card.id WHERE wtl_card.type LIKE :type");
 
@@ -140,7 +140,7 @@ class RatingManager
      * @param int $cardId
      * @return bool
      */
-    public Function addRating(int $mark, int $userId, int $cardId): bool {
+    public static Function addRating(int $mark, int $userId, int $cardId): bool {
         $stmt = DB::getConnection()->prepare("INSERT INTO " . self::TABLE . " (mark, user_id, card_id)
             VALUES (:mark, :userId, :cardId)");
 
@@ -158,7 +158,7 @@ class RatingManager
      * @param int $cardId
      * @return bool
      */
-    public function updateRating(int $mark, int $userId, int $cardId): bool {
+    public static function updateRating(int $mark, int $userId, int $cardId): bool {
 
         $stmt = DB::getConnection()->prepare("UPDATE " . self::TABLE . " SET 
         mark = :mark WHERE user_id = :userId AND card_id = :cardId");
@@ -176,7 +176,7 @@ class RatingManager
      * @param int $cardId
      * @return bool
      */
-    public function deleteRating(int $userId, int $cardId): bool {
+    public static function deleteRating(int $userId, int $cardId): bool {
         $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE user_id = :userId AND card_id = :cardId");
 
         $stmt->bindParam(':userId', $userId);
