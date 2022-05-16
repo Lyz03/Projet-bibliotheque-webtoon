@@ -40,8 +40,10 @@ class ConnectionController extends AbstractController
 
         if ($user === null) {
             $error[] = "L'utilisateur demandé n'est pas enregistré";
-        } elseif (NumberManager::getNumberByUserId($user->getId()) !== null) {
-            $error[] = "Veuillez vérifier votre compte avant de vous connecter";
+        } elseif (($number = NumberManager::getNumberByUserId($user->getId())) !== null) {
+            if ($number->getNumber() !== 0) {
+                $error[] = "Veuillez vérifier votre compte avant de vous connecter";
+            }
         }
 
         if (count($error) > 0) {
@@ -182,7 +184,7 @@ class ConnectionController extends AbstractController
     }
 
     /**
-     * go to code page (create account, change password)
+     * go to code page (create account)
      * @param int $id
      */
     public function codePage(int $id) {
@@ -432,11 +434,29 @@ class ConnectionController extends AbstractController
     /**
      * Go to forgottenPassword page
      */
-    public function forgottenPassword() {
-        self::render('connection-inscription/forgottenPassword');
+    public function forgottenPassword(string $token = '0', int $id = 0) {
+        if ($token !== '0') {
+            // no user_id = id
+            if (NumberManager::getTokenByUserId($id) === null) {
+                self::default();
+                exit();
+            // wrong token
+            } elseif (NumberManager::getTokenByUserId($id)->getToken() !== $token) {
+                self::default();
+                exit();
+            }
+        }
+
+        self::render('connection-inscription/forgottenPassword', $data = [
+            'token' => $token,
+            'id' => $id,
+        ]);
         exit();
     }
 
+    /**
+     * Check the mail and send password mail
+     */
     public function newPassword() {
         if (isset($_SESSION['user'])) {
             self::render('home');
@@ -464,11 +484,10 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        $newPassword = self::randomChars(5);
+        $token = self::randomChars();
+        NumberManager::addToken($user->getId(), $token);
+        if (self::forgottenPasswordMail($email, $token, $user->getId())) {
 
-
-        if (self::forgottenPasswordMail($email, $newPassword)) {
-            UserManager::updatePassword($user->getId(), password_hash($newPassword, PASSWORD_BCRYPT));
             $_SESSION['error'] = ["Un email vous à été envoyer avec un nouveau mot de passe"];
             $_SESSION['color'] = Config::SUCCESS;
         } else {
@@ -479,12 +498,14 @@ class ConnectionController extends AbstractController
     }
 
     /**
-     * Send a mail with a new password
+     * Send a mail with a link to change password
      * @param string $mail
-     * @param string $password
+     * @param string $token
+     * @param int $id
      * @return bool
      */
-    public function forgottenPasswordMail(string $mail, string $password): bool {
+    public function forgottenPasswordMail(string $mail, string $token, int $id): bool {
+        $url = Config::APP_URL . '/index.php?c=connection&a=forgotten-password$token=' . $token . '&id=' . $id;
         $message = "
         <html lang='fr'>
             <head>
@@ -495,9 +516,7 @@ class ConnectionController extends AbstractController
                 <p>
                     Une demande de nouveau mot de passe a été effectué sur votre compte Webtoon Library (annlio.com)
                     <br>
-                    Votre nouveau mot de passe : $password
-                    <br>
-                    Pensez à le changer rapidement.
+                    cliquer <a href='$url'>ici</a> et renseignez un nouveau mot de passe
                     <br>
                     s'il ne s'agit pas de vous, contactez rapidement le support : lizoe.lallier@net-c.com
                 </p>
@@ -515,5 +534,58 @@ class ConnectionController extends AbstractController
         ];
 
         return mail($to, $subject, $message, $headers, "-f no-reply@email.com");
+    }
+
+    /**
+     * Set a new password if the old one was forgotten
+     */
+    public function setNewPassword() {
+        if (isset($_SESSION['user'])) {
+            self::render('home');
+            exit();
+        }
+
+        if (!isset($_POST['submit']) || !isset($_POST['password']) || !isset($_POST['token'])|| !isset($_POST['id'])) {
+            self::default();
+            exit();
+        }
+
+        if (empty($_POST['token']) || empty($_POST['id'])) {
+            self::default();
+            exit();
+        }
+
+        $password = $_POST['password'];
+
+        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+            $_SESSION['error'] = ["Le mot de passe n'est pas assez sécurisé"];
+            self::forgottenPassword($_POST['token'], $_POST['id']);
+            exit();
+        }
+
+        if ($password === $_POST['passwordRepeat']) {
+
+            $password = password_hash($password, PASSWORD_BCRYPT);
+
+            if (UserManager::getUserById($_POST['id']) === null) {
+                $_SESSION['error'] = ["Le lien n'est pas correcte"];
+                self::forgottenPassword();
+                exit();
+            }
+
+            if (UserManager::updatePassword($_POST['id'], $password)) {
+                $_SESSION['error'] = ["Mot de passe changé avec succès"];
+                $_SESSION['color'] = Config::SUCCESS;
+            } else {
+                $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
+            }
+
+        } else {
+            $_SESSION['error'] = ["Les mots de passe ne corespondent pas"];
+            self::forgottenPassword($_POST['token'], $_POST['id']);
+            exit();
+        }
+
+        (new UserController())->default();
     }
 }

@@ -8,7 +8,8 @@ class Number
 {
 
     private int $id;
-    private int $number;
+    private ?int $number;
+    private ?string $token;
     private DateTime $time;
     private User $user;
 
@@ -31,20 +32,38 @@ class Number
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getNumber(): int
+    public function getNumber(): ?int
     {
         return $this->number;
     }
 
     /**
-     * @param int $number
+     * @param int|null $number
      * @return Number
      */
-    public function setNumber(int $number): self
+    public function setNumber(?int $number): self
     {
         $this->number = $number;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string|null $token
+     * @return Number
+     */
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
         return $this;
     }
 

@@ -116,22 +116,26 @@ if (updateUser) {
     const passwordSubmit = document.querySelector('#password_submit');
 
     // username
-    usernameSubmit.addEventListener('click', e => {
+    if (usernameSubmit) {
+        usernameSubmit.addEventListener('click', e => {
 
-        if (username.value.length < 3 || username.value.length > 45)
-            username.setCustomValidity("Le pseudo doit faire entre 3 et 45 caractères");
-        else
-            username.setCustomValidity('');
-    });
+            if (username.value.length < 3 || username.value.length > 45)
+                username.setCustomValidity("Le pseudo doit faire entre 3 et 45 caractères");
+            else
+                username.setCustomValidity('');
+        });
+    }
 
     // email
-    emailSubmit.addEventListener('click', e => {
+    if (emailSubmit) {
+        emailSubmit.addEventListener('click', e => {
 
-        if (email.value.length < 8 || email.value.length > 100)
-            email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
-        else
-            email.setCustomValidity('');
-    })
+            if (email.value.length < 8 || email.value.length > 100)
+                email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
+            else
+                email.setCustomValidity('');
+        })
+    }
 
     // password
     passwordSubmit.addEventListener('click', e => {

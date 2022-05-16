@@ -8,7 +8,7 @@
     <input type="submit" name="submit" value="connexion">
 
     <div class="center">
-        <a href="/index.php?c=connection&a=forgotten-password">Mot de passe oublié</a>
+        <a href="/index.php?c=connection&a=forgotten-password&token=0&id=0">Mot de passe oublié</a>
     </div>
 </form>
 
