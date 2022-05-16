@@ -62,17 +62,22 @@ if (connection) {
 const register = document.querySelector('#register');
 
 if (register) {
-    const email = document.querySelector('#register input[type=email]');
+    const email = document.querySelectorAll('#register input[type=email]');
     const password = document.querySelectorAll('#register input[type=password]');
     const username = document.querySelector('#register input[type=text]');
     const submit = document.querySelector('#register input[type=submit]');
 
     submit.addEventListener('click', e => {
         // email
-        if (email.value.length < 8 || email.value.length > 100)
-            email.setCustomValidity("L'email doit faire entre 8 et 100 caractères");
+        if (email[0].value.length < 8 || email[0].value.length > 100)
+            email[0].setCustomValidity("L'email doit faire entre 8 et 100 caractères");
         else
-            email.setCustomValidity('');
+            email[0].setCustomValidity('');
+
+        if (email[0].value !== email[1].value)
+            email[0].setCustomValidity("Les adresses email ne corespondent pas");
+        else
+            email[0].setCustomValidity('');
 
         // username
         if (username.value.length < 3 || username.value.length > 45)

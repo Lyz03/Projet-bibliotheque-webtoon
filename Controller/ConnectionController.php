@@ -123,6 +123,10 @@ class ConnectionController extends AbstractController
             $error[] = "Adresse mail non valide";
         }
 
+        if ($mail !== $_POST['emailRepeat']) {
+            $error[] = "Les Adresses email ne corespondent pas";
+        }
+
         if (strlen($_POST['username']) < 3 || strlen($_POST['username']) >= 45) {
             $error[] = "le pseudo doit faire entre 3 et 100 caractères";
         }
@@ -323,7 +327,7 @@ class ConnectionController extends AbstractController
 
         if (UserManager::userExist($email) !== null) {
             $_SESSION['error'] = ["Adresse email déjà utilisée"];
-            self::changeInfo($_SESSION['user']->getId());
+            self::changeInfo();
             exit();
         }
 

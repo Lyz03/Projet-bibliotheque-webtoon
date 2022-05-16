@@ -17,6 +17,7 @@
 <form id="register" action="/index.php?c=connection&a=register" method="post">
     <h2>Inscription</h2>
     <input type="email" placeholder="Votre email" name="email" minlength="8" maxlength="100" required>
+    <input type="email" placeholder="Répéter votre email" name="emailRepeat" minlength="8" maxlength="100" required>
     <input type="text" placeholder="Votre pseudo" name="username" minlength="3" maxlength="45" required>
 
     <input type="password" placeholder="Votre mot de passe" name="password" minlength="8" maxlength="255" required>
