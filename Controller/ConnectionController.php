@@ -83,12 +83,8 @@ class ConnectionController extends AbstractController
      */
     public function register() {
 
-        if (!isset($_POST['submit'])) {
-            self::default();
-            exit();
-        }
-
-        if (!isset($_POST['email'], $_POST['username'], $_POST['password'])) {
+        if (!isset($_POST['email']) || !isset($_POST['emailRepeat']) || !isset($_POST['password']) ||
+            !isset($_POST['passwordRepeat']) || !isset($_POST['username']) || !isset($_POST['submit'])) {
             self::default();
             exit();
         }
@@ -102,7 +98,7 @@ class ConnectionController extends AbstractController
 
             $responseData = json_decode($response);
             if (!$responseData->success) {
-                $_SESSION['error'] = ['La vérification du robot a échoué, veuillez réessayer'];
+                $_SESSION['error'] = ['La vérification a échoué, veuillez réessayer'];
                 self::default();
                 exit();
             }
