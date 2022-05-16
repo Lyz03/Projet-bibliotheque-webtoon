@@ -91,6 +91,25 @@ class ConnectionController extends AbstractController
             exit();
         }
 
+        // Google recaptcha
+        if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+            $response = file_get_contents(
+                'https://www.google.com/recaptcha/api/siteverify?secret=' . Config::CAPTCHA_KEY . '&response=' .
+                $_POST['g-recaptcha-response']
+            );
+
+            $responseData = json_decode($response);
+            if (!$responseData->success) {
+                $_SESSION['error'] = ['La vérification du robot a échoué, veuillez réessayer'];
+                self::default();
+                exit();
+            }
+        } else {
+            $_SESSION['error'] = ['Veuillez cocher le captcha'];
+            self::default();
+            exit();
+        }
+
         $mail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
         $password = $_POST['password'];

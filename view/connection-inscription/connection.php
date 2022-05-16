@@ -22,5 +22,7 @@
     <input type="password" placeholder="Votre mot de passe" name="password" minlength="8" maxlength="255" required>
     <input type="password" placeholder="Répéter votre mot de passe" name="passwordRepeat" minlength="8" maxlength="255" required>
 
+    <div class="g-recaptcha margin" data-sitekey="6LcFxugfAAAAADHRb6OSsL7jmzm4Iren6KjxfSm_"></div>
+
     <input type="submit" name="submit" value="inscription">
 </form>

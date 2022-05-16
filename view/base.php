@@ -89,5 +89,6 @@ if (isset($_SESSION['error'])) {
 <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/search.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 </body>
 </html>
