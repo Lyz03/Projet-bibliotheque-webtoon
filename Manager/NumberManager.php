@@ -97,7 +97,6 @@ class NumberManager
         return $token;
     }
 
-
     /**
      * Add a token
      * @param int $userId
@@ -113,4 +112,18 @@ class NumberManager
 
         return $stmt->execute();
     }
+
+    /**
+     * Delete a token
+     * @param int $token
+     * @return bool
+     */
+    public static function deleteToken(int $token): bool {
+        $stmt = DB::getConnection()->prepare("DELETE FROM " . self::TABLE . " WHERE token = :token");
+
+        $stmt->bindParam(':token', $token);
+
+        return $stmt->execute();
+    }
+
 }

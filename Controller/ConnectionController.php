@@ -574,6 +574,7 @@ class ConnectionController extends AbstractController
             }
 
             if (UserManager::updatePassword($_POST['id'], $password)) {
+                NumberManager::deleteToken($_POST['token']);
                 $_SESSION['error'] = ["Mot de passe changé avec succès"];
                 $_SESSION['color'] = Config::SUCCESS;
             } else {
