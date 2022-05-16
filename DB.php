@@ -10,7 +10,7 @@ class DB
     private static ?PDO $connection = null;
 
     /**
-     * Connection to the database (specified in Config)
+     * Connection to the database
      * @return PDO
      */
     public static function getConnection(): PDO

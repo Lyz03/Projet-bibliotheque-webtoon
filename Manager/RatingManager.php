@@ -121,8 +121,9 @@ class RatingManager
      * @return int
      */
     public static function getRatingNbByType(string $type): int {
-        $stmt = DB::getConnection()->prepare("SELECT DISTINCT wtl_rating.card_id FROM wtl_rating
-             INNER JOIN wtl_card ON wtl_rating.card_id = wtl_card.id WHERE wtl_card.type LIKE :type");
+        $stmt = DB::getConnection()->prepare("SELECT DISTINCT " . self::TABLE . ".card_id FROM " . self::TABLE . "
+             INNER JOIN " . CardManager::TABLE . " ON " . self::TABLE . ".card_id = " . CardManager::TABLE .
+            ".id WHERE " . CardManager::TABLE . ".type LIKE :type");
 
         $stmt->bindValue(':type', '%' . $type . '%');
 
