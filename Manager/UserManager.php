@@ -2,12 +2,13 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\User;
 
 class UserManager
 {
-    public const TABLE = 'wtl_user';
+    public const TABLE = Config::PREFIX . 'user';
 
     /**
      * Create a new User Entity

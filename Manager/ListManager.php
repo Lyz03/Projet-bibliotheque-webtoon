@@ -2,13 +2,14 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\WebtoonList;
 
 class ListManager
 {
 
-    public const TABLE = 'wtl_list';
+    public const TABLE = Config::PREFIX . 'list';
 
     /**
      * Create a WebtoonList Entity

@@ -10,7 +10,7 @@ use App\Entity\Rating;
 class RatingManager
 {
 
-    public const TABLE = 'wtl_rating';
+    public const TABLE = Config::PREFIX . 'rating';
 
     /**
      * Return the most popular Card id

@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\Number;
 use DateTime;
@@ -9,7 +10,7 @@ use DateTime;
 class NumberManager
 {
 
-    public const TABLE = 'wtl_number';
+    public const TABLE = Config::PREFIX . 'number';
 
     /**
      * Create a new Number Entity

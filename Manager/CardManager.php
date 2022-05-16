@@ -9,7 +9,7 @@ use App\Entity\Card;
 class CardManager
 {
 
-    public const TABLE = 'wtl_card';
+    public const TABLE = Config::PREFIX . 'card';
 
     /**
      * Create a new Card Entity

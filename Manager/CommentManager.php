@@ -2,13 +2,14 @@
 
 namespace App\Manager;
 
+use App\Config;
 use App\DB;
 use App\Entity\Comment;
 
 class CommentManager
 {
 
-    public const TABLE = 'wtl_comment';
+    public const TABLE = Config::PREFIX . 'comment';
 
     /**
      * Create a new Comment Entity
