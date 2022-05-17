@@ -113,7 +113,7 @@ class ConnectionController extends AbstractController
         $password = $_POST['password'];
         $error = [];
 
-        if (strlen($mail) < 8 || strlen($mail) >= 150) {
+        if (strlen($mail) < 8 || strlen($mail) >= 100) {
             $error[] = "l'adresse email doit faire entre 8 et 100 caractères";
         }
 
@@ -126,7 +126,7 @@ class ConnectionController extends AbstractController
         }
 
         if (strlen($_POST['username']) < 3 || strlen($_POST['username']) >= 45) {
-            $error[] = "le pseudo doit faire entre 3 et 100 caractères";
+            $error[] = "le pseudo doit faire entre 3 et 45 caractères";
         }
 
         if (strlen($password) < 8 || strlen($password) >= 50) {
