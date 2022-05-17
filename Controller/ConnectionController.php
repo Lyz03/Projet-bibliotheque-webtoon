@@ -33,7 +33,7 @@ class ConnectionController extends AbstractController
         $error = [];
 
         if (strlen($mail) < 8 || strlen($mail) >= 100) {
-            $error[] = "l'adresse email doit faire entre 8 et 150 caractères";
+            $error[] = "l'adresse email doit faire entre 8 et 100 caractères";
         }
 
         $user = UserManager::userExist($mail);
@@ -129,7 +129,7 @@ class ConnectionController extends AbstractController
             $error[] = "le pseudo doit faire entre 3 et 100 caractères";
         }
 
-        if (strlen($password) < 8 || strlen($password) >= 255) {
+        if (strlen($password) < 8 || strlen($password) >= 50) {
             $error[] = "le mot de passe doit faire au moins 8 caractères";
         }
 
@@ -145,7 +145,7 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/', $password)) {
             $_SESSION['error'] = ["Le mot de passe n'est pas assez sécurisé"];
             self::default();
             exit();
@@ -401,7 +401,7 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/', $password)) {
             $_SESSION['error'] = ["Le mot de passe n'est pas assez sécurisé"];
             self::changeInfo();
             exit();
@@ -553,7 +553,7 @@ class ConnectionController extends AbstractController
 
         $password = $_POST['password'];
 
-        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+        if(!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/', $password)) {
             $_SESSION['error'] = ["Le mot de passe n'est pas assez sécurisé"];
             self::forgottenPassword($_POST['token'], $_POST['id']);
             exit();

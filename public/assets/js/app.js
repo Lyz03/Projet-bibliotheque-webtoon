@@ -51,7 +51,7 @@ if (connection) {
             email.setCustomValidity('');
 
         // password
-        if (password.value.length < 8 || password.value.length > 255)
+        if (password.value.length < 8 || password.value.length > 50)
             password.setCustomValidity('Le mot de passe doit faire au moins 8 caractère');
         else
             password.setCustomValidity('');
@@ -86,12 +86,12 @@ if (register) {
             username.setCustomValidity('');
 
         // password
-        if (password[0].value.length < 8 || password[0].value.length > 255)
+        if (password[0].value.length < 8 || password[0].value.length > 50)
             password[0].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
         else
             password[0].setCustomValidity('');
 
-        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/);
+        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/);
         if (regExp.test(password[0].value))
             password[0].setCustomValidity('');
         else
@@ -140,14 +140,14 @@ if (updateUser) {
     // password
     passwordSubmit.addEventListener('click', e => {
 
-        if (password[1].value.length < 8 || password[1].value.length > 255) {
+        if (password[1].value.length < 8 || password[1].value.length > 50) {
             password[1].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
             password[1].reportValidity();
         } else {
             password[1].setCustomValidity('');
         }
 
-        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/);
+        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/);
         if (regExp.test(password[1].value)) {
             password[1].setCustomValidity('');
         } else {
