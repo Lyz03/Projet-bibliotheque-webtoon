@@ -482,9 +482,9 @@ class ConnectionController extends AbstractController
 
         $token = self::randomChars();
         NumberManager::addToken($user->getId(), $token);
-        if (self::forgottenPasswordMail($email, $token, $user->getId())) {
 
-            $_SESSION['error'] = ["Un email vous à été envoyer avec un nouveau mot de passe"];
+        if (self::forgottenPasswordMail($email, $token, $user->getId())) {
+            $_SESSION['error'] = ["Un email vous à été envoyer avec un lien pour réinitialiser votre mot de passe"];
             $_SESSION['color'] = Config::SUCCESS;
         } else {
             $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];
