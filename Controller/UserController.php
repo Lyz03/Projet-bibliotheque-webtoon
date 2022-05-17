@@ -10,8 +10,7 @@ use App\Manager\UserManager;
 class UserController extends AbstractController
 {
 
-    public function default()
-    {
+    public function default() {
         if (isset($_SESSION['user'])) {
 
             $list = [];
@@ -91,6 +90,10 @@ class UserController extends AbstractController
         self::userList();
     }
 
+    /**
+     * Change a user's avatar
+     * @param int $avatar
+     */
     public function changeAvatar(int $avatar) {
         if (!isset($_SESSION['user'])) {
             self::default();
