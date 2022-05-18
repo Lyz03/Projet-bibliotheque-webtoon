@@ -119,8 +119,8 @@ class CardManager
      */
     public static function getCardByType(string $type, int $offset = 0, string $orderBy = 'DESC'): array {
         $cards = [];
-        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER BY id $orderBy
-                LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
+        $query = DB::getConnection()->query("SELECT * FROM " . self::TABLE . " WHERE type LIKE '%$type%' ORDER 
+                BY id $orderBy LIMIT " . Config::CARD_LIMIT . " OFFSET $offset");
 
         if ($data = $query->fetchAll()) {
             foreach ($data as $value) {

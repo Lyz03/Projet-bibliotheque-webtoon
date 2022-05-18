@@ -12,6 +12,11 @@ class Config
     public const PASSWORD = "";
     public const CHARSET = "utf8";
 
+    public const PREFIX = 'wtl_';
+
+    // Google recaptcha
+    public const CAPTCHA_KEY = '6LcFxugfAAAAAE_k6LFssJ7qHqasFVXuj3RnreEH';
+
     // Card nb by page
     public const CARD_LIMIT = 10;
 

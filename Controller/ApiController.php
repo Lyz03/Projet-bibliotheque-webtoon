@@ -11,10 +11,10 @@ class ApiController extends AbstractController
     {
         $array = [];
 
-        $payload = file_get_contents('php://input');
-        $payload = json_decode($payload);
+        $search = file_get_contents('php://input');
+        $search = json_decode($search);
 
-        foreach(CardManager::getCardNameThatContain(filter_var($payload->search, FILTER_SANITIZE_STRING)) as $value) {
+        foreach(CardManager::getCardNameThatContain(filter_var($search->search, FILTER_SANITIZE_STRING)) as $value) {
             $array[] = [
                 'id' => $value->getId(),
                 'title' => $value->getTitle(),

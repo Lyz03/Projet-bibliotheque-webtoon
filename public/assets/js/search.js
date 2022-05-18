@@ -15,14 +15,6 @@ if (search) {
             }
 
             xhr.onload = function() {
-                if (xhr.status === 404) {
-                    alert('Aucun endpoint trouvé !');
-                    return;
-                } else if (xhr.status === 400) {
-                    alert('Un paramètre est manquant');
-                    return;
-                }
-
                 div.innerHTML = '';
 
                 xhr.response.forEach(value => {

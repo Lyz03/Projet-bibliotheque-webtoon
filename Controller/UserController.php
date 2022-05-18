@@ -191,6 +191,11 @@ class UserController extends AbstractController
             exit();
         }
 
+        if ($_SESSION['user']->getRole() !== 'admin') {
+            self::default();
+            exit();
+        }
+
         CommentManager::deleteComment($id);
 
         self::render('list/commentList', $data = [

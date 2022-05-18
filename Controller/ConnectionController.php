@@ -432,7 +432,7 @@ class ConnectionController extends AbstractController
      */
     public function forgottenPassword(string $token = '0', int $id = 0) {
         if ($token !== '0') {
-            // no user_id = id
+            // no token for this id
             if (NumberManager::getTokenByUserId($id) === null) {
                 self::default();
                 exit();
@@ -484,7 +484,7 @@ class ConnectionController extends AbstractController
         NumberManager::addToken($user->getId(), $token);
 
         if (self::forgottenPasswordMail($email, $token, $user->getId())) {
-            $_SESSION['error'] = ["Un email vous à été envoyer avec un lien pour réinitialiser votre mot de passe"];
+            $_SESSION['error'] = ["Un email vous à été envoyé avec un lien pour réinitialiser votre mot de passe"];
             $_SESSION['color'] = Config::SUCCESS;
         } else {
             $_SESSION['error'] = ['Une erreur est survenu, veuillez réessayer plus tard'];

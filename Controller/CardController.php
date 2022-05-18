@@ -63,7 +63,7 @@ class CardController extends AbstractController
      * @param int $page
      */
     public function kind(int $type, int $page) {
-        // if the type don't exist
+        // if the type doesn't exist
         if (!isset(Config::CARD_TYPE[$type])) {
             $this->default();
             exit();
@@ -80,6 +80,12 @@ class CardController extends AbstractController
         ]);
     }
 
+    /**
+     * Sort cards by most recent, old and popular
+     * @param string $sort
+     * @param int $page
+     * @param int $type
+     */
     public function sortCards(string $sort, int $page,  int $type = -1) {
         // if the type don't exist
         if ($type !== -1 && !isset(Config::CARD_TYPE[$type])) {
