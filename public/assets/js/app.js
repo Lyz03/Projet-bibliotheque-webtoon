@@ -247,9 +247,9 @@ const webtoonListButton = document.querySelector('button.show_list ')
 let b = 0;
 
 if (webtoonListButton) {
-
     const webtoonList = document.querySelector('div.webtoon_list')
     const highlight = document.querySelector('div.highlight')
+
     webtoonListButton.addEventListener('click', () => {
 
         if (b === 0) {
