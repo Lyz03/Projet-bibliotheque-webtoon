@@ -15,8 +15,8 @@ class Router
      * @return void
      * @throws ReflectionException
      */
-    public static function route() {
-        $c = self::getParam('c', 'home');
+    public static function exec() {
+        $c = self::getParam('c') ?? 'home';
         $action = self::getParam('a');
         $controller = self::controllerExist($c);
 
@@ -84,22 +84,18 @@ class Router
      * @return string|null
      */
     private static function methodExist(AbstractController $controller, ?string $action): ?string {
-
         if (strpos($action, '-') !== -1) {
             $array = [];
             $a = explode('-', $action);
 
             foreach ($a as $key => $value) {
-
                 if ($key !== 0) {
                     $value = ucfirst($value);
                 }
-
                 $array[] = $value;
             }
             $action = implode($array);
         }
-
         return method_exists($controller, $action) ? $action : null;
     }
 
@@ -129,16 +125,15 @@ class Router
 
     /**
      * Get and sanitized param from $_GET
-     * @param string $key
-     * @param null $default
+     * @param string $param
      * @return string|null
      */
-    private static function getParam(string $key, $default = null): ?string {
-        if (isset($_GET[$key])) {
+    private static function getParam(string $param): ?string {
+        if (isset($_GET[$param])) {
 
-            return filter_var($_GET[$key], FILTER_SANITIZE_STRING);
+            return filter_var($_GET[$param], FILTER_SANITIZE_STRING);
         }
 
-        return $default;
+        return null;
     }
 }

@@ -837,6 +837,15 @@ footer a:hover {
 }
 
 /*
+ * Home
+ */
+@media screen and (max-width: 560px) {
+    .logo img {
+        width: 10rem;
+    }
+}
+
+/*
  * Menu | Card (small) | Account
  */
 @media screen and (max-width: 530px) {
@@ -893,4 +902,18 @@ footer a:hover {
         width: 90%;
     }
 
+}
+
+/*
+ * Home
+ */
+@media screen and (max-width: 490px) {
+    .logo {
+        display: block;
+        text-align: center;
+    }
+
+    .logo h1 {
+        margin-top: 0;
+    }
 }

@@ -86,6 +86,7 @@ if (isset($_SESSION['error'])) {
 
     <a href="/index.php?c=home&a=confidentiality">Politique de confidentialité</a>
 </footer>
+
 <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/search.js"></script>
