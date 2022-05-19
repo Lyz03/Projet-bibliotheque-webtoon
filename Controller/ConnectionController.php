@@ -122,7 +122,7 @@ class ConnectionController extends AbstractController
         }
 
         if ($mail !== $_POST['emailRepeat']) {
-            $error[] = "Les Adresses email ne corespondent pas";
+            $error[] = "Les adresses email ne corespondent pas";
         }
 
         if (strlen($_POST['username']) < 3 || strlen($_POST['username']) >= 45) {
