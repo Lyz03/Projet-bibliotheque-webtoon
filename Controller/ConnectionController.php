@@ -163,9 +163,8 @@ class ConnectionController extends AbstractController
             $code = [rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9), rand(0, 9)];
             $code = join('', $code);
 
-            NumberManager::addNumber($user->getId(), $code);
-
             if (self::createAccountMail($user->getId())) {
+                NumberManager::addNumber($user->getId(), $code);
                 self::codePage($user->getId());
             } else {
                 $_SESSION['error'] = ["Une erreur s'est produite, veuillez réessayer ultérieurement"];
