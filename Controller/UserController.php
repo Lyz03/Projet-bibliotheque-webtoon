@@ -87,6 +87,11 @@ class UserController extends AbstractController
 
         UserManager::updateRole($id, $role);
 
+        // changing your own role
+        if ($_SESSION['user']->getId() === $id) {
+            $_SESSION['user']->setRole($role);
+        }
+
         self::userList();
     }
 
