@@ -7,6 +7,7 @@ use App\Manager\CardManager;
 use App\Manager\CommentManager;
 use App\Manager\ListManager;
 use App\Manager\RatingManager;
+use finfo;
 
 class CardController extends AbstractController
 {
@@ -235,11 +236,11 @@ class CardController extends AbstractController
         $error = [];
 
         // Title
-         if (strlen($title) < 1 || strlen($title) > 90) {
-             $error[] = "Le titre doit faire entre 1 et 90 caractères";
-         }
+        if (strlen($title) < 1 || strlen($title) > 90) {
+            $error[] = "Le titre doit faire entre 1 et 90 caractères";
+        }
 
-         // Script
+        // Script
         if (strlen($script) < 1 || strlen($script) > 60) {
             $error[] = "Le champ scénariste doit faire entre 1 et 60 caractères";
         }
@@ -268,11 +269,11 @@ class CardController extends AbstractController
             $error[] = "Le synopsis doit faire entre 10 et 600 caractères";
         }
 
-         if (count($error) > 0) {
-             $_SESSION['error'] = $error;
-             self::updatePage($id);
-             exit();
-         }
+        if (count($error) > 0) {
+            $_SESSION['error'] = $error;
+            self::updatePage($id);
+            exit();
+        }
 
         // Image
         if($_FILES['image']['error'] === 0) {
@@ -281,15 +282,15 @@ class CardController extends AbstractController
                 $extension = pathinfo($_FILES['image']['name'])['extension'];
                 $allowed = ['image/jpeg', 'image/png'];
 
-                if (!in_array($_FILES['image']['type'], $allowed)) {
+                if (!in_array(mime_content_type($tmp_name), $allowed)) {
                     $_SESSION['error'] = ["Le format de l'image n'est pas autorisé"];
                     self::updatePage($id);
                     exit();
                 }
 
                 $name = self::randomChars();
-                move_uploaded_file($tmp_name, 'assets/images/' . $name . '.' . $extension);
                 $image = $name . '.' . $extension;
+                move_uploaded_file($tmp_name, 'assets/images/' . $image);
 
                 // delete the older one
                 if ($id !== 0) {
