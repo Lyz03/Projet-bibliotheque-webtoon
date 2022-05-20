@@ -391,23 +391,19 @@ class CardController extends AbstractController
      * @param int $id
      */
     public function cardList(int $name, int $id) {
-        if (isset($_SESSION['user'])) {
 
-            $array = ListManager::getCardFromList(Config::DEFAULT_LIST[$name], $id);
-            $cards = [];
+        $array = ListManager::getCardFromList(Config::DEFAULT_LIST[$name], $id);
+        $cards = [];
 
-            foreach ($array as $value) {
-                $cards[] = $value->getCard();
-            }
-
-            self::render('list/cardList', $data = [
-                'cards' => $cards,
-                'name' => Config::DEFAULT_LIST[$name],
-            ]);
-            exit();
+        foreach ($array as $value) {
+            $cards[] = $value->getCard();
         }
 
-        self::default();
+        self::render('list/cardList', $data = [
+            'cards' => $cards,
+            'name' => Config::DEFAULT_LIST[$name],
+        ]);
+        exit();
     }
 
     /****************
@@ -471,6 +467,14 @@ class CardController extends AbstractController
         if (!isset($_SESSION['user'])) {
             self::default();
             exit();
+        }
+
+        // can't add the same card twice (or more) in the same list
+        foreach (ListManager::getCardFromList(Config::DEFAULT_LIST[$list], $_SESSION['user']->getId()) as $value) {
+            if ($value->getCard()->getId() === $id) {
+                self::cardPage($id);
+                exit();
+            }
         }
 
         ListManager::addList(Config::DEFAULT_LIST[$list],1, $_SESSION['user']->getId(), $id);
