@@ -138,28 +138,30 @@ if (updateUser) {
     }
 
     // password
-    passwordSubmit.addEventListener('click', e => {
+    if (passwordSubmit) {
+        passwordSubmit.addEventListener('click', e => {
 
-        if (password[1].value.length < 8 || password[1].value.length > 50) {
-            password[1].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
-            password[1].reportValidity();
-        } else {
-            password[1].setCustomValidity('');
-        }
+            if (password[1].value.length < 8 || password[1].value.length > 50) {
+                password[1].setCustomValidity('Le mot de passe doit faire au moins 8 caractères');
+                password[1].reportValidity();
+            } else {
+                password[1].setCustomValidity('');
+            }
 
-        const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/);
-        if (regExp.test(password[1].value)) {
-            password[1].setCustomValidity('');
-        } else {
-            password[1].setCustomValidity("Le mot de passe n'est pas assez sécurisé");
-            password[1].reportValidity();
-        }
+            const regExp = new RegExp(/^(?=.*[!@#$%^&*-\\])(?=.*[0-9])(?=.*[A-Z]).{8,50}$/);
+            if (regExp.test(password[1].value)) {
+                password[1].setCustomValidity('');
+            } else {
+                password[1].setCustomValidity("Le mot de passe n'est pas assez sécurisé");
+                password[1].reportValidity();
+            }
 
-        if (password[1].value !== password[2].value)
-            password[1].setCustomValidity('Les mots de passe ne corespondent pas');
-        else
-            password[1].setCustomValidity('');
-    })
+            if (password[1].value !== password[2].value)
+                password[1].setCustomValidity('Les mots de passe ne corespondent pas');
+            else
+                password[1].setCustomValidity('');
+        })
+    }
 }
 
 // JS verification for update card
