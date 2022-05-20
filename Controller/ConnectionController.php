@@ -435,7 +435,7 @@ class ConnectionController extends AbstractController
             if (NumberManager::getTokenByUserId($id) === null) {
                 self::default();
                 exit();
-            // wrong token
+                // wrong token
             } elseif (NumberManager::getTokenByUserId($id)->getToken() !== $token) {
                 self::default();
                 exit();
@@ -500,7 +500,7 @@ class ConnectionController extends AbstractController
      * @return bool
      */
     public function forgottenPasswordMail(string $mail, string $token, int $id): bool {
-        $url = Config::APP_URL . '/index.php?c=connection&a=forgotten-password$token=' . $token . '&id=' . $id;
+        $url = Config::APP_URL . '/index.php?c=connection&a=forgotten-password&token=' . $token . '&id=' . $id;
         $message = "
         <html lang='fr'>
             <head>
@@ -582,6 +582,7 @@ class ConnectionController extends AbstractController
             exit();
         }
 
-        (new UserController())->default();
+        self::default();
+        exit();
     }
 }
